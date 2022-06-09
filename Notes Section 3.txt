@@ -24,33 +24,56 @@ to execute different commands for different NodeJS versions:
 }
 
 03-62. Dockering Other Services
+// Using minikube
+minikube start
+minikube ssh
+git clone  https://github.com/christseng89/Microservices-with-Node-JS-and-React.git
+
 cd blog
 cd client-async
-docker build -t christseng89\client-async .
-docker run christseng89\client-async
+docker build -t christseng89/client-async .
+docker run christseng89/client-async
 
 cd ..
 cd backends
 cd posts
-docker build -t christseng89\posts .
-docker run christseng89\posts
+docker build -t christseng89/posts .
+docker run christseng89/posts
 
 cd ..
 cd comments
-docker build -t christseng89\comments .
-docker run christseng89\comments
+docker build -t christseng89/comments .
+docker run christseng89/comments
 
 cd ..
 cd query
-docker build -t christseng89\query .
-docker run christseng89\query
+docker build -t christseng89/query .
+docker run christseng89/query
 
 cd ..
 cd event-bus
-docker build -t christseng89\event-bus .
-docker run christseng89\event-bus
+docker build -t christseng89/event-bus .
+docker run christseng89/event-bus
 
 cd ..
 cd moderation
-docker build -t christseng89\moderation .
-docker run christseng89\moderation
+docker build -t christseng89/moderation .
+docker run christseng89/moderation
+
+docker images
+    REPOSITORY                                TAG         IMAGE ID       CREATED              SIZE
+    christseng89/moderation                    latest      3c64f227e484   54 seconds ago       119MB
+    christseng89/event-bus                     latest      e555fa078743   About a minute ago   124MB
+    christseng89/query                         latest      117e4f65ce23   About a minute ago   119MB
+    christseng89/comments                      latest      04eb70e0ac9b   About a minute ago   124MB
+    christseng89/posts                         latest      e89bf296d14a   3 minutes ago        124MB
+    christseng89/client-async                  latest      a80d4ac4049a   12 hours ago         462MB
+
+docker login
+// username and password
+docker push christseng89/moderation
+docker push christseng89/event-bus
+docker push christseng89/query
+docker push christseng89/comments
+docker push christseng89/posts
+docker push christseng89/client-async

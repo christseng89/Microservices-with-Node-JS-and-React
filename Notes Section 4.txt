@@ -1,0 +1,10 @@
+04-65. A Kubernetes Tour
+kubectl version --short
+  Client Version: v1.24.0
+  Kustomize Version: v4.5.4
+  Server Version: v1.23.3
+
+04-68. Creating a Pod
+kubectl apply -f posts.yaml
+    pod/posts created
+kubectl get po
