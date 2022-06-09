@@ -8,3 +8,29 @@ kubectl version --short
 kubectl apply -f posts.yaml
     pod/posts created
 kubectl get po
+  NAME    READY   STATUS    RESTARTS   AGE
+  posts   1/1     Running   0          8s
+
+04-74. Creating a Deployment
+kubectl delete pod posts
+kubectl apply -f posts-depl.yaml
+kubectl get po
+  NAME                         READY   STATUS    RESTARTS   AGE
+  posts-depl-fd4d84f79-6v258   1/1     Running   0          9s
+  posts-depl-fd4d84f79-l7ndl   1/1     Running   0          9s
+
+kubectl get deploy
+  NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+  posts-depl   2/2     2            2           15s
+
+kubectl describe deploy posts-depl
+  Name:                   posts-depl
+  Namespace:              default
+  CreationTimestamp:      Thu, 09 Jun 2022 18:22:39 +0800
+  Labels:                 <none>
+  Annotations:            deployment.kubernetes.io/revision: 1
+  Selector:               app=posts
+  ...
+
+kubectl delete -f posts-depl.yaml
+kubectl apply -f posts-depl.yaml
