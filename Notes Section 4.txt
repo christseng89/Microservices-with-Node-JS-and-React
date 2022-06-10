@@ -66,4 +66,40 @@ minikube ip
 
 http://192.168.59.100:32116/posts
   {}
-  
+
+04-82. Building a Deployment for the Event Bus
+kubectl apply -f event-bus-depl.yaml
+  deployment.apps/event-bus-depl unchanged
+  service/event-bus-srv created
+
+kubectl apply -f posts-depl.yaml 
+  deployment.apps/posts-depl unchanged
+  service/posts-clusterip-srv created
+
+kubectl get po
+  NAME                             READY   STATUS    RESTARTS   AGE
+  event-bus-depl-dd87dfc6c-ggkdl   1/1     Running   0          13s ***
+  event-bus-depl-dd87dfc6c-m2pbt   1/1     Running   0          13s ***
+  posts-depl-fd4d84f79-kp7dl       1/1     Running   0          3h39m
+  posts-depl-fd4d84f79-vtd2m       1/1     Running   0          3h39m
+
+kubectl get svc
+  NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+  event-bus-srv         ClusterIP   10.98.255.181   <none>        4005/TCP         5m54s***
+  kubernetes            ClusterIP   10.96.0.1       <none>        443/TCP          2d16h
+  posts-clusterip-srv   ClusterIP   10.96.244.194   <none>        4000/TCP         25s***
+  posts-srv             NodePort    10.96.241.54    <none>        4000:32116/TCP   3h52m
+
+kubectl logs posts-depl-fd4d84f79-kp7dl        
+  > posts@1.0.0 start
+  > nodemon index.js
+
+  [nodemon] 2.0.16
+  [nodemon] to restart at any time, enter `rs`
+  [nodemon] watching path(s): *.*
+  [nodemon] watching extensions: js,mjs,json
+  [nodemon] starting `node index.js`
+  Listening on 4000
+
+04-84. How to Communicate Between Services (Wind it up)
+### External 32116 <=> posts-clusterip-srv:4000 <=> event-bus-srv:4005
