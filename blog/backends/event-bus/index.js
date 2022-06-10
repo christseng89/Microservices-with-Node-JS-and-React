@@ -1,7 +1,14 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+// const cors = require('cors');
 const axios = require("axios");
+
+const postsCIPHost = process.env.postsCIPHost || 'localhost';
+const commentsCIPHost = process.env.commentsCIPHost || 'localhost';
+const queryCIPHost = process.env.queryCIPHost || 'localhost';
+const moderationCIPHost = process.env.moderationCIPHost || 'localhost';
+console.log(postsCIPHost, commentsCIPHost, queryCIPHost, moderationCIPHost);
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,19 +23,19 @@ app.post("/events", (req, res) => {
   events.push(event);
 
   // Posts service
-  axios.post("http://localhost:4000/events", event).catch((err) => {
+  axios.post(`http://${postsCIPHost}:4000/events`, event).catch((err) => {
     console.log(err.message);
   });
   // Comments service
-  axios.post("http://localhost:4001/events", event).catch((err) => {
+  axios.post(`http://${commentsCIPHost}:4001/events`, event).catch((err) => {
     console.log(err.message);
   });
   // Query service
-  axios.post("http://localhost:4002/events", event).catch((err) => {
+  axios.post(`http://${queryCIPHost}:4002/events`, event).catch((err) => {
     console.log(err.message);
   });
   // Moderate service
-  axios.post("http://localhost:4003/events", event).catch((err) => {
+  axios.post(`http://${moderationCIPHost}:4003/events`, event).catch((err) => {
     console.log(err.message);
   });
   res.send({ status: "OK" });

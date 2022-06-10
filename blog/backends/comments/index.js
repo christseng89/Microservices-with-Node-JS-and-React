@@ -1,8 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const cors = require('cors');
 const axios = require('axios');
+const ebCIPHost = process.env.ebCIPHost || 'localhost';
+// console.log(ebCIPHost);
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,7 +30,7 @@ app.post('/posts/:id/comments', async (req, res) => {
 
   commentsByPostId[req.params.id] = comments;
 
-  await axios.post('http://localhost:4005/events', {
+  await axios.post(`http://${ebCIPHost}:4005/events`, {
     type: 'CommentCreated',
     data: {
       id: commentId,

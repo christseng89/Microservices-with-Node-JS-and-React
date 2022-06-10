@@ -1,7 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require("axios");
+const ebCIPHost = process.env.ebCIPHost || 'localhost';
+console.log(ebCIPHost);
 
 const app = express();
 app.use(bodyParser.json());
@@ -49,7 +52,7 @@ app.post('/events', (req, res) => {
 app.listen(4002, async () => {
   console.log('Listening on 4002');
   try {
-    const res = await axios.get('http://localhost:4005/events');
+    const res = await axios.get(`http://${ebCIPHost}:4005/events`);
 
     for (let event of res.data) {
       console.log('Processing event:', event.type);

@@ -103,3 +103,16 @@ kubectl logs posts-depl-fd4d84f79-kp7dl
 
 04-84. How to Communicate Between Services (Wind it up)
 ### External 32116 <=> posts-clusterip-srv:4000 <=> event-bus-srv:4005
+
+// Posts, Comments, Query, Moderation
+.env
+npm i dotenv
+require('dotenv').config();
+...
+const axios = require('axios');
+const ebCIPHost = process.env.ebCIPHost || 'localhost';
+// console.log(ebCIPHost);
+...
+await axios.post(`http://${ebCIPHost}:4005/events`, {
+  ...
+  
