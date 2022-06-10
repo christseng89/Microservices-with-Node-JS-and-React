@@ -115,4 +115,27 @@ const ebCIPHost = process.env.ebCIPHost || 'localhost';
 ...
 await axios.post(`http://${ebCIPHost}:4005/events`, {
   ...
-  
+
+minikube ssh
+cd Microservices-with-Node-JS-and-React/
+git pull
+// Re-Build all Docker Images
+
+cd blog/backends/posts
+docker build -t christseng89/posts .
+
+cd ..
+cd comments
+docker build -t christseng89/comments .
+
+cd ..
+cd query
+docker build -t christseng89/query .
+
+cd ..
+cd moderation
+docker build -t christseng89/moderation .
+
+cd ..
+cd event-bus
+docker build -t christseng89/event-bus .
