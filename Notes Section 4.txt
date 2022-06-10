@@ -109,7 +109,8 @@ kubectl logs posts-depl-fd4d84f79-kp7dl
 npm i dotenv
 
 // Dockerfile (Posts, Comments, Event-Bus, Query, Moderation)
-ENV NODE_ENV=production
+ARG DOCKER_ENV
+ENV NODE_ENV=${DOCKER_ENV}
 CMD ["npm", "start"]
 
 // index.js (Posts, Comments, Query, Moderation)
@@ -161,7 +162,8 @@ console.log(postsCIPHost, commentsCIPHost, queryCIPHost, moderationCIPHost);
 });
 
 // Test production
-set NODE_ENV=production
+ARG DOCKER_ENV
+ENV NODE_ENV=${DOCKER_ENV}
 npm start 
 
 // Test development
@@ -175,23 +177,23 @@ git pull
 // Re-Build all Docker Images
 
 cd blog/backends/posts
-docker build -t christseng89/posts .
+docker build --build-arg DOCKER_ENV=production -t christseng89/posts .
 
 cd ..
 cd comments
-docker build -t christseng89/comments .
+docker build --build-arg DOCKER_ENV=production -t christseng89/comments .
 
 cd ..
 cd query
-docker build -t christseng89/query .
+docker build --build-arg DOCKER_ENV=production -t christseng89/query .
 
 cd ..
 cd moderation
-docker build -t christseng89/moderation .
+docker build --build-arg DOCKER_ENV=production -t christseng89/moderation .
 
 cd ..
 cd event-bus
-docker build -t christseng89/event-bus .
+docker build --build-arg DOCKER_ENV=production -t christseng89/event-bus .
 
 docker push christseng89/posts
 docker push christseng89/comments
