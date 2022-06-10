@@ -139,3 +139,66 @@ docker build -t christseng89/moderation .
 cd ..
 cd event-bus
 docker build -t christseng89/event-bus .
+
+docker push christseng89/posts
+docker push christseng89/comments
+docker push christseng89/query
+docker push christseng89/moderation
+docker push christseng89/event-bus
+
+kubectl delete -f .
+kubectl apply -f .
+
+### 2nd revision (Posts, Comments, Event-Bus, Query, Moderation)
+// package.json
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "set NODE_ENV=production && nodemon index.js"
+  },
+
+// index.js (Posts, Comments, Query, Moderation)
+let ebCIPHost =  'localhost';
+if(process.env.NODE_ENV === 'production' + ' ') {
+  require('dotenv').config();
+  ebCIPHost =process.env.ebCIPHost 
+}
+//console.log(ebCIPHost);
+
+// index.js (Event-Bus)
+
+npm start #production
+npm test #development
+
+### Repeat images building && kubectl apply
+minikube ssh
+cd Microservices-with-Node-JS-and-React/
+git pull
+// Re-Build all Docker Images
+
+cd blog/backends/posts
+docker build -t christseng89/posts .
+
+cd ..
+cd comments
+docker build -t christseng89/comments .
+
+cd ..
+cd query
+docker build -t christseng89/query .
+
+cd ..
+cd moderation
+docker build -t christseng89/moderation .
+
+cd ..
+cd event-bus
+docker build -t christseng89/event-bus .
+
+docker push christseng89/posts
+docker push christseng89/comments
+docker push christseng89/query
+docker push christseng89/moderation
+docker push christseng89/event-bus
+
+kubectl delete -f .
+kubectl apply -f .

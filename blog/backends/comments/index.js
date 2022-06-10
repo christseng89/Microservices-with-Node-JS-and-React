@@ -1,10 +1,14 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const cors = require('cors');
 const axios = require('axios');
-const ebCIPHost = process.env.ebCIPHost || 'localhost';
+
+let ebCIPHost =  'localhost';
+if(process.env.NODE_ENV === 'production' + ' ') {
+  require('dotenv').config();
+  ebCIPHost =process.env.ebCIPHost 
+}
 // console.log(ebCIPHost);
 
 const app = express();

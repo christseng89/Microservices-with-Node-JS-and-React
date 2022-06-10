@@ -1,14 +1,20 @@
-require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
-// const cors = require('cors');
 const axios = require("axios");
 
-const postsCIPHost = process.env.postsCIPHost || 'localhost';
-const commentsCIPHost = process.env.commentsCIPHost || 'localhost';
-const queryCIPHost = process.env.queryCIPHost || 'localhost';
-const moderationCIPHost = process.env.moderationCIPHost || 'localhost';
-console.log(postsCIPHost, commentsCIPHost, queryCIPHost, moderationCIPHost);
+let postsCIPHost = 'localhost';
+let commentsCIPHost = 'localhost';
+let queryCIPHost = 'localhost';
+let moderationCIPHost = 'localhost';
+
+if(process.env.NODE_ENV === 'production' + ' ') {
+  require('dotenv').config();
+  postsCIPHost = process.env.postsCIPHost;
+  commentsCIPHost = process.env.commentsCIPHost;
+  queryCIPHost = process.env.queryCIPHost;
+  moderationCIPHost = process.env.moderationCIPHost;
+}
+// console.log(postsCIPHost, commentsCIPHost, queryCIPHost, moderationCIPHost);
 
 const app = express();
 app.use(bodyParser.json());
