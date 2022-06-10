@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: posts-depl
 spec:
-  replicas: 2
+  replicas: 1 # Due to stateful
   selector:
     matchLabels:
       app: posts
