@@ -34,3 +34,36 @@ kubectl describe deploy posts-depl
 
 kubectl delete -f posts-depl.yaml
 kubectl apply -f posts-depl.yaml
+
+04-79. Creating a NodePort Service
+kubectl apply -f posts-srv.yaml
+kubectl get svc 
+  NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+  kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          2d11h
+  posts-srv    NodePort    10.106.205.88   <none>        4000:32116/TCP   22s
+
+kubectl describe svc posts
+  Name:                     posts-srv
+  Namespace:                default
+  Labels:                   <none>
+  Annotations:              <none>
+  Selector:                 app=posts
+  Type:                     NodePort
+  IP Family Policy:         SingleStack
+  IP Families:              IPv4
+  IP:                       10.106.205.88
+  IPs:                      10.106.205.88
+  Port:                     posts  4000/TCP
+  TargetPort:               4000/TCP
+  NodePort:                 posts  32116/TCP // External port
+  Endpoints:                <none>
+  Session Affinity:         None
+  External Traffic Policy:  Cluster
+  Events:                   <none>
+
+minikube ip
+  192.168.59.100
+
+http://192.168.59.100:32116/posts
+  {}
+  
