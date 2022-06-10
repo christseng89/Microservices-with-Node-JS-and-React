@@ -7,14 +7,14 @@ let commentsCIPHost = 'localhost';
 let queryCIPHost = 'localhost';
 let moderationCIPHost = 'localhost';
 
-if(process.env.NODE_ENV === 'production' + ' ') {
+if(process.env.NODE_ENV === 'production') {
   require('dotenv').config();
   postsCIPHost = process.env.postsCIPHost;
   commentsCIPHost = process.env.commentsCIPHost;
   queryCIPHost = process.env.queryCIPHost;
   moderationCIPHost = process.env.moderationCIPHost;
 }
-// console.log(postsCIPHost, commentsCIPHost, queryCIPHost, moderationCIPHost);
+console.log(postsCIPHost, commentsCIPHost, queryCIPHost, moderationCIPHost);
 
 const app = express();
 app.use(bodyParser.json());

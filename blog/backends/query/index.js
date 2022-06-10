@@ -4,11 +4,11 @@ const cors = require('cors');
 const axios = require("axios");
 
 let ebCIPHost =  'localhost';
-if(process.env.NODE_ENV === 'production' + ' ') {
+if(process.env.NODE_ENV === 'production') {
   require('dotenv').config();
   ebCIPHost =process.env.ebCIPHost 
 }
-// console.log(ebCIPHost);
+console.log(ebCIPHost);
 
 const app = express();
 app.use(bodyParser.json());

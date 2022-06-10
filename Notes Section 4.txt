@@ -104,70 +104,69 @@ kubectl logs posts-depl-fd4d84f79-kp7dl
 04-84. How to Communicate Between Services (Wind it up)
 ### External 32116 <=> posts-clusterip-srv:4000 <=> event-bus-srv:4005
 
-// Posts, Comments, Query, Moderation
+// Posts, Comments, Query, Moderation, Event-Bus
 .env
 npm i dotenv
-require('dotenv').config();
-...
-const axios = require('axios');
-const ebCIPHost = process.env.ebCIPHost || 'localhost';
-// console.log(ebCIPHost);
+
+// Dockerfile (Posts, Comments, Event-Bus, Query, Moderation)
+ENV NODE_ENV=production
+CMD ["npm", "start"]
+
+// index.js (Posts, Comments, Query, Moderation)
+let ebCIPHost =  'localhost';
+if(process.env.NODE_ENV === 'production') {
+  require('dotenv').config();
+  ebCIPHost =process.env.ebCIPHost 
+}
+console.log(ebCIPHost);
 ...
 await axios.post(`http://${ebCIPHost}:4005/events`, {
   ...
 
-minikube ssh
-cd Microservices-with-Node-JS-and-React/
-git pull
-// Re-Build all Docker Images
-
-cd blog/backends/posts
-docker build -t christseng89/posts .
-
-cd ..
-cd comments
-docker build -t christseng89/comments .
-
-cd ..
-cd query
-docker build -t christseng89/query .
-
-cd ..
-cd moderation
-docker build -t christseng89/moderation .
-
-cd ..
-cd event-bus
-docker build -t christseng89/event-bus .
-
-docker push christseng89/posts
-docker push christseng89/comments
-docker push christseng89/query
-docker push christseng89/moderation
-docker push christseng89/event-bus
-
-kubectl delete -f .
-kubectl apply -f .
-
-### 2nd revision (Posts, Comments, Event-Bus, Query, Moderation)
-// package.json
-  "scripts": {
-    "test": "nodemon index.js",
-    "start": "set NODE_ENV=production && nodemon index.js"
-  },
-
-// index.js (Posts, Comments, Query, Moderation)
-let ebCIPHost =  'localhost';
-if(process.env.NODE_ENV === 'production' + ' ') {
-  require('dotenv').config();
-  ebCIPHost =process.env.ebCIPHost 
-}
-//console.log(ebCIPHost);
-
 // index.js (Event-Bus)
+...
+let postsCIPHost = 'localhost';
+let commentsCIPHost = 'localhost';
+let queryCIPHost = 'localhost';
+let moderationCIPHost = 'localhost';
 
-npm start #production
-npm test #development
+if(process.env.NODE_ENV === 'production') {
+  require('dotenv').config();
+  postsCIPHost = process.env.postsCIPHost;
+  commentsCIPHost = process.env.commentsCIPHost;
+  queryCIPHost = process.env.queryCIPHost;
+  moderationCIPHost = process.env.moderationCIPHost;
+}
+console.log(postsCIPHost, commentsCIPHost, queryCIPHost, moderationCIPHost);
+
+...
+
+  // Posts service
+  axios.post(`http://${postsCIPHost}:4000/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  // Comments service
+  axios.post(`http://${commentsCIPHost}:4001/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  // Query service
+  axios.post(`http://${queryCIPHost}:4002/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  // Moderate service
+  axios.post(`http://${moderationCIPHost}:4003/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  res.send({ status: "OK" });
+});
+
+// Test production
+set NODE_ENV=production
+npm start 
+
+// Test development
+set NODE_ENV=
+npm start 
 
 ### Repeat images building && kubectl apply
 minikube ssh
