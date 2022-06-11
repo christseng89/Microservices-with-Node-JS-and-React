@@ -78,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"Comment #1.2\"\r\n}",
+							"raw": "{\r\n    \"content\": \"Comment #1.1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,6 +163,191 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event-Bus",
+			"item": [
+				{
+					"name": "Get EVENTS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4005/events",
+							"host": [
+								"localhost"
+							],
+							"port": "4005",
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Minikube",
+			"item": [
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "POST Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"UID\", pm.response.json().id);\r",
+											"pm.environment.set(\"TITLE\", pm.response.json().title);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Title Postman #1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MINIKUBE_IP}}:30509/posts",
+									"host": [
+										"{{MINIKUBE_IP}}"
+									],
+									"port": "30509",
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{MINIKUBE_IP}}:30509/posts",
+									"host": [
+										"{{MINIKUBE_IP}}"
+									],
+									"port": "30509",
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "POST Comment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\": \"Comment #1.2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MINIKUBE_IP}}:32618/posts/{{UID}}/comments",
+									"host": [
+										"{{MINIKUBE_IP}}"
+									],
+									"port": "32618",
+									"path": [
+										"posts",
+										"{{UID}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comments by Post ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{MINIKUBE_IP}}:32618/posts/{{UID}}/comments",
+									"host": [
+										"{{MINIKUBE_IP}}"
+									],
+									"port": "32618",
+									"path": [
+										"posts",
+										"{{UID}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{MINIKUBE_IP}}:32618/comments",
+									"host": [
+										"{{MINIKUBE_IP}}"
+									],
+									"port": "32618",
+									"path": [
+										"comments"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Query",
+					"item": [
+						{
+							"name": "GET Query Posts with Comments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{MINIKUBE_IP}}:30095/posts",
+									"host": [
+										"{{MINIKUBE_IP}}"
+									],
+									"port": "30095",
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
