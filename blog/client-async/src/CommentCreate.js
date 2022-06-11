@@ -3,7 +3,6 @@ import { useState } from "react";
 
 const CommentCreate = ({ postId }) => {
   const [content, setContent] = useState("");
-
   const onSubmit = async (event) => {
     event.preventDefault();
 

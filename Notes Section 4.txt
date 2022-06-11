@@ -235,4 +235,8 @@ app.post("/events", async (req, res) => {
 // Comments index.js
   await axios.post(`http://${ebCIPHost}:4005/events`, {
     type: 'CommentCreated',
-    
+
+*** React Client to k8s
+https://blog.logrocket.com/deploy-react-app-kubernetes-using-docker/
+
+https://blog.csdn.net/weixin_36185028/article/details/122732449
