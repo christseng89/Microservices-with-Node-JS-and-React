@@ -267,3 +267,57 @@ kubectl apply -f ingress-srv.yaml
 
 kubectl get ingress              NAME          CLASS    HOSTS       ADDRESS          PORTS   AGE
   ingress-srv   <none>   posts.com   192.168.59.100   80      78s
+
+04-96. Hosts File Tweak
+minikube ip
+  192.168.59.100
+notepad c:\Windows\System32\Drivers\etc\hosts
+  192.168.59.100 posts.com
+
+ping posts.com
+  Pinging posts.com [192.168.59.100] with 32 bytes of data:
+  Reply from 192.168.59.100: bytes=32 time<1ms TTL=64
+  Reply from 192.168.59.100: bytes=32 time<1ms TTL=64  
+  ...
+
+http://posts.com/posts
+  {
+    a7c9e70c: {
+    id: "a7c9e70c",
+    title: "Title Postman #1"
+    }
+  }
+
+04-97. Important Note to Add Environment Variable
+https://create-react-app.dev/docs/adding-custom-environment-variables/
+
+// Client-async
+set REACT_APP_HOST=k8s 
+
+// console.log('Host: ', process.env.REACT_APP_HOST);
+
+// Dockerfile (client-async)
+  # Add the following lines
+  ENV CI=true
+  ENV WDS_SOCKET_PORT=0
+
+  WORKDIR /app
+  ...
+  ARG DOCKER_ENV
+  ENV REACT_APP_HOST=${DOCKER_ENV}
+  CMD ["npm", "start"]
+
+04-98. Deploying the React App
+cd Microservices-with-Node-JS-and-React/
+git pull
+cd blog/client-async
+docker build --build-arg DOCKER_ENV=k8s -t christseng89/client-async .
+
+// Revise js (PostCreate.js, CommentCreate.js, PostList.js)
+
+let server_url = 'localhost:4000';
+if (process.env.REACT_APP_HOST === 'k8s') {
+  server_url = 'posts.com';
+}
+console.log('Server Url: ', server_url);
+

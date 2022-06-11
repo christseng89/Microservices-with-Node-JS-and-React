@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
 
+let server_url = 'localhost:4001';
+if (process.env.REACT_APP_HOST === 'k8s') {
+  server_url = 'posts.com';
+}
+
 const CommentCreate = ({ postId }) => {
   const [content, setContent] = useState("");
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+    await axios.post(`http://${{server_url}}/posts/${postId}/comments`, {
       content,
     });
 
