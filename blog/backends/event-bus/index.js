@@ -24,24 +24,24 @@ app.get("/events", (req, res) => {
   res.send(events);
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
   const event = req.body;
   events.push(event);
 
   // Posts service
-  axios.post(`http://${postsCIPHost}:4000/events`, event).catch((err) => {
+  await axios.post(`http://${postsCIPHost}:4000/events`, event).catch((err) => {
     console.log(err.message);
   });
   // Comments service
-  axios.post(`http://${commentsCIPHost}:4001/events`, event).catch((err) => {
+  await axios.post(`http://${commentsCIPHost}:4001/events`, event).catch((err) => {
     console.log(err.message);
   });
   // Query service
-  axios.post(`http://${queryCIPHost}:4002/events`, event).catch((err) => {
+  await axios.post(`http://${queryCIPHost}:4002/events`, event).catch((err) => {
     console.log(err.message);
   });
   // Moderate service
-  axios.post(`http://${moderationCIPHost}:4003/events`, event).catch((err) => {
+  await axios.post(`http://${moderationCIPHost}:4003/events`, event).catch((err) => {
     console.log(err.message);
   });
   res.send({ status: "OK" });

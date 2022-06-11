@@ -203,3 +203,31 @@ docker push christseng89/event-bus
 
 kubectl delete -f .
 kubectl apply -f .
+
+kubectl rollout restart deploy posts-depl     
+kubectl rollout restart deploy event-bus-depl  
+
+04-87. Adding Query, Moderation and Comments
+// Bugfixing 'socket hang up' (Event-bus, index.js)
+app.post("/events", async (req, res) => {
+  const event = req.body;
+  events.push(event);
+
+  // Posts service
+  await axios.post(`http://${postsCIPHost}:4000/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  // Comments service
+  await axios.post(`http://${commentsCIPHost}:4001/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  // Query service
+  await axios.post(`http://${queryCIPHost}:4002/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  // Moderate service
+  await axios.post(`http://${moderationCIPHost}:4003/events`, event).catch((err) => {
+    console.log(err.message);
+  });
+  res.send({ status: "OK" });
+});
