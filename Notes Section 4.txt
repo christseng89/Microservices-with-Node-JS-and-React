@@ -231,3 +231,8 @@ app.post("/events", async (req, res) => {
   });
   res.send({ status: "OK" });
 });
+
+// Comments index.js
+  await axios.post(`http://${ebCIPHost}:4005/events`, {
+    type: 'CommentCreated',
+    
