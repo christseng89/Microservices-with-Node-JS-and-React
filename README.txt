@@ -17,3 +17,11 @@ posts.com
 cd blog\client-async
 set REACT_APP_HOST=k8s 
 npm start
+
+### NodePort services can be removed
+kubectl delete svc comments-srv
+  service "comments-srv" deleted
+kubectl delete svc posts-srv    
+  service "posts-srv" deleted
+kubectl delete svc query-srv
+  service "query-srv" deleted
