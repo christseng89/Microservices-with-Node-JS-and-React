@@ -18,7 +18,7 @@ cd blog\client-async
 set REACT_APP_HOST=k8s 
 npm start
 
-### NodePort services can be removed
+### NodePort services can be removed (Postman Testing purpose ONLY)
 kubectl delete svc comments-srv
   service "comments-srv" deleted
 kubectl delete svc posts-srv    
