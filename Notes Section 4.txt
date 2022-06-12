@@ -359,3 +359,24 @@ app.post(urlPath, async (req, res) => { ***
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
 ...
+
+cd Microservices-with-Node-JS-and-React/
+git pull
+
+cd blog/client-async
+docker build --build-arg DOCKER_ENV=k8s -t christseng89/client-async .
+docker push christseng89/client-async
+
+cd .. 
+cd backends/posts
+docker build --build-arg DOCKER_ENV=production -t christseng89/posts .
+docker push christseng89/posts
+
+kubectl rollout restart deploy posts-depl
+kubectl rollout restart deploy client-depl
+kubectl get po -w | grep client
+  client-depl-745444578c-frqhc      0/1     Terminating   0          49s
+  client-depl-84b4bcff5-cgmr7       1/1     Running       0          9s
+  client-depl-745444578c-frqhc      0/1     Terminating   0          49s
+  client-depl-745444578c-frqhc      0/1     Terminating   0          49s
+  

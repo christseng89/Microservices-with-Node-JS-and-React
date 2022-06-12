@@ -214,7 +214,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Title Postman #1\"\r\n}",
+									"raw": "{\r\n    \"title\": \"Title Postman #2\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -222,13 +222,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{MINIKUBE_IP}}:30509/posts",
+									"raw": "{{MINIKUBE_IP}}:30509/posts/create",
 									"host": [
 										"{{MINIKUBE_IP}}"
 									],
 									"port": "30509",
 									"path": [
-										"posts"
+										"posts",
+										"create"
 									]
 								}
 							},
@@ -240,13 +241,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{MINIKUBE_IP}}:30509/posts",
+									"raw": "{{MINIKUBE_IP}}:30509/posts/create",
 									"host": [
 										"{{MINIKUBE_IP}}"
 									],
 									"port": "30509",
 									"path": [
-										"posts"
+										"posts",
+										"create"
 									]
 								}
 							},
