@@ -307,12 +307,6 @@ set REACT_APP_HOST=k8s
   ENV REACT_APP_HOST=${DOCKER_ENV}
   CMD ["npm", "start"]
 
-04-98. Deploying the React App
-cd Microservices-with-Node-JS-and-React/
-git pull
-cd blog/client-async
-docker build --build-arg DOCKER_ENV=k8s -t christseng89/client-async .
-
 // Revise js (PostCreate.js, CommentCreate.js, PostList.js)
 
 let server_url = 'localhost:4000';
@@ -321,3 +315,11 @@ if (process.env.REACT_APP_HOST === 'k8s') {
 }
 console.log('Server Url: ', server_url);
 
+04-98. Deploying the React App
+cd Microservices-with-Node-JS-and-React/
+git pull
+cd blog/client-async
+docker build --build-arg DOCKER_ENV=k8s -t christseng89/client-async .
+docker push christseng89/client-async
+
+kubectl apply -f .
