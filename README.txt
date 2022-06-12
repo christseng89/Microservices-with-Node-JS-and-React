@@ -12,3 +12,8 @@ kubectl apply -f .
 
 // Broswer
 posts.com
+
+### Test/Develop React App in Local with minikube
+cd blog\client-async
+set REACT_APP_HOST=k8s 
+npm start
