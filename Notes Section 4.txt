@@ -476,3 +476,11 @@ kubectl apply -f .
 http://posts.com/posts
 http://posts.com/comments
 http://posts.com
+
+### Additional Docker Compose sample
+https://www.section.io/engineering-education/build-and-dockerize-a-full-stack-react-app-with-nodejs-and-nginx/
+
+04-101. Introducing Skaffold
+https://skaffold.dev/
+https://skaffold.dev/docs/install/#chocolatey
+choco install -y skaffold
