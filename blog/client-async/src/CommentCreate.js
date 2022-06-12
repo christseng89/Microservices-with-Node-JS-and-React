@@ -10,8 +10,7 @@ const CommentCreate = ({ postId }) => {
   const [content, setContent] = useState("");
   const onSubmit = async (event) => {
     event.preventDefault();
-
-    await axios.post(server_url +`/${postId}/comments`, {
+    await axios.post(server_url + '/' + postId + '/comments', {
       content,
     });
 

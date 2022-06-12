@@ -455,8 +455,12 @@ const CommentCreate = ({ postId }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(server_url +`/${postId}/comments`, { ***
+    await axios.post(server_url + '/' + postId + '/comments', {***
       content,
+
+// Dockerfile
+COPY ./ ./
+COPY ./public ./public ***
 
 cd Microservices-with-Node-JS-and-React/
 git pull
@@ -465,9 +469,8 @@ cd blog/client-async
 docker build --build-arg DOCKER_ENV=k8s -t christseng89/client-async .
 docker push christseng89/client-async
 
-// Dockerfile
-COPY ./ ./
-COPY ./public/favicon.ico ./ ***
+kubectl delete -f .
+kubectl apply -f .
 
 // Broswer Testing
 http://posts.com/posts
