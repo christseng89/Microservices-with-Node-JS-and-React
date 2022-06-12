@@ -5,9 +5,11 @@ const cors = require('cors');
 const axios = require('axios');
 
 let ebCIPHost =  'localhost';
+let urlPath = '/posts';
 if(process.env.NODE_ENV === 'production') {
   require('dotenv').config();
-  ebCIPHost =process.env.ebCIPHost 
+  ebCIPHost = process.env.ebCIPHost; 
+  urlPath = '/posts/create';
 }
 console.log(ebCIPHost);
 
@@ -17,11 +19,11 @@ app.use(cors());
 
 const posts = {};
 
-app.get('/posts', (req, res) => {
+app.get(urlPath, (req, res) => {
   res.send(posts);
 });
 
-app.post('/posts', async (req, res) => {
+app.post(urlPath, async (req, res) => {
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
 

@@ -5,7 +5,7 @@ const axios = require('axios');
 let ebCIPHost =  'localhost';
 if(process.env.NODE_ENV === 'production') {
   require('dotenv').config();
-  ebCIPHost =process.env.ebCIPHost 
+  ebCIPHost = process.env.ebCIPHost;
 }
 console.log(ebCIPHost);
 

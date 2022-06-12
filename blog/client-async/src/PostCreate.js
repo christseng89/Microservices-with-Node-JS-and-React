@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 
-let server_url = 'localhost:4000';
+let server_url = 'localhost:4000/posts';
 if (process.env.REACT_APP_HOST === 'k8s') {
-  server_url = 'posts.com';
+  server_url = 'posts.com/posts/create';
 }
 console.log('Server Url: ', server_url);
 
@@ -11,7 +11,7 @@ const PostCreate = () => {
   const [title, setTitle] = useState("");
   const onSubmit = async (event) => {
     event.preventDefault();
-    await axios.post(`http://${{server_url}}/posts`, {
+    await axios.post(`http://${{server_url}}`, {
       title,
     });
 
