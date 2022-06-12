@@ -379,4 +379,97 @@ kubectl get po -w | grep client
   client-depl-84b4bcff5-cgmr7       1/1     Running       0          9s
   client-depl-745444578c-frqhc      0/1     Terminating   0          49s
   client-depl-745444578c-frqhc      0/1     Terminating   0          49s
-  
+
+04-100. Final Route Config
+// ingress-srv.yaml
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+  ...
+        paths:
+          - path: /posts/create ***
+            pathType: Prefix
+            backend:
+              service:
+                name: posts-clusterip-srv
+                port:
+                  number: 4000
+          - path: /posts ***
+            pathType: Prefix
+            backend:
+              service:
+                name: query-clusterip-srv
+                port:
+                  number: 4002
+          - path: /posts/?(.*)/comments
+            pathType: Prefix
+            backend:
+              service:
+                name: comments-clusterip-srv
+                port:
+                  number: 4001
+          - path: /comments
+            pathType: Prefix
+            ...
+
+kubectl apply -f ingress-srv.yaml
+  ingress.networking.k8s.io/ingress-srv configured
+
+### Bugfixing (client-async, due to axios limitations)
+// PostCreate.js
+let server_url = 'http://localhost:4000/posts'; ***
+if (process.env.REACT_APP_HOST === 'k8s') {
+  server_url = 'http://posts.com/posts/create'; ***
+}
+console.log('Server Url: ', server_url);
+
+const PostCreate = () => {
+  const [title, setTitle] = useState("");
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    await axios.post(server_url, { ***
+      title,
+
+// PostList.js
+let server_url = 'http://localhost:4002/posts'; ***
+if (process.env.REACT_APP_HOST === 'k8s') {
+  server_url = 'http://posts.com/posts'; ***
+}
+console.log('Server Url: ', server_url);
+
+const PostList = () => {
+  const [posts, setPosts] = useState({});
+
+  const fetchPosts = async () => {
+    const res = await axios.get(server_url); ***
+    console.log('Query Service:', res.data);
+
+// CommentCreate.js
+let server_url = 'http://localhost:4001/posts'; ***
+if (process.env.REACT_APP_HOST === 'k8s') {
+  server_url = 'http://posts.com/posts'; ***
+}
+
+const CommentCreate = ({ postId }) => {
+  const [content, setContent] = useState("");
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    await axios.post(server_url +`/${postId}/comments`, { ***
+      content,
+
+cd Microservices-with-Node-JS-and-React/
+git pull
+
+cd blog/client-async
+docker build --build-arg DOCKER_ENV=k8s -t christseng89/client-async .
+docker push christseng89/client-async
+
+// Dockerfile
+COPY ./ ./
+COPY ./public/favicon.ico ./ ***
+
+// Broswer Testing
+http://posts.com/posts
+http://posts.com/comments
+http://posts.com

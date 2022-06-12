@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 COPY ./ ./
+COPY ./public/favicon.ico ./
 
 ARG DOCKER_ENV
 ENV REACT_APP_HOST=${DOCKER_ENV}

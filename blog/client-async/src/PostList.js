@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import CommentCreate from "./CommentCreate";
 import CommentList from "./CommentList";
 
-let server_url = 'localhost:4002';
+let server_url = 'http://localhost:4002/posts';
 if (process.env.REACT_APP_HOST === 'k8s') {
-  server_url = 'posts.com';
+  server_url = 'http://posts.com/posts';
 }
+console.log('Server Url: ', server_url);
 
 const PostList = () => {
   const [posts, setPosts] = useState({});
 
   const fetchPosts = async () => {
-    const res = await axios.get(`http://${{server_url}}/posts`);
+    const res = await axios.get(server_url);
     console.log('Query Service:', res.data);
     setPosts(res.data);
   };
