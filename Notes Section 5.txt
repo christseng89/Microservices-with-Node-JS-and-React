@@ -9,3 +9,12 @@ src\index.ts (new)
     "start": "ts-node-dev src/index.ts",
 
 npm start
+
+05-112. Auth K8s Setup
+// minikube
+cd Microservices-with-Node-JS-and-React/
+git pull
+
+cd ticketing/auth
+docker build -t christseng89/auth .
+docker push christseng89/auth
