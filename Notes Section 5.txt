@@ -1,0 +1,11 @@
+05-111. Auth Service Setup
+md ticketing\auth
+npm init -y
+npm i typescript ts-node-dev express @types/express
+tsc --init
+src\index.ts (new)
+// package.json
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+
+npm start
