@@ -484,3 +484,27 @@ https://www.section.io/engineering-education/build-and-dockerize-a-full-stack-re
 https://skaffold.dev/
 https://skaffold.dev/docs/install/#chocolatey
 choco install -y skaffold
+skaffold version
+  v1.38.0
+
+04-103. First Time Skaffold Startup
+// blog\scoffold.yaml (config file)
+cd blog
+skaffold dev
+
+// Minikube 
+https://skaffold.dev/docs/quickstart/#start-minikube
+minikube start
+skaffold config set --global local-cluster true
+eval $(minikube docker-env)
+cd D:\development\React\Microservices-with-NodeJS-and-React\blog
+skaffold init
+skaffold dev
+  Buildpacks (blog/backends/comments/package.json)
+  Buildpacks (blog/backends/event-bus/package.json)
+  Buildpacks (blog/backends/moderation/package.json)
+  Buildpacks (blog/backends/package.json)
+  ...
+  Docker (blog/backends/comments/Dockerfile)
+  Docker (blog/backends/event-bus/Dockerfile)
+  ...
