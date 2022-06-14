@@ -23,3 +23,30 @@ cd ticketing\k8s\
 kubectl apply -f .
 
 ### Fully use 'minikube image' feature to build/push images.
+
+05-113. Adding Skaffold
+skaffold init --force
+  You can now run [skaffold build] to build the artifacts
+  or [skaffold run] to build and deploy
+  or [skaffold dev] to enter development mode, with auto-redeploy
+
+skaffold dev
+  Listing files to watch...
+  - christseng89/auth
+  Generating tags...
+  - christseng89/auth -> christseng89/auth:DevelopmentMinikube-5-g07c9a62
+  Checking cache...
+  - christseng89/auth: Not found. Building
+  ...
+  1/1 deployment(s) failed
+
+skaffold dev
+  ...
+  Press Ctrl+C to exit
+  Watching for changes...
+  [auth] 
+  [auth] > auth@1.0.0 start
+  [auth] > ts-node-dev src/index.ts
+  [auth]
+  [auth] [INFO] 09:08:25 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.1, typescript ver. 4.7.3)
+  [auth] Listening on port 3000!
