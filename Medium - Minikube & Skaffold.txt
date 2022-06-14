@@ -1,0 +1,2 @@
+https://medium.com/swlh/how-to-develop-locally-for-kubernetes-using-skaffold-and-minikube-b0072e71abd0
+git clone https://github.com/armindocachada/strapi-kubernetes-skaffold-example.git

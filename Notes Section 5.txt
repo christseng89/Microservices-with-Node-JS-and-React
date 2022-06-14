@@ -12,8 +12,8 @@ npm start
 
 05-112. Auth K8s Setup
 // minikube
-cd Microservices-with-Node-JS-and-React/
-git pull
+git clone  https://github.com/christseng89/Microservices-with-Node-JS-and-React.git
+cd Microservices-with-Node-JS-and-React
 
 cd ticketing/auth
 docker build -t christseng89/auth .

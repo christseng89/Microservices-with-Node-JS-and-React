@@ -497,14 +497,43 @@ https://skaffold.dev/docs/quickstart/#start-minikube
 minikube start
 skaffold config set --global local-cluster true
 eval $(minikube docker-env)
-cd D:\development\React\Microservices-with-NodeJS-and-React\blog
-skaffold init
+cd /d/development/React/Microservices-with-NodeJS-and-React/blog
 skaffold dev
-  Buildpacks (blog/backends/comments/package.json)
-  Buildpacks (blog/backends/event-bus/package.json)
-  Buildpacks (blog/backends/moderation/package.json)
-  Buildpacks (blog/backends/package.json)
+  Listing files to watch...
+  - christseng89/client-async
+  - christseng89/comments
   ...
-  Docker (blog/backends/comments/Dockerfile)
-  Docker (blog/backends/event-bus/Dockerfile)
+  Generating tags...
+  - christseng89/client-async -> christseng89/client-async:DevelopmentMinikube-3-g66add71
+  - christseng89/comments -> christseng89/comments:DevelopmentMinikube-3-g66add71
   ...
+  Checking cache...
+  - christseng89/client-async: Not found. Building
+  - christseng89/comments: Not found. Building
+  ...
+  Starting build...
+  Found [minikube] context, using local docker daemon.
+  Building [christseng89/query]...
+  Target platforms: [linux/amd64]
+  failed to get console mode for stdin: The handle is invalid.
+  [+] Building 25.4s (10/10) FINISHED
+  => [internal] load build definition from Dockerfile                                      0.1s
+  ...
+  1/6 deployment(s) 'failed'
+
+// Run again ...
+skaffold dev 
+  ...
+  Deployments stabilized in 16.24 seconds
+  Press Ctrl+C to exit
+  Watching for changes...
+  [client] 
+  [client] > client-async@0.1.0 start
+  [client] > react-scripts start
+  [client] 
+  [moderation] 
+  [moderation] > moderation@1.0.0 start
+  [moderation] > nodemon index.js
+  ...
+
+skaffold delete
