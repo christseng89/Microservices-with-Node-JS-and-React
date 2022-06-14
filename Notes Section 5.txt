@@ -16,5 +16,10 @@ git clone  https://github.com/christseng89/Microservices-with-Node-JS-and-React.
 cd Microservices-with-Node-JS-and-React
 
 cd ticketing/auth
-docker build -t christseng89/auth .
-docker push christseng89/auth
+minikube image build -t christseng89/auth .
+minikube image push christseng89/auth
+
+cd ticketing\k8s\
+kubectl apply -f .
+
+### Fully use 'minikube image' feature to build/push images.
