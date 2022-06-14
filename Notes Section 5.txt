@@ -49,4 +49,27 @@ skaffold dev
   [auth] > ts-node-dev src/index.ts
   [auth]
   [auth] [INFO] 09:08:25 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.1, typescript ver. 4.7.3)
-  [auth] Listening on port 3000!
+  [auth] Listening on port 3000! ***
+
+05-116. Ingress-Nginx Setup
+// ingress-srv.yaml
+kubectl get ingress
+  NAME              CLASS    HOSTS           ADDRESS          PORTS   AGE
+  ingress-service   <none>   ticketing.com   192.168.59.100   80      32s
+  ingress-srv       <none>   posts.com       192.168.59.100   80      17h
+
+kubectl get po     
+  NAME                              READY   STATUS    RESTARTS   AGE
+  auth-depl-8f65c6999-ggzbj         1/1     Running   0          5m5s
+  client-depl-74b965b546-vd8zw      1/1     Running   0          17h
+  comments-depl-88747d86-rm8db      1/1     Running   0          17h
+  event-bus-depl-dd87dfc6c-nncwm    1/1     Running   0          17h
+  moderation-depl-b5849bf96-7r72p   1/1     Running   0          17h
+  posts-depl-fd4d84f79-8bvbg        1/1     Running   0          17h
+  query-depl-669486fd94-qlz7l       1/1     Running   0          17h
+
+notepad c:\Windows\System32\Drivers\etc\hosts
+  192.168.59.100  ticketing.com
+
+// Broswer
+http://ticketing.com/api/users/currentuser

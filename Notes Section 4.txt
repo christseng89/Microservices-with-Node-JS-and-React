@@ -171,11 +171,7 @@ set NODE_ENV=
 npm start 
 
 ### Repeat images building && kubectl apply
-minikube ssh
-cd Microservices-with-Node-JS-and-React/
-git pull
 // Re-Build all Docker Images
-
 cd blog/backends/posts
 minikube image build --build-env=[DOCKER_ENV=production] -t christseng89/posts .
 
@@ -316,8 +312,6 @@ if (process.env.REACT_APP_HOST === 'k8s') {
 console.log('Server Url: ', server_url);
 
 04-98. Deploying the React App
-cd Microservices-with-Node-JS-and-React/
-git pull
 cd blog/client-async
 minikube image build --build-env=[DOCKER_ENV=k8s] -t christseng89/client-async .
 minikube image push christseng89/client-async
@@ -359,9 +353,6 @@ app.post(urlPath, async (req, res) => { ***
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
 ...
-
-cd Microservices-with-Node-JS-and-React/
-git pull
 
 cd blog/client-async
 minikube image build --build-env=[DOCKER_ENV=k8s] -t christseng89/client-async .
@@ -461,9 +452,6 @@ const CommentCreate = ({ postId }) => {
 // Dockerfile
 COPY ./ ./
 COPY ./public ./public ***
-
-cd Microservices-with-Node-JS-and-React/
-git pull
 
 cd blog/client-async
 minikube image build --build-env=[DOCKER_ENV=k8s] -t christseng89/client-async .
