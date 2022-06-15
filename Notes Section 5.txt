@@ -73,3 +73,7 @@ notepad c:\Windows\System32\Drivers\etc\hosts
 
 // Broswer
 http://ticketing.com/api/users/currentuser
+
+05-120. Free Google Cloud Credits
+https://cloud.google.com/free
+// samfire5203@gmail.com
