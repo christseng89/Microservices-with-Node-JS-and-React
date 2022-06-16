@@ -62,4 +62,44 @@ build:
           # Google Cloud Build
           # image: christseng89/auth
           image: us.gcr.io/ticketing-com-353405/auth 
-                 
+
+06-128. Creating a Load Balancer
+https://kubernetes.github.io/ingress-nginx/
+https://kubernetes.github.io/ingress-nginx/deploy/
+
+cd ticketing
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml -O ingress-depl.yaml
+kubectl apply -f ingress-depl.yaml
+
+kubectl get ns
+  NAME              STATUS   AGE
+  default           Active   24h
+  ingress-nginx     Active   62s
+  kube-node-lease   Active   24h
+  kube-public       Active   24h
+  kube-system       Active   24h
+
+kubectl get po -n ingress-nginx
+  NAME                                        READY   STATUS      RESTARTS   AGE
+  ingress-nginx-admission-create-79x8j        0/1     Completed   0          91s
+  ingress-nginx-admission-patch-v5ntx         0/1     Completed   0          91s
+  ingress-nginx-controller-5849c9f946-tfr9d   1/1     Running     0          93s
+
+
+// GCE-GKE
+https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml -O ingress-gke-depl.yaml
+kubectl apply -f ingress-gke-depl.yaml
+  ...
+  deployment.apps/ingress-nginx-controller configured
+  ...
+  validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission configured
+
+// Google Cloud Platform => Network services => 
+   Load balancing (a22be4253724a45b297ed8a01e2697f2) => IP:Port (35.224.200.114:80-443)
+
+notepad c:\Windows\System32\Drivers\etc\hosts
+  192.168.59.100  ticketing.com  
+  35.224.200.114  ticketing.com
+  
