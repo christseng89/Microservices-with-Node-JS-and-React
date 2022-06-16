@@ -14,7 +14,9 @@ spec:
     spec:
       containers:
         - name: auth
-          image: christseng89/auth
+          # Google Cloud Build
+          # image: christseng89/auth
+          image: us.gcr.io/ticketing-com-353405/auth
 ---
 apiVersion: v1
 kind: Service

@@ -1,0 +1,65 @@
+06-120. Free Google Cloud Credits
+https://cloud.google.com/free
+// samfire5203@gmail.com
+
+06-121. Google Cloud Initial Setup
+// Create project -> ticketing-com
+
+06-122. Kubernetes Cluster Creation
+// Kubernetes Engine => Clusters => Kubernetes Engine API (Enable) => 
+   Kubernetes clusters (CREATE) => Standard (Config)
+
+// Size 3 => Node Pool => Node => Machine Type (ec2-small, 2 vCPU, 2G Memory) => Create 
+// Estimated monthly cost $121.69
+
+06-123. Kubectl Contexts
+// Install Google Cloud 
+https://cloud.google.com/sdk/docs/install
+gcloud components update
+
+06-124. Initializing the GCloud SDK
+gcloud auth login
+gcloud init
+  Create a new configuration => samfire5203
+  Choose the account => samfire5203@gmail.com
+  Pick cloud project => ticketing-com-353405
+  Default Compute Region => us-central1-c
+
+06-125. Installing the GCloud Context
+gcloud container clusters get-credentials ticketing-com
+  Fetching cluster endpoint and auth data.
+  kubeconfig entry generated for ticketing-com.
+
+kubectl get ns
+  W0616 13:19:41.005967   19312 gcp.go:120] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
+  To learn more, consult https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+  NAME              STATUS   AGE
+  default           Active   21h
+  kube-node-lease   Active   21h
+  kube-public       Active   21h
+  kube-system       Active   21h
+
+06-126. Updating the Skaffold Config
+// Google Cloud Platform => CI/CD => Cloud Build => 
+   Dashboard => Cloud Build API (Enable)
+
+// skaffold.yaml
+build:
+  # Google Cloud Build
+  googleCloudBuild:
+    projectId: ticketing-com-353405
+  artifacts:
+    # - image: christseng89/auth
+    - image: us.gcr.io/ticketing-com-353405/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+
+// auth-depl.yaml
+    spec:
+      containers:
+        - name: auth
+          # Google Cloud Build
+          # image: christseng89/auth
+          image: us.gcr.io/ticketing-com-353405/auth 
+                 
