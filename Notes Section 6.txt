@@ -102,4 +102,27 @@ kubectl apply -f ingress-gke-depl.yaml
 notepad c:\Windows\System32\Drivers\etc\hosts
   192.168.59.100  ticketing.com  
   35.224.200.114  ticketing.com
-  
+
+06-129. Final Config and Test
+cd ticketing
+gcloud auth application-default login
+skaffold dev
+  Listing files to watch...
+  - us.gcr.io/ticketing-com-353405/auth
+  Generating tags...
+  - us.gcr.io/ticketing-com-353405/auth -> us.gcr.io/ticketing-com-353405/auth:ArchitectureOfMultiServiceApps-5-gb67f878
+  Checking cache...
+  - us.gcr.io/ticketing-com-353405/auth: Not found. Building
+  Starting build...
+  ...
+  Starting deploy...
+  - W0616 22:21:25.668751   19804 gcp.go:120] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
+  - To learn more, consult https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+  - deployment.apps/auth-depl created
+  - service/auth-clusterip-srv created
+  ...
+  [auth] [INFO] 14:21:40 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.1, typescript ver. 4.7.3)
+  [auth] Listening on port 3000!!!!!!!! 
+
+### Broswer Test
+http://ticketing.com/api/users/currentuser
