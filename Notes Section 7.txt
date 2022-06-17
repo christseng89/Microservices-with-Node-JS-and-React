@@ -4,6 +4,10 @@ build:
   # Google Cloud Build
   # googleCloudBuild:
   #   projectId: ticketing-com-353405
+  artifacts:
+    - image: christseng89/auth
+      # - image: us.gcr.io/ticketing-com-353405/auth
+      context: auth 
 
 // auth-depl.yaml
 build:

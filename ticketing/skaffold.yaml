@@ -7,8 +7,8 @@ build:
   # googleCloudBuild:
   #   projectId: ticketing-com-353405
   artifacts:
-    # - image: christseng89/auth
-    - image: us.gcr.io/ticketing-com-353405/auth
+    - image: christseng89/auth
+      # - image: us.gcr.io/ticketing-com-353405/auth
       context: auth
       docker:
         dockerfile: Dockerfile
