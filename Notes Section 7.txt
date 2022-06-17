@@ -50,3 +50,8 @@ skaffold dev
 
 ### Browser
 http://ticketing.com/api/users/currentuser
+
+07-130. Creating Route Handlers
+http://ticketing.com/api/users/currentuser
+// index.ts
+// routes/current-user.ts
