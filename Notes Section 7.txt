@@ -43,3 +43,6 @@ skaffold dev
   Deployments stabilized in 3.569 seconds
   Press Ctrl+C to exit
   Watching for changes...
+
+### Browser
+http://ticketing.com/api/users/currentuser
