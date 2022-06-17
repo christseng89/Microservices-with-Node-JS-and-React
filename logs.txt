@@ -1,0 +1,250 @@
+* 
+* ==> Audit <==
+* |------------|-------------------------------------|----------|------------------------|---------|-------------------------------|-------------------------------|
+|  Command   |                Args                 | Profile  |          User          | Version |          Start Time           |           End Time            |
+|------------|-------------------------------------|----------|------------------------|---------|-------------------------------|-------------------------------|
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 00:58:20 CST | Tue, 14 Jun 2022 00:58:20 CST |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 00:59:23 CST | Tue, 14 Jun 2022 00:59:23 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:01:19 CST | Tue, 14 Jun 2022 01:01:20 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:08:55 CST | Tue, 14 Jun 2022 01:08:56 CST |
+| -p         | minikube docker-env                 | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:09:16 CST | Tue, 14 Jun 2022 01:09:16 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:09:22 CST | Tue, 14 Jun 2022 01:09:23 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:09:53 CST | Tue, 14 Jun 2022 01:09:54 CST |
+| -p         | minikube docker-env                 | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:10:14 CST | Tue, 14 Jun 2022 01:10:15 CST |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:10:37 CST | Tue, 14 Jun 2022 01:10:37 CST |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:11:18 CST | Tue, 14 Jun 2022 01:11:18 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:11:24 CST | Tue, 14 Jun 2022 01:11:24 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| --help     |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:17:43 CST | Tue, 14 Jun 2022 01:17:43 CST |
+| docker-env | --help                              | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:18:39 CST | Tue, 14 Jun 2022 01:18:39 CST |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:19:12 CST | Tue, 14 Jun 2022 01:19:13 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:19:35 CST | Tue, 14 Jun 2022 01:19:36 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:19:53 CST | Tue, 14 Jun 2022 01:19:54 CST |
+| image      |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:21:13 CST | Tue, 14 Jun 2022 01:21:13 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:22:34 CST | Tue, 14 Jun 2022 01:22:34 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| image      |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:23:15 CST | Tue, 14 Jun 2022 01:23:15 CST |
+| image      |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:25:18 CST | Tue, 14 Jun 2022 01:25:18 CST |
+| image      |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:28:14 CST | Tue, 14 Jun 2022 01:28:14 CST |
+| image      |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:29:00 CST | Tue, 14 Jun 2022 01:29:00 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:29:22 CST | Tue, 14 Jun 2022 01:29:23 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| image      |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:29:39 CST | Tue, 14 Jun 2022 01:29:39 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:32:44 CST | Tue, 14 Jun 2022 01:32:46 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:40:22 CST | Tue, 14 Jun 2022 01:40:23 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 01:47:25 CST | Tue, 14 Jun 2022 01:47:25 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:47:38 CST | Tue, 14 Jun 2022 01:47:38 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:48:38 CST | Tue, 14 Jun 2022 01:48:39 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:52:35 CST | Tue, 14 Jun 2022 01:52:35 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:52:55 CST | Tue, 14 Jun 2022 01:52:56 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 01:56:21 CST | Tue, 14 Jun 2022 01:56:22 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| image      | build -t christseng89/auth .        | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:19:31 CST | Tue, 14 Jun 2022 16:19:53 CST |
+| image      | push christseng89/auth              | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:32:14 CST | Tue, 14 Jun 2022 16:35:25 CST |
+| image      | ls                                  | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:36:14 CST | Tue, 14 Jun 2022 16:36:15 CST |
+| image      | rmi christseng89/auth               | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:37:03 CST | Tue, 14 Jun 2022 16:37:03 CST |
+| image      | rm christseng89/auth                | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:37:10 CST | Tue, 14 Jun 2022 16:37:10 CST |
+| image      | ls                                  | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:37:14 CST | Tue, 14 Jun 2022 16:37:14 CST |
+| image      | build -t christseng89/auth .        | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:37:33 CST | Tue, 14 Jun 2022 16:37:55 CST |
+| image      | build --help                        | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:40:38 CST | Tue, 14 Jun 2022 16:40:38 CST |
+| image      | push christseng89/auth              | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:38:18 CST | Tue, 14 Jun 2022 16:41:25 CST |
+| image      | build                               | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:41:45 CST | Tue, 14 Jun 2022 16:42:12 CST |
+|            | --build-env=[DOCKER_ENV=production] |          |                        |         |                               |                               |
+|            | -t christseng89/posts .             |          |                        |         |                               |                               |
+| image      | build                               | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:42:37 CST | Tue, 14 Jun 2022 16:43:04 CST |
+|            | --build-env=[DOCKER_ENV=production] |          |                        |         |                               |                               |
+|            | -t christseng89/comments .          |          |                        |         |                               |                               |
+| image      | build --build-env=[                 | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:44:02 CST | Tue, 14 Jun 2022 16:44:02 CST |
+|            | DOCKER_ENV=k8s] -t                  |          |                        |         |                               |                               |
+|            | christseng89/client-async .         |          |                        |         |                               |                               |
+| image      | push christseng89/client-async      | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:44:04 CST | Tue, 14 Jun 2022 16:44:10 CST |
+| image      | build                               | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:45:17 CST | Tue, 14 Jun 2022 16:45:18 CST |
+|            | --build-env=[DOCKER_ENV=production] |          |                        |         |                               |                               |
+|            | -t christseng89/posts .             |          |                        |         |                               |                               |
+| image      | push christseng89/posts             | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:45:19 CST | Tue, 14 Jun 2022 16:45:34 CST |
+| image      | ls                                  | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:46:04 CST | Tue, 14 Jun 2022 16:46:05 CST |
+| image      | ls --help                           | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:47:01 CST | Tue, 14 Jun 2022 16:47:01 CST |
+| image      | ls --format=table                   | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:47:27 CST | Tue, 14 Jun 2022 16:47:28 CST |
+| image      | ls --format=json                    | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:48:12 CST | Tue, 14 Jun 2022 16:48:12 CST |
+| image      | ls --format=json                    | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 16:48:24 CST | Tue, 14 Jun 2022 16:48:24 CST |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 17:07:44 CST | Tue, 14 Jun 2022 17:07:45 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| docker-env | --shell none -p minikube            | minikube | skaffold               | v1.25.2 | Tue, 14 Jun 2022 17:09:05 CST | Tue, 14 Jun 2022 17:09:05 CST |
+|            | --user=skaffold                     |          |                        |         |                               |                               |
+| ssh        |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Tue, 14 Jun 2022 15:42:26 CST | Thu, 16 Jun 2022 14:00:34 CST |
+| profile    | list -o json --user=skaffold        | minikube | skaffold               | v1.25.2 | Thu, 16 Jun 2022 22:08:38 CST | Thu, 16 Jun 2022 22:08:40 CST |
+| profile    | list -o json --user=skaffold        | minikube | skaffold               | v1.25.2 | Thu, 16 Jun 2022 22:09:00 CST | Thu, 16 Jun 2022 22:09:00 CST |
+| profile    | list -o json --user=skaffold        | minikube | skaffold               | v1.25.2 | Thu, 16 Jun 2022 22:17:25 CST | Thu, 16 Jun 2022 22:17:25 CST |
+| profile    | list -o json --user=skaffold        | minikube | skaffold               | v1.25.2 | Thu, 16 Jun 2022 22:20:34 CST | Thu, 16 Jun 2022 22:20:35 CST |
+| stop       |                                     | minikube | CHRIS-SFPRO\ChrisTseng | v1.25.2 | Fri, 17 Jun 2022 00:14:51 CST | Fri, 17 Jun 2022 00:14:57 CST |
+|------------|-------------------------------------|----------|------------------------|---------|-------------------------------|-------------------------------|
+
+* 
+* ==> Last Start <==
+* Log file created at: 2022/06/17 13:09:37
+Running on machine: CHRIS-SFPRO
+Binary: Built with gc go1.17.7 for windows/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0617 13:09:37.268456   10932 out.go:297] Setting OutFile to fd 96 ...
+I0617 13:09:37.268456   10932 out.go:349] isatty.IsTerminal(96) = true
+I0617 13:09:37.268456   10932 out.go:310] Setting ErrFile to fd 100...
+I0617 13:09:37.268456   10932 out.go:349] isatty.IsTerminal(100) = true
+I0617 13:09:37.286831   10932 out.go:304] Setting JSON to false
+I0617 13:09:37.293880   10932 start.go:112] hostinfo: {"hostname":"CHRIS-SFPRO","uptime":3441,"bootTime":1655439136,"procs":257,"os":"windows","platform":"Microsoft Windows 11 Pro","platformFamily":"Standalone Workstation","platformVersion":"10.0.22000 Build 22000","kernelVersion":"10.0.22000 Build 22000","kernelArch":"x86_64","virtualizationSystem":"","virtualizationRole":"","hostId":"1f69fe7e-ff29-49d7-85f4-d58b9ff6e50c"}
+W0617 13:09:37.294397   10932 start.go:120] gopshost.Virtualization returned error: not implemented yet
+I0617 13:09:37.300115   10932 out.go:176] 😄  minikube v1.25.2 on Microsoft Windows 11 Pro 10.0.22000 Build 22000
+I0617 13:09:37.302707   10932 notify.go:193] Checking for updates...
+I0617 13:09:37.312690   10932 config.go:176] Loaded profile config "minikube": Driver=virtualbox, ContainerRuntime=docker, KubernetesVersion=v1.23.3
+I0617 13:09:37.316205   10932 driver.go:344] Setting default libvirt URI to qemu:///system
+I0617 13:09:37.375561   10932 virtualbox.go:136] virtual box version: 6.1.22r144080
+I0617 13:09:37.377122   10932 out.go:176] ✨  Using the virtualbox driver based on existing profile
+I0617 13:09:37.377122   10932 start.go:281] selected driver: virtualbox
+I0617 13:09:37.377122   10932 start.go:798] validating driver "virtualbox" against &{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO:https://storage.googleapis.com/minikube/iso/minikube-v1.25.2.iso KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.30@sha256:02c921df998f95e849058af14de7045efc3954d90320967418a0d1f182bbc0b2 Memory:4000 CPUs:2 DiskSize:20000 VMDriver: Driver:virtualbox HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.23.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin: FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: ExtraOptions:[{Component:kubelet Key:housekeeping-interval Value:5m}] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP:192.168.59.100 Port:8443 KubernetesVersion:v1.23.3 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[ambassador:false auto-pause:false csi-hostpath-driver:false dashboard:false default-storageclass:true efk:false freshpod:false gcp-auth:false gvisor:false helm-tiller:false ingress:true ingress-dns:false istio:false istio-provisioner:false kong:false kubevirt:false logviewer:false metallb:false metrics-server:false nvidia-driver-installer:false nvidia-gpu-device-plugin:false olm:false pod-security-policy:false portainer:false registry:false registry-aliases:false registry-creds:false storage-provisioner:true storage-provisioner-gluster:false volumesnapshots:false] CustomAddonImages:map[IngressController:ingress-nginx/controller:v1.1.1@sha256:0bc88eb15f9e7f84e8e56c14fa5735aaa488b840983f87bd79b1054190e660de KubeWebhookCertgenCreate:k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660 KubeWebhookCertgenPatch:k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:C:\Users\Chris Tseng:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false}
+I0617 13:09:37.378681   10932 start.go:809] status for virtualbox: {Installed:true Healthy:true Running:false NeedsImprovement:false Error:<nil> Reason: Fix: Doc: Version:6.1.22r144080
+}
+I0617 13:09:37.476767   10932 cni.go:93] Creating CNI manager for ""
+I0617 13:09:37.476767   10932 cni.go:167] CNI unnecessary in this configuration, recommending no CNI
+I0617 13:09:37.476767   10932 start_flags.go:302] config:
+{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO:https://storage.googleapis.com/minikube/iso/minikube-v1.25.2.iso KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.30@sha256:02c921df998f95e849058af14de7045efc3954d90320967418a0d1f182bbc0b2 Memory:4000 CPUs:2 DiskSize:20000 VMDriver: Driver:virtualbox HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.23.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin: FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: ExtraOptions:[{Component:kubelet Key:housekeeping-interval Value:5m}] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP:192.168.59.100 Port:8443 KubernetesVersion:v1.23.3 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[ambassador:false auto-pause:false csi-hostpath-driver:false dashboard:false default-storageclass:true efk:false freshpod:false gcp-auth:false gvisor:false helm-tiller:false ingress:true ingress-dns:false istio:false istio-provisioner:false kong:false kubevirt:false logviewer:false metallb:false metrics-server:false nvidia-driver-installer:false nvidia-gpu-device-plugin:false olm:false pod-security-policy:false portainer:false registry:false registry-aliases:false registry-creds:false storage-provisioner:true storage-provisioner-gluster:false volumesnapshots:false] CustomAddonImages:map[IngressController:ingress-nginx/controller:v1.1.1@sha256:0bc88eb15f9e7f84e8e56c14fa5735aaa488b840983f87bd79b1054190e660de KubeWebhookCertgenCreate:k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660 KubeWebhookCertgenPatch:k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:C:\Users\Chris Tseng:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false}
+I0617 13:09:37.478842   10932 iso.go:123] acquiring lock: {Name:mkd38cd2cf55431b2fc70c7c1d628d24bcb669ba Clock:{} Delay:500ms Timeout:10m0s Cancel:<nil>}
+I0617 13:09:37.482507   10932 out.go:176] 👍  Starting control plane node minikube in cluster minikube
+I0617 13:09:37.483020   10932 preload.go:132] Checking if preload exists for k8s version v1.23.3 and runtime docker
+I0617 13:09:37.483766   10932 preload.go:148] Found local preload: C:\Users\Chris Tseng\.minikube\cache\preloaded-tarball\preloaded-images-k8s-v17-v1.23.3-docker-overlay2-amd64.tar.lz4
+I0617 13:09:37.485234   10932 cache.go:57] Caching tarball of preloaded images
+I0617 13:09:37.486287   10932 preload.go:174] Found C:\Users\Chris Tseng\.minikube\cache\preloaded-tarball\preloaded-images-k8s-v17-v1.23.3-docker-overlay2-amd64.tar.lz4 in cache, skipping download
+I0617 13:09:37.486287   10932 cache.go:60] Finished verifying existence of preloaded tar for  v1.23.3 on docker
+I0617 13:09:37.486814   10932 profile.go:148] Saving config to C:\Users\Chris Tseng\.minikube\profiles\minikube\config.json ...
+I0617 13:09:37.490011   10932 cache.go:208] Successfully downloaded all kic artifacts
+I0617 13:09:37.490011   10932 start.go:313] acquiring machines lock for minikube: {Name:mke31035f5ad1e51dc230b7c07c461e33323cf76 Clock:{} Delay:500ms Timeout:13m0s Cancel:<nil>}
+I0617 13:09:37.490011   10932 start.go:317] acquired machines lock for "minikube" in 0s
+I0617 13:09:37.490861   10932 start.go:93] Skipping create...Using existing machine configuration
+I0617 13:09:37.490861   10932 fix.go:55] fixHost starting: 
+I0617 13:09:37.490861   10932 main.go:130] libmachine: COMMAND: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable
+I0617 13:09:37.661209   10932 main.go:130] libmachine: STDOUT:
+{
+}
+I0617 13:09:37.661209   10932 main.go:130] libmachine: STDERR:
+{
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+}
+I0617 13:09:37.661209   10932 fix.go:108] recreateIfNeeded on minikube: state=Error err=C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+I0617 13:09:37.661209   10932 fix.go:113] machineExists: true. err=C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+W0617 13:09:37.661209   10932 fix.go:134] unexpected machine state, will restart: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+I0617 13:09:37.664293   10932 out.go:176] 🔄  Restarting existing virtualbox VM for "minikube" ...
+I0617 13:09:37.664804   10932 main.go:130] libmachine: COMMAND: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable
+I0617 13:09:37.707820   10932 main.go:130] libmachine: STDOUT:
+{
+}
+I0617 13:09:37.707820   10932 main.go:130] libmachine: STDERR:
+{
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+}
+I0617 13:09:37.708562   10932 fix.go:57] fixHost completed within 217.701ms
+I0617 13:09:37.709067   10932 start.go:80] releasing machines lock for "minikube", held for 218.5509ms
+W0617 13:09:37.709768   10932 start.go:570] error starting host: driver start: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+W0617 13:09:37.711351   10932 out.go:241] 🤦  StartHost failed, but will try again: driver start: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+
+I0617 13:09:37.712530   10932 start.go:585] Will try again in 5 seconds ...
+I0617 13:09:42.715754   10932 start.go:313] acquiring machines lock for minikube: {Name:mke31035f5ad1e51dc230b7c07c461e33323cf76 Clock:{} Delay:500ms Timeout:13m0s Cancel:<nil>}
+I0617 13:09:42.716395   10932 start.go:317] acquired machines lock for "minikube" in 0s
+I0617 13:09:42.716903   10932 start.go:93] Skipping create...Using existing machine configuration
+I0617 13:09:42.716903   10932 fix.go:55] fixHost starting: 
+I0617 13:09:42.716903   10932 main.go:130] libmachine: COMMAND: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable
+I0617 13:09:42.826601   10932 main.go:130] libmachine: STDOUT:
+{
+}
+I0617 13:09:42.826877   10932 main.go:130] libmachine: STDERR:
+{
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+}
+I0617 13:09:42.826877   10932 fix.go:108] recreateIfNeeded on minikube: state=Error err=C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+I0617 13:09:42.826877   10932 fix.go:113] machineExists: true. err=C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+W0617 13:09:42.826877   10932 fix.go:134] unexpected machine state, will restart: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+I0617 13:09:42.828902   10932 out.go:176] 🔄  Restarting existing virtualbox VM for "minikube" ...
+I0617 13:09:42.828902   10932 main.go:130] libmachine: COMMAND: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable
+I0617 13:09:42.876747   10932 main.go:130] libmachine: STDOUT:
+{
+}
+I0617 13:09:42.876747   10932 main.go:130] libmachine: STDERR:
+{
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+}
+I0617 13:09:42.876747   10932 fix.go:57] fixHost completed within 159.8444ms
+I0617 13:09:42.876747   10932 start.go:80] releasing machines lock for "minikube", held for 159.8444ms
+W0617 13:09:42.876747   10932 out.go:241] 😿  Failed to start virtualbox VM. Running "minikube delete" may fix it: driver start: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+
+I0617 13:09:42.881979   10932 out.go:176] 
+W0617 13:09:42.882495   10932 out.go:241] ❌  Exiting due to GUEST_PROVISION: Failed to start host: driver start: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe showvminfo minikube --machinereadable failed:
+VBoxManage.exe: error: Failed to create the VirtualBox object!
+VBoxManage.exe: error: The VBoxSDS windows service is disabled.
+VBoxManage.exe: error: Reinstall VirtualBox to fix it.  Alternatively try reenable the service by setting it to  'Manual' startup type in the Windows Service management console, or by runing 'sc config VBoxSDS start=demand' on the command line.
+VBoxManage.exe: error: Details: code ERROR_SERVICE_DISABLED 0x80070422 (0x80070422), component VirtualBoxClientWrap, interface IVirtualBoxClient
+
+W0617 13:09:42.883971   10932 out.go:241] 
+W0617 13:09:42.890388   10932 out.go:241] [31m╭───────────────────────────────────────────────────────────────────────────────────────────╮[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m│[0m    😿  If the above advice does not help, please let us know:                             [31m│[0m
+[31m│[0m    👉  https://github.com/kubernetes/minikube/issues/new/choose                           [31m│[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m│[0m    Please run `minikube logs --file=logs.txt` and attach logs.txt to the GitHub issue.    [31m│[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m╰───────────────────────────────────────────────────────────────────────────────────────────╯[0m
+
+* 

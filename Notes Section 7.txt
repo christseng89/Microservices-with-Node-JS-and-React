@@ -1,0 +1,41 @@
+07-00 Turn GKE env to minikube
+// Scaffold.yaml
+build:
+  # Google Cloud Build
+  # googleCloudBuild:
+  #   projectId: ticketing-com-353405
+
+// auth-depl.yaml
+build:
+  # Google Cloud Build
+  # googleCloudBuild:
+  #   projectId: ticketing-com-353405
+
+// Open VirtualBox
+minikube start
+minikube ip
+  192.168.59.100
+minikube image list
+
+// Edit Hosts
+notepad c:\Windows\System32\Drivers\etc\hosts
+	192.168.59.100  posts.com
+  192.168.59.100  ticketing.com #***
+# 35.224.200.114  ticketing.com #GKE (refer to Notes Section 6)
+
+kubectl get po
+  NAME                              READY   STATUS    RESTARTS      AGE
+  auth-depl-8f65c6999-ggzbj         1/1     Running   1 (13h ago)   2d18h
+  client-depl-74b965b546-vd8zw      1/1     Running   1 (13h ago)   3d11h
+  comments-depl-88747d86-rm8db      1/1     Running   1 (13h ago)   3d11h
+  event-bus-depl-dd87dfc6c-nncwm    1/1     Running   1 (13h ago)   3d11h
+  moderation-depl-b5849bf96-7r72p   1/1     Running   1 (13h ago)   3d11h
+  posts-depl-fd4d84f79-8bvbg        1/1     Running   1 (13h ago)   3d11h
+  query-depl-669486fd94-qlz7l       1/1     Running   1 (13h ago)   3d11h
+
+cd ticketing
+skaffold dev
+  ...
+  Deployments stabilized in 3.569 seconds
+  Press Ctrl+C to exit
+  Watching for changes...

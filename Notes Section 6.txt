@@ -85,7 +85,6 @@ kubectl get po -n ingress-nginx
   ingress-nginx-admission-patch-v5ntx         0/1     Completed   0          91s
   ingress-nginx-controller-5849c9f946-tfr9d   1/1     Running     0          93s
 
-
 // GCE-GKE
 https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke
 kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
@@ -100,7 +99,7 @@ kubectl apply -f ingress-gke-depl.yaml
    Load balancing (a22be4253724a45b297ed8a01e2697f2) => IP:Port (35.224.200.114:80-443)
 
 notepad c:\Windows\System32\Drivers\etc\hosts
-  192.168.59.100  ticketing.com  
+  #192.168.59.100  ticketing.com  
   35.224.200.114  ticketing.com
 
 06-129. Final Config and Test
