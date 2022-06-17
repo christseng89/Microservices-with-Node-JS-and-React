@@ -266,7 +266,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"content\": \"Comment #1.2\"\r\n}",
+									"raw": "{\r\n    \"content\": \"Comment #1.3\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -350,6 +350,95 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Ticketing",
+			"item": [
+				{
+					"name": "Current User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://ticketing.com/api/users/currentuser",
+							"protocol": "http",
+							"host": [
+								"ticketing",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"currentuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://ticketing.com/api/users/signup",
+							"protocol": "http",
+							"host": [
+								"ticketing",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://ticketing.com/api/users/signin",
+							"protocol": "http",
+							"host": [
+								"ticketing",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://ticketing.com/api/users/signout",
+							"protocol": "http",
+							"host": [
+								"ticketing",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"signout"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

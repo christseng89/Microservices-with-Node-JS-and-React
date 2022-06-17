@@ -55,3 +55,10 @@ http://ticketing.com/api/users/currentuser
 http://ticketing.com/api/users/currentuser
 // index.ts
 // routes/current-user.ts
+
+07-131. Other Auth Routes
+// Postman
+Current User
+Signup
+Signin
+Signout
