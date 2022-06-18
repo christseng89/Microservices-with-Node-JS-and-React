@@ -70,3 +70,18 @@ https://express-validator.github.io/docs/#basic-guide
 
 cd ticketing\auth
 npm i express-validator
+
+07-137. Solution for Error Handling
+https://expressjs.com/en/guide/error-handling.html
+
+// Call the 'next' function
+
+app.get('/', (req, res, next) => {
+  ...
+});
+
+// Middleware Error Handlers
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
