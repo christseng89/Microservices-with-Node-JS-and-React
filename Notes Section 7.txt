@@ -62,3 +62,11 @@ Current User
 Signup
 Signin
 Signout
+
+07-132. Adding Validation && 07-133. Handling Validation Errors
+// express-validator
+https://express-validator.github.io/docs/
+https://express-validator.github.io/docs/#basic-guide
+
+cd ticketing\auth
+npm i express-validator
