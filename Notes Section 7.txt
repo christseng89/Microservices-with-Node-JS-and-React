@@ -85,3 +85,14 @@ app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).send('Something broke!')
 })
+
+07-138. Building an Error Handling Middleware
+// Error Handler Middleware => middlewares/error-handler.ts
+
+// index.ts
+import { errorHandler } from "./middlewares/error-handler";
+
+...
+app.use(signoutRouter);
+
+app.use(errorHandler);
