@@ -193,3 +193,24 @@ app.all("*", () => { ***
 });
 
 app.use(errorHandler);
+
+07-148. Uh Oh... Async Error Handling
+https://www.npmjs.com/package/express-async-errors
+cd ticketing\auth
+npm i express-async-errors
+
+// index.ts
+import 'express-async-errors';
+...
+
+app.all("*", async () => { ***
+  throw new NotFoundError();
+});
+
+// signup.ts
+async (req: Request, res: Response) => {
+...
+
+// signin.ts & signout.ts & current-user.ts
+async (req, res) => {
+...    
