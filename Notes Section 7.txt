@@ -182,3 +182,14 @@ export class RequestValidationError extends CustomError { ***
   }
 
   res.status(400).send({
+
+07-147. How to Define New Custom Errors (Page Not Found)
+// not-found-error.ts (New)
+// index.ts
+app.use(signoutRouter);
+
+app.all("*", () => { ***
+  throw new NotFoundError();
+});
+
+app.use(errorHandler);
