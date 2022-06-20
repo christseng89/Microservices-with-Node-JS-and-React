@@ -1,4 +1,4 @@
-export class DatabaseConnectionError extends Error {
+export class DatabaseConnectionError extends Error implements CustomError{
   reason = "Error connecting to database";
   statusCode = 500;
 
