@@ -127,4 +127,34 @@ app.use(errorHandler);
   res.status(400).send({
     errors: [{ message: err.message }],
   });
+
+07-144. Moving Logic Into Errors
+// database-connection-error.ts 
+statusCode = 500;
+...
+serializeErrors() {
+  return [
+    {
+      message: this.reason,
+    },
+  ];
+}  
+
+// request-validation-error.ts
+statusCode = 400;
+...
+serializeErrors() {
+  return this.errors.map((err) => {
+    return { message: err.msg, field: err.param };
+  });
+}  
+
+// error-handler.ts
+  ...
+  if (err instanceof RequestValidationError) {
+    return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+  }
+  if (err instanceof DatabaseConnectionError) {
+    return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+  }
   
