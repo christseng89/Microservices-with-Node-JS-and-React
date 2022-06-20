@@ -157,4 +157,28 @@ serializeErrors() {
   if (err instanceof DatabaseConnectionError) {
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
-  
+
+07-146. Final Error Related Code
+// custom-error-interface.ts (Delete)
+// custom-error.ts (new Abstract class)
+
+// database-connection-error.ts
+export class DatabaseConnectionError extends CustomError{ ***
+  reason = "Error connecting to database";
+  statusCode = 500;
+
+  constructor() {
+    super('Error connecting to database'); ***
+
+// request-validation-error.ts
+export class RequestValidationError extends CustomError { ***
+  statusCode = 400;
+  constructor(public errors: ValidationError[]) {
+    super('Invalid request parameters'); ***
+
+// error-handler.ts ### Only one error statements required for all kinds of errors
+  if (err instanceof CustomError) { ***
+    return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+  }
+
+  res.status(400).send({
