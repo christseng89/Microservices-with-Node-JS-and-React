@@ -36,3 +36,27 @@ userSchema.statics.build = (attrs: UserAttrs) => { ***
 };
 
 export { User };
+
+08-156. Defining Extra Document Properties && 157. What's That Angle Bracket For?
+### user.ts
+interface UserModel extends mongoose.Model<UserDoc> {
+  build(attrs: UserAttrs): UserDoc;
+}
+
+// An interface that describes the properties
+// that a User Document has
+interface UserDoc extends mongoose.Document {
+  email: string;
+  password: string;
+}
+...
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+...
+
+// definition mongoose.model (Angle Bracket)
+  export function model<T, U, TQueryHelpers = {}>(
+    name: string,
+    schema?: Schema<T, any, TQueryHelpers>,
+    collection?: string,
+    options?: CompileModelOptions
+  ): U;

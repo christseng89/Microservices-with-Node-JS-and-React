@@ -9,8 +9,15 @@ interface UserAttrs {
 
 // An interface that describes the properties
 // that a User Model has
-interface UserModel extends mongoose.Model<any> {
-  build(attrs: UserAttrs): any;
+interface UserModel extends mongoose.Model<UserDoc> {
+  build(attrs: UserAttrs): UserDoc;
+}
+
+// An interface that describes the properties
+// that a User Document has
+interface UserDoc extends mongoose.Document {
+  email: string;
+  password: string;
 }
 
 const userSchema = new mongoose.Schema({
@@ -24,17 +31,19 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model<any, UserModel>('User', userSchema);
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
 
 // New User Example ...
-// User.build({
+// const user = {
 //   email: 'Test',
 //   password: '11112',
-//   // 'test': 'test'
-// });
+// };
+
+// console.log(User.build(user));
+// console.log(new User(user));
 
 export { User };
 
