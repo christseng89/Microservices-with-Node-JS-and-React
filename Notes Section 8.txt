@@ -12,3 +12,9 @@ npm i mongoose
 [auth] [INFO] 04:57:24 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.1, typescript ver. 4.7.4)
 [auth] Connected to MongoDb
 [auth] Listening on port 3000!!!!!!!!
+
+08-151. Understanding the Signup Flow
+1. Check email exists on MongoDB
+2. Hash password
+3. Save DB
+4. Send back JWT to login
