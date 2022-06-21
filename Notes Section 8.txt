@@ -4,3 +4,11 @@ npm i mongoose
 
 // new config file auth-mongo-depl.yaml
 ### rename -clusterip-srv => -srv and -nodeport-srv for NodePort Services
+
+08-150. Connecting to MongoDB
+// npm i @type/mongoose # not required anymore
+
+// skaffold dev ...
+[auth] [INFO] 04:57:24 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.1, typescript ver. 4.7.4)
+[auth] Connected to MongoDb
+[auth] Listening on port 3000!!!!!!!!
