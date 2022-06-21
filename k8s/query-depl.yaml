@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: query-srv
+  name: query-nodeport-srv
 spec:
   type: NodePort # Development ONLY
   selector:
@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: query-clusterip-srv
+  name: query-srv
 spec:
   selector:
     app: query

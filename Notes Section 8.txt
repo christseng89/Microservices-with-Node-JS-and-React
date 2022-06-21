@@ -1,0 +1,6 @@
+08-149. Creating Databases in Kubernetes
+cd ticketing\auth
+npm i mongoose
+
+// new config file auth-mongo-depl.yaml
+### rename -clusterip-srv => -srv and -nodeport-srv for NodePort Services

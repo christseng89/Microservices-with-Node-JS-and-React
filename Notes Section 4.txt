@@ -74,7 +74,7 @@ kubectl apply -f event-bus-depl.yaml
 
 kubectl apply -f posts-depl.yaml 
   deployment.apps/posts-depl unchanged
-  service/posts-clusterip-srv created
+  service/posts-srv created
 
 kubectl get po
   NAME                             READY   STATUS    RESTARTS   AGE
@@ -87,7 +87,7 @@ kubectl get svc
   NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
   event-bus-srv         ClusterIP   10.98.255.181   <none>        4005/TCP         5m54s***
   kubernetes            ClusterIP   10.96.0.1       <none>        443/TCP          2d16h
-  posts-clusterip-srv   ClusterIP   10.96.244.194   <none>        4000/TCP         25s***
+  posts-srv   ClusterIP   10.96.244.194   <none>        4000/TCP         25s***
   posts-srv             NodePort    10.96.241.54    <none>        4000:32116/TCP   3h52m
 
 kubectl logs posts-depl-fd4d84f79-kp7dl        
@@ -102,7 +102,7 @@ kubectl logs posts-depl-fd4d84f79-kp7dl
   Listening on 4000
 
 04-84. How to Communicate Between Services (Wind it up)
-### External 32116 <=> posts-clusterip-srv:4000 <=> event-bus-srv:4005
+### External 32116 <=> posts-srv:4000 <=> event-bus-srv:4005
 
 // Posts, Comments, Query, Moderation, Event-Bus
 .env
@@ -382,21 +382,21 @@ kubectl get po -w | grep client
             pathType: Prefix
             backend:
               service:
-                name: posts-clusterip-srv
+                name: posts-srv
                 port:
                   number: 4000
           - path: /posts ***
             pathType: Prefix
             backend:
               service:
-                name: query-clusterip-srv
+                name: query-srv
                 port:
                   number: 4002
           - path: /posts/?(.*)/comments
             pathType: Prefix
             backend:
               service:
-                name: comments-clusterip-srv
+                name: comments-srv
                 port:
                   number: 4001
           - path: /comments

@@ -118,7 +118,7 @@ skaffold dev
   - W0616 22:21:25.668751   19804 gcp.go:120] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
   - To learn more, consult https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
   - deployment.apps/auth-depl created
-  - service/auth-clusterip-srv created
+  - service/auth-srv created
   ...
   [auth] [INFO] 14:21:40 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.1, typescript ver. 4.7.3)
   [auth] Listening on port 3000!!!!!!!! 
