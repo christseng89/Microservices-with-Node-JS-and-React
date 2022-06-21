@@ -18,3 +18,6 @@ npm i mongoose
 2. Hash password
 3. Save DB
 4. Send back JWT to login
+
+08-154. Type Checking User Properties 
+new User() => buildUser() via interface (UserAttrs);
