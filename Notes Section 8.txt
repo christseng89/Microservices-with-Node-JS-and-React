@@ -60,3 +60,31 @@ const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
     collection?: string,
     options?: CompileModelOptions
   ): U;
+
+08-158. User Creation
+// user.ts
+userSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
+};
+
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+
+// signup.ts
+    // 1. Check user exist or not
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.log ('Email in use');
+      throw new Error ('Email in use');
+      res.send({});
+    }
+
+    // 2. Hash password
+    // 3. Save user to DB
+    const user = User.build({ email, password });
+    await user.save();
+
+    res.status(201).send(user);
+    // 4. Return token
+    // throw new DatabaseConnectionError(); 
+  }
+  

@@ -30,11 +30,11 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 });
-
-const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
+
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 // New User Example ...
 // const user = {
@@ -46,4 +46,3 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 // console.log(new User(user));
 
 export { User };
-
