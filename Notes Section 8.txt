@@ -21,3 +21,18 @@ npm i mongoose
 
 08-154. Type Checking User Properties 
 new User() => buildUser() via interface (UserAttrs);
+
+08-155. Adding Static Properties to a Model
+### user.ts
+// An interface that describes the properties
+// that a User Model has
+interface UserModel extends mongoose.Model<any> {
+  build(attrs: UserAttrs): any;
+}
+...
+const User = mongoose.model<any, UserModel>('User', userSchema); ***
+userSchema.statics.build = (attrs: UserAttrs) => { ***
+  return new User(attrs);
+};
+
+export { User };
