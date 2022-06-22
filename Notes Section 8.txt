@@ -87,4 +87,6 @@ const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
     // 4. Return token
     // throw new DatabaseConnectionError(); 
   }
-  
+
+  08-162. Adding Password Hashing & 163. Comparing Hashed Password
+  // password.ts (new)
