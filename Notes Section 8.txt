@@ -88,5 +88,25 @@ const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
     // throw new DatabaseConnectionError(); 
   }
 
-  08-162. Adding Password Hashing & 163. Comparing Hashed Password
-  // password.ts (new)
+08-162. Adding Password Hashing & 163. Comparing Hashed Password
+// password.ts (new)
+
+08-164. Mongoose Pre-Save Hooks
+// user.ts
+userSchema.pre('save', async function(done) {
+  if (this.isModified('password')) {
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+  done();
+});
+
+### Postman (signup)
+  {
+      "email": "test1@test.com",
+      "password": "cb05e5bccd61666b790a48d68188400b1e69fe9bd8203d8689de759e2566ed4eeb050c355ac26bca71906f6b78ba80e09f3d56b086a513d3915503f91df8e138.797addbd2f66b009",
+      "_id": "62b2a71e17c4b026204a174c",
+      "__v": 0
+  }
+
+### To be continued = JWT

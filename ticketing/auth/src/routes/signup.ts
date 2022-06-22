@@ -32,10 +32,11 @@ router.post(
     if (existingUser) {
       console.log ('Email in use');
       throw new Error ('Email in use');
-      res.send({});
     }
 
     // 2. Hash password
+    // as part of the models/user.ts
+    
     // 3. Save user to DB
     const user = User.build({ email, password });
     await user.save();
