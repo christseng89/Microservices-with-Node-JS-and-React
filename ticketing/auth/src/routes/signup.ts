@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
-// import { DatabaseConnectionError } from '../errors/database-connection-error';
+import jwt from 'jsonwebtoken';
+
 import { RequestValidationError } from '../errors/request-validation-error';
 import { User } from '../models/user';
 
@@ -34,16 +35,28 @@ router.post(
       throw new Error ('Email in use');
     }
 
-    // 2. Hash password
-    // as part of the models/user.ts
+    // 2. Hash password as part of the models/user.ts
     
     // 3. Save user to DB
     const user = User.build({ email, password });
     await user.save();
 
+    // Generate JWT
+    const userJwt = jwt.sign(
+      {
+        id: user.id,
+        email: user.email
+      },
+      'secret' // secret key
+    );
+
+    // Store it on session object
+    req.session = {
+      jwt: userJwt
+    };    
+
+    // 4. Return token    
     res.status(201).send(user);
-    // 4. Return token
-    // throw new DatabaseConnectionError(); 
   }
 );
 

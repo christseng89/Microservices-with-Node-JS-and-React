@@ -382,9 +382,18 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test4@test.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://ticketing.com/api/users/signup",
-							"protocol": "http",
+							"raw": "https://ticketing.com/api/users/signup",
+							"protocol": "https",
 							"host": [
 								"ticketing",
 								"com"
@@ -404,8 +413,8 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://ticketing.com/api/users/signin",
-							"protocol": "http",
+							"raw": "https://ticketing.com/api/users/signin",
+							"protocol": "https",
 							"host": [
 								"ticketing",
 								"com"
@@ -425,8 +434,8 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://ticketing.com/api/users/signout",
-							"protocol": "http",
+							"raw": "https://ticketing.com/api/users/signout",
+							"protocol": "https",
 							"host": [
 								"ticketing",
 								"com"
@@ -435,6 +444,57 @@
 								"api",
 								"users",
 								"signout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Not found GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ticketing.com/api/users/test",
+							"protocol": "https",
+							"host": [
+								"ticketing",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Not found POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ticketing.com/api/users/test",
+							"protocol": "https",
+							"host": [
+								"ticketing",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"test"
 							]
 						}
 					},

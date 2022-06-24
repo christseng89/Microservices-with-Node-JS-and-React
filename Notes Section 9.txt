@@ -2,8 +2,7 @@
 https://github.com/expressjs/cookie-session#readme
 
 cd ticketing\auth
-npm i cookie-session
-npm i @types/cookie-session
+npm i cookie-session @types/cookie-session
 
 // index.ts
 const app = express();
@@ -13,3 +12,35 @@ app.use(cookieSession({ ***
   signed: false,
   secure: true
 }));
+
+09-174. Generating a JWT
+https://github.com/auth0/node-jsonwebtoken
+npm i jsonwebtoken @types/jsonwebtoken
+
+// signup.ts
+    // 2. Hash password as part of the models/user.ts
+    
+    // 3. Save user to DB
+    const user = User.build({ email, password });
+    await user.save();
+
+    // Generate JWT
+    const userJwt = jwt.sign(
+      {
+        id: user.id,
+        email: user.email
+      },
+      'secret' // secret key
+    );
+
+    // Store it on session object
+    req.session = {
+      jwt: userJwt
+    };    
+
+    // 4. Return token   
+
+### Postman
+https://ticketing.com/api/users/signup
+
+// Looking for 'Cookies'
