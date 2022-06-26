@@ -44,3 +44,16 @@ npm i jsonwebtoken @types/jsonwebtoken
 https://ticketing.com/api/users/signup
 
 // Looking for 'Cookies'
+
+09-175. JWT Signing Keys
+https://www.base64decode.org/
+// Decode => {"jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjdlMjY3Nzg0ZTE4ZDdiZjMzZTgzNiIsImVtYWlsIjoidGVzdDhAdGVzdC5jb20iLCJpYXQiOjE2NTYyMTgyMTV9.Fyvnmcq6Lt0npWWsb_DrtvX-YppEAFFqm50tXUGK4M8"}7
+
+https://jwt.io/
+### VERIFY SIGNATURE => 'secret' in signup.ts
+// Payload 
+  {
+    "id": "62b7e267784e18d7bf33e836",
+    "email": "test8@test.com",
+    "iat": 1656218215
+  }
