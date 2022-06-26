@@ -121,3 +121,34 @@ const start = async () => {
     process.env.JWT_KEY! // secret key ***
   );
 ...
+
+09-180. Formatting JSON Properties
+// user.ts
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+}, ***
+{
+  toJSON: {
+    transform(_doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
+      delete ret.__v;
+    },
+  },
+});
+
+### Postman - Signup
+{
+    "email": "test9@test.com",
+    "id": "62b85f1990e24efad440e2e5"
+}
+
+// should be done in view instead of model...
