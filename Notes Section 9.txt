@@ -57,3 +57,46 @@ https://jwt.io/
     "email": "test8@test.com",
     "iat": 1656218215
   }
+
+09-177. Creating and Accessing Secrets
+https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/
+
+echo secret | base64       
+  c2VjcmV0IA0K
+
+kubectl apply -f auth-secret.yaml
+  secret/jwt-secret created
+
+kubectl edit secret jwt-secret
+  apiVersion: v1
+  data:
+    JWT_KEY: c2VjcmV0IA0K
+  kind: Secret
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"jwt":"c2VjcmV0IA0K"},"kind":"Secret","metadata":{"annotations":{},"name":"jwt-secret","namespace":"default"},"type":"Opaque"}
+    creationTimestamp: "2022-06-26T08:21:38Z"
+    name: jwt-secret
+    namespace: default
+    resourceVersion: "1257988"
+    uid: cedab9e1-3830-4dc0-8e26-d0ee7ae55225
+  type: Opaque
+
+https://www.base64decode.org/
+
+// auth-depl.yaml
+...
+spec:
+  containers:
+    - name: auth
+      # Google Cloud Build
+      image: christseng89/auth
+      # image: us.gcr.io/ticketing-com-353405/auth
+      env: #***
+        - name: JWT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_KEY
+              
