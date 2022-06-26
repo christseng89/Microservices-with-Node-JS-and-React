@@ -47,7 +47,8 @@ router.post(
         id: user.id,
         email: user.email
       },
-      'secret' // secret key
+      // 'secret' // secret key
+      process.env.JWT_KEY! // secret key
     );
 
     // Store it on session object

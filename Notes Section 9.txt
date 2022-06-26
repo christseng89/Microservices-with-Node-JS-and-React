@@ -99,4 +99,25 @@ spec:
             secretKeyRef:
               name: jwt-secret
               key: JWT_KEY
-              
+
+09-178. Accessing Env Variables in a Pod
+// index.ts
+const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY must be defined');
+  }
+  
+  try {
+
+// signup.ts
+...
+  // Generate JWT
+  const userJwt = jwt.sign(
+    {
+      id: user.id,
+      email: user.email
+    },
+    // 'secret' // secret key
+    process.env.JWT_KEY! // secret key ***
+  );
+...
