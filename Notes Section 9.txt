@@ -262,3 +262,18 @@ async (req: Request, res: Response) => {
 
   res.status(200).send({ currentUser: req.currentUser });
 });
+
+09-190. Requiring Auth for Route Access
+// not-authorized-error.ts (new Error)
+// require-auth.ts (new Middleware)
+// current-user.ts 
+router.get('/api/users/currentuser', 
+  currentUser,
+  requireAuth, ***
+  async (req: Request, res: Response) => {
+    if (!req.currentUser) {
+      return res.status(400).send({ currentUser: null });
+    }
+
+    res.status(200).send({ currentUser: req.currentUser });
+  });
