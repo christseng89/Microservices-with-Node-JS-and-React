@@ -1,9 +1,64 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+
+import { RequestValidationError } from '../errors/request-validation-error';
+import { User } from '../models/user';
+import { Password } from '../services/password';
 
 const router = express.Router();
+
 router.post('/api/users/signin', 
-async (req, res) => {
-  res.send("Hi Signin!");
+[
+  body('email')
+    .isEmail()
+    .withMessage('Email must be valid'),
+  body('password')
+    .trim()
+    .notEmpty()
+    .withMessage('Password is required')
+],
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+   throw new RequestValidationError(errors.array());
+  }
+  
+  const { email, password } = req.body;
+
+  // 1. Check user exist
+  const existingUser = await User.findOne({ email });
+  if (!existingUser) {
+    console.log ('Invalid credentials');
+    throw new Error ('Invalid credentials');
+  }
+
+  // 2. Compare password as part of the models/user.ts
+  const result = await Password.compare(existingUser.password, password);
+  if (!result) {
+    console.log ('Invalid credentials');
+    throw new Error ('Invalid credentials');
+  }
+  
+  // 3. Generate JWT
+  const user = User.build({ email, password });
+  const userJwt = jwt.sign(
+    {
+      id: user.id,
+      email: user.email
+    },
+    // 'secret' // secret key
+    process.env.JWT_KEY! // secret key
+  );
+
+  // Store JWT on session object
+  req.session = {
+    jwt: userJwt
+  };    
+
+  // 4. Return token    
+  res.status(201).send(user);  
+
 });
 
 export { router as signinRouter };
