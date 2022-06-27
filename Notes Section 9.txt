@@ -242,3 +242,10 @@ async (req: Request, res: Response) => {
     res.status(400).send({ currentUser: null });
   }
 });
+
+09-187. Signing Out
+// signout.ts
+async (req, res) => {
+  req.session = null;
+  res.status(200).send({ message: 'Signout success' });
+});
