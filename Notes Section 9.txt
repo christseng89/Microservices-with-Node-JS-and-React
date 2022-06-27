@@ -207,3 +207,21 @@ async (req: Request, res: Response) => {
   res.status(201).send(user);  
 
 });
+
+09-182. Common Request Validation Middleware
+// validation-request.ts (new)
+
+// signup.ts & signin.ts
+router.post('/api/users/signin', 
+[
+  body('email')
+    .isEmail()
+    .withMessage('Email must be valid'),
+  body('password')
+    .trim()
+    .notEmpty()
+    .withMessage('Password is required')
+],
+validateRequest, ***
+async (req: Request, res: Response) => {
+  const { email, password } = req.body;
