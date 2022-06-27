@@ -249,3 +249,16 @@ async (req, res) => {
   req.session = null;
   res.status(200).send({ message: 'Signout success' });
 });
+
+09-188. Creating a Current User Middleware & 189. Augmenting Type Definitions
+// current-user.ts (new Middleware)
+// current-user.ts (Route)
+router.get('/api/users/currentuser', 
+currentUser,
+async (req: Request, res: Response) => {
+  if (!req.currentUser) {
+    return res.status(400).send({ currentUser: null });
+  }
+
+  res.status(200).send({ currentUser: req.currentUser });
+});
