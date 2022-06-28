@@ -407,7 +407,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set('cookie-session', pm.cookies.get('session'))"
+									"pm.environment.unset('cookie-session');\r",
+									"\r",
+									"pm.test(\"Successful POST request\", () => {\r",
+									"  pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+									"  pm.environment.set('cookie-session', pm.cookies.get('session'));\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -418,7 +424,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test9@test.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -448,7 +454,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set('cookie-session', pm.cookies.get('session'))"
+									"pm.environment.unset('cookie-session');\r",
+									"\r",
+									"pm.test(\"Successful POST request\", () => {\r",
+									"  pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+									"  pm.environment.set('cookie-session', pm.cookies.get('session'));\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -459,7 +471,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test9@test.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

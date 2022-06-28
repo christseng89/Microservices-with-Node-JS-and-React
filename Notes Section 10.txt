@@ -74,4 +74,6 @@ it('sets a cookie after successful signup', async () => {
 
 it('delete cookie after unsuccessful signup', async () => {
   ...
-    
+
+10-202. Tests Around Sign In Functionality
+// signin.test.ts (new)
