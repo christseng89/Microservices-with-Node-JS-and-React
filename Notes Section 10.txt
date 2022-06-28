@@ -60,3 +60,18 @@ afterAll(async () => {
   await mongoose.connection.close();
   await mongo.stop();
 });
+
+10-201. Changing Node Env During Tests
+// app.ts
+app.use(cookieSession({
+  signed: false,
+  secure: process.env.NODE_ENV !== 'test' ***
+}));
+
+// signup.test.ts
+it('sets a cookie after successful signup', async () => {
+  ...
+
+it('delete cookie after unsuccessful signup', async () => {
+  ...
+    
