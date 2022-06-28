@@ -12,7 +12,7 @@ it('fails when a email that does not exist is supplied', async () => {
 });
 
 it('fails when an incorrect password is supplied', async () => {
-  const cookie = await signup();
+  const cookie = await global.signup();
   await request(app)
     .post('/api/users/signin')
     .send({
@@ -23,7 +23,7 @@ it('fails when an incorrect password is supplied', async () => {
 });
 
 it('responds with a cookie when given valid credentials', async () => {
-  const cookie = await signup();
+  const cookie = await global.signup();
   const response = await request(app)
     .post('/api/users/signin')
     .send({
@@ -36,7 +36,7 @@ it('responds with a cookie when given valid credentials', async () => {
 });
 
 it('responds no cookie when given invalid credentials', async () => {
-  await signup();
+  await global.signup();
   const response = await request(app)
     .post('/api/users/signin')
     .send({

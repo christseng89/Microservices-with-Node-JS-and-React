@@ -149,5 +149,5 @@ global.signup = async () => {
 }
 
 // current-user.test.ts signin.test.ts signout.test.ts signup.test.ts 
-const cookie = await signup(); *** OR
-await signup();
+const cookie = await global.signup(); *** OR
+await global.signup();
