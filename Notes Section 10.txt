@@ -123,3 +123,31 @@ it('responds without Cookie', async () => {
 // Return status 401 without Cookie
   signout.ts 
   current-user.ts
+
+10-207. Auth Helper Function
+// setup.ts
+import request from 'supertest'; ***
+import { app } from '../app';
+
+declare global { ***
+  var signup: () => Promise<string[]>;
+}
+...
+global.signup = async () => {
+  const email = 'test@test.com';
+  const password = 'password';
+
+  const response = await request(app)
+    .post('/api/users/signup')
+    .send({
+      email,
+      password,
+    })
+    .expect(201);
+
+  return response.get('Set-Cookie');
+}
+
+// current-user.test.ts signin.test.ts signout.test.ts signup.test.ts 
+const cookie = await signup(); *** OR
+await signup();
