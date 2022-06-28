@@ -10,6 +10,7 @@ export const validateRequest = (
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
+    req.session = null;
     throw new RequestValidationError(errors.array());
   }
 

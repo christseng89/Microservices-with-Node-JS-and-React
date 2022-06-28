@@ -36,3 +36,18 @@ COPY . .
   "keywords": [],
 
 ### Close VSC and Re-open VSC / solve issue typescript not recognizing beforeAll/Each afterAll
+
+10-197. Our First Test
+// test/setup.ts
+beforeAll(async () => {
+  process.env.JWT_KEY = 'abcdef'; ***
+  mongo = await MongoMemoryServer.create(); ***
+  const mongoUri = mongo.getUri(); ***
+  
+  await mongoose.connect(mongoUri, {});
+});
+
+// __test__/signup.test.ts (new)
+
+cd ticketing\auth
+npm run test
