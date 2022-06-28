@@ -9,7 +9,7 @@ beforeAll(async () => {
   process.env.JWT_KEY = 'abcdef';
   mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
-  
+
   await mongoose.connect(mongoUri, {});
 });
 
@@ -24,6 +24,6 @@ beforeEach(async () => {
 
 // Stop mongo server after all tests
 afterAll(async () => {
-  await mongo.stop();
   await mongoose.connection.close();
+  await mongo.stop();
 });

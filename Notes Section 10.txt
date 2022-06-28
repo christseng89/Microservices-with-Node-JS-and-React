@@ -51,3 +51,12 @@ beforeAll(async () => {
 
 cd ticketing\auth
 npm run test
+
+10-199. Testing Invalid Input & Unique email
+// signup.test.ts
+
+// setup.ts
+afterAll(async () => {
+  await mongoose.connection.close();
+  await mongo.stop();
+});
