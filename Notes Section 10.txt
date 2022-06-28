@@ -1,0 +1,12 @@
+10-194. Index to App Refactor
+// app.ts (new)
+// index.js
+import mongoose from 'mongoose';
+import { app } from './app';
+
+const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY must be defined');
+  }
+...
+  
