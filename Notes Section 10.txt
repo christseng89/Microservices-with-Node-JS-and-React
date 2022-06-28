@@ -9,4 +9,13 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined');
   }
 ...
-  
+
+10-195. A Few Dependencies
+cd ticketing\auth
+
+// Dockerfile
+...
+COPY package.json .
+RUN npm install --only=prod ***
+COPY . .
+...
