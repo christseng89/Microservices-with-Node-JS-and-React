@@ -26,6 +26,7 @@ async (req: Request, res: Response) => {
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
     console.log ('Invalid credentials');
+    req.session = null;
     throw new Error ('Invalid credentials');
   }
 
@@ -33,6 +34,7 @@ async (req: Request, res: Response) => {
   const result = await Password.compare(existingUser.password, password);
   if (!result) {
     console.log ('Invalid credentials');
+    req.session = null;
     throw new Error ('Invalid credentials');
   }
   

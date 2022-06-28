@@ -19,3 +19,20 @@ COPY package.json .
 RUN npm install --only=prod ***
 COPY . .
 ...
+
+10-196. Test Environment Setup
+// package.json
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "test": "jest --watchAll --no-cache" ***
+  },
+  "jest": { ***
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+  },
+  "keywords": [],
+
+### Close VSC and Re-open VSC / solve issue typescript not recognizing beforeAll/Each afterAll
