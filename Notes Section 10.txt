@@ -87,3 +87,39 @@ router.post('/api/users/signout', async (req, res) => {
   if (!req.session?.jwt) {
     return res.status(200).send({ currentUser: null }); ***
   }
+
+10-204. Issues with Cookies During Current User Testing & 205. Easy Auth Solution
+// current-user.test.ts (new)
+it('responds with details about the current user', async () => {
+  const authRes = await request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'test@test.com',
+      password: 'password'
+    })
+    .expect(201);
+
+  const cookie = authRes.get('Set-Cookie');  
+  const response = await request(app)
+    .get('/api/users/currentuser')
+    .set('Cookie', cookie)
+    .send()
+    .expect(200);
+
+  // console.log(response.body);
+});
+
+it('responds without Cookie', async () => {
+  await request(app)
+    .get('/api/users/currentuser')
+    .send()
+    .expect(401);
+
+});
+
+// Fix Bug (to get Cookie)
+  signout.test.ts
+
+// Return status 401 without Cookie
+  signout.ts 
+  current-user.ts
