@@ -77,3 +77,13 @@ it('delete cookie after unsuccessful signup', async () => {
 
 10-202. Tests Around Sign In Functionality
 // signin.test.ts (new)
+
+10-203. Testing Sign Out
+// signout.test.ts (new)
+
+// signout.ts
+router.post('/api/users/signout', async (req, res) => {
+  // 1. Check if there is a JWT in the session object
+  if (!req.session?.jwt) {
+    return res.status(200).send({ currentUser: null }); ***
+  }
