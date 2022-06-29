@@ -19,4 +19,4 @@ http://localhost:3000/
 http://localhost:3000/banana
 
 11-213. Building a Next Image
-minikube ssh
+minikube image build -t christseng89/ticketing .
