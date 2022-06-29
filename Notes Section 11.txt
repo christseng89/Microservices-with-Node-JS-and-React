@@ -17,3 +17,6 @@ npm run dev
 ### Browser
 http://localhost:3000/
 http://localhost:3000/banana
+
+11-213. Building a Next Image
+minikube ssh
