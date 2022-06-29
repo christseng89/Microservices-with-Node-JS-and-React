@@ -1,0 +1,19 @@
+11-212. Basics of Next JS
+cd ticketing
+md client
+cd client
+npm init -y
+npm i react react-dom react-scripts next
+
+// package.json
+...
+  "scripts": {
+    "dev": "next"
+  },
+...
+  
+npm run dev
+
+### Browser
+http://localhost:3000/
+http://localhost:3000/banana
