@@ -19,4 +19,53 @@ http://localhost:3000/
 http://localhost:3000/banana
 
 11-213. Building a Next Image
-minikube image build -t christseng89/ticketing .
+cd ticketing\client
+minikube image build -t christseng89/ticketing-client .
+
+11-214. Running Next Client in Kubernetes
+// client-depl.yaml (new)
+
+// ingress-srv.yaml
+  ...
+  - path: /?(.*)
+    pathType: Prefix
+    backend:
+      service:
+        name: client-srv
+        port:
+          number: 3000
+
+// skaffold.yaml
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+    - image: christseng89/ticketing-client #***
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
+deploy:          
+...
+
+cd ticketing
+skaffold dev
+
+### Browser
+http://ticketing.com/
+http://ticketing.com/banana
+
+kubectl get po
+  NAME                               READY   STATUS    RESTARTS   AGE
+  auth-depl-64ff664fdb-6t6xm         1/1     Running   0          4m14s
+  auth-mongo-depl-78b9c78f44-qvzjv   1/1     Running   0          4m14s
+  client-depl-8947c4cdb-74dl8        1/1     Running   0          4m14s
+
+kubectl get svc
+  NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE
+  auth-mongo-srv   ClusterIP   10.106.187.33   <none>        27017/TCP   8d
+  auth-srv         ClusterIP   10.100.67.200   <none>        3000/TCP    8d
+  client-srv       ClusterIP   10.106.68.83    <none>        3000/TCP    4m35s
+  kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP     22d

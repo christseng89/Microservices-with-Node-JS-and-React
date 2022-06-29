@@ -12,6 +12,14 @@ build:
       context: auth
       docker:
         dockerfile: Dockerfile
+    - image: christseng89/ticketing-client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
 deploy:
   kubectl:
     manifests:
