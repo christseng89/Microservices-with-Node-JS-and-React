@@ -86,3 +86,9 @@ npm i bootstrap
 
 ### Browser
 http://ticketing.com/auth/signup
+
+11-218. Handling Email and Password Inputs
+// auth\signup.js (update)
+
+### Browser => Developer Tools => Console
+http://ticketing.com/auth/signup
