@@ -72,3 +72,11 @@ kubectl get svc
 
 11-215. Note on File Change Detection
 // next.config.js (new) ## Solve the change detection issue of next
+
+11-216. Adding Global CSS for Next
+github.com/vercel/next.js/blob/canary/errors/css-global.md
+
+cd ticketing\client
+npm i bootstrap
+
+// _app.js (new)
