@@ -80,3 +80,9 @@ cd ticketing\client
 npm i bootstrap
 
 // _app.js (new)
+
+11-217. Adding a Sign Up Form
+// auth\signup.js (new)
+
+### Browser
+http://ticketing.com/auth/signup
