@@ -69,3 +69,6 @@ kubectl get svc
   auth-srv         ClusterIP   10.100.67.200   <none>        3000/TCP    8d
   client-srv       ClusterIP   10.106.68.83    <none>        3000/TCP    4m35s
   kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP     22d
+
+11-215. Note on File Change Detection
+// next.config.js (new) ## Solve the change detection issue of next
