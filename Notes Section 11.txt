@@ -92,3 +92,52 @@ http://ticketing.com/auth/signup
 
 ### Browser => Developer Tools => Console
 http://ticketing.com/auth/signup
+
+11-219. Successful Account Signup & 220. Handling Validation Errors
+npm i axios
+
+...
+import axios from 'axios';
+
+export default () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('/api/users/signup', {
+        email,
+        password,
+      });
+      console.log(response.data);
+    } catch (err) {
+      setErrors(err.response.data.errors);
+    }
+  };
+...
+
+      className="form-control"
+    />
+  </div>  
+  <br/> ***
+  {errors.length > 0 && (
+    <div className="alert alert-danger">
+      <h4>Errors:</h4>
+      <ul className="my-0">
+        {errors.map(err => (
+          <li key={err.message}>{err.message}</li>
+        ))}
+      </ul>
+      <br/>    
+    </div>
+  )} ***
+  <button className="btn btn-primary">Sign Up</button>
+
+### Browser
+https://ticketing.com/auth/signup
+
+// Developer Tools => Network => singup (201) => Response Headers (set-cookie)
+   session=eyJqd3QiOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJall5WW1RMVpHSmlOekZqTVRJellqWTRaRFZpTlRaa09TSXNJbVZ0WVdsc0lqb2lkR1Z6ZERkQWRHVnpkQzVqYjIwaUxDSnBZWFFpT2pFMk5UWTFOemMwTmpkOS50cWdhVUZoZU42VjU1NzdyLXpjRk1VR2dKdXNnM1BmZFFUM3lpR1RmN2RrIn0=; path=/; secure; httponly
