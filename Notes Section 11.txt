@@ -141,3 +141,6 @@ https://ticketing.com/auth/signup
 
 // Developer Tools => Network => singup (201) => Response Headers (set-cookie)
    session=eyJqd3QiOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJall5WW1RMVpHSmlOekZqTVRJellqWTRaRFZpTlRaa09TSXNJbVZ0WVdsc0lqb2lkR1Z6ZERkQWRHVnpkQzVqYjIwaUxDSnBZWFFpT2pFMk5UWTFOemMwTmpkOS50cWdhVUZoZU42VjU1NzdyLXpjRk1VR2dKdXNnM1BmZFFUM3lpR1RmN2RrIn0=; path=/; secure; httponly
+
+11-221. The useRequest Hook
+// hook\use-request.js (new)
