@@ -5,7 +5,9 @@ export default ({url, method, body}) => {
   const [errors, setErrors] = useState([]);
   const doRequest = async () => {
     try {
+      setErrors([]);
       const response = await axios[method](url, body);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       setErrors(
@@ -21,4 +23,6 @@ export default ({url, method, body}) => {
       );
     }
   };
+
+  return { doRequest, errors };
 };
