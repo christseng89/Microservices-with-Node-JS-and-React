@@ -239,3 +239,15 @@ const LandingPage = ({ currentUser }) => {
 
 ### Browser => Network => currentuser (200)
 // Signup user, then load first page, still having problem here...
+
+11-230. Cross Namespace Service Communication
+kubectl get svc -n ingress-nginx
+  NAME                                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+  ingress-nginx-controller             NodePort    10.111.188.46   <none>        80:30448/TCP,443:30908/TCP   20d
+  ingress-nginx-controller-admission   ClusterIP   10.109.55.251   <none>        443/TCP                      20d
+
+<serviceName>.<namespaceName>.svc.cluster.local
+http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
+
+// External Name Service => http://ingress-nginx-srv 
+   http://ingress-nginx-controller.ingress-nginx.svc.cluster.local
