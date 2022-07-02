@@ -251,3 +251,7 @@ http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/curren
 
 // External Name Service => http://ingress-nginx-srv 
    http://ingress-nginx-controller.ingress-nginx.svc.cluster.local
+
+// Browser
+https://ticketing.com
+https://ticketing.com/auth/signup
