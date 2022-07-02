@@ -297,3 +297,20 @@ LandingPage.getInitialProps = async () => {
     }
   }
 };
+
+11-235. Passing Through the Cookies
+// index.js
+LandingPage.getInitialProps = async ({ req }) => { ***
+  if (typeof window === 'undefined') {
+    // we are on the server!
+    // requests should be made to http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
+    try {
+      const { data } = await axios.get(
+        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser',
+        {
+          headers: req.headers, ***
+        }
+      );
+      return data;
+...
+      
