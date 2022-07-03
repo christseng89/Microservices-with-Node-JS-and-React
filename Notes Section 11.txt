@@ -332,3 +332,13 @@ LandingPage.getInitialProps = async (req) => {
 ### Browser 
 - Chrome (with Signup)
 - Edge (without Signup)
+
+11-237. Content on the Landing Page
+// index.js
+const LandingPage = ({ currentUser }) => {
+  console.log('Current user is: ', currentUser);
+  return currentUser ? <h1>You are signed in.</h1> : <h1>You are NOT signed in.</h1>;
+};
+
+// Browser 
+   Not signed in => Application => Cookie (delete)
