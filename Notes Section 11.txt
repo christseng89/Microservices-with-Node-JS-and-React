@@ -393,10 +393,15 @@ AppComponent.getInitialProps = async (req) => {
 
 11-242. Handling Multiple GetInitialProps & 243. Passing Props Through
 // _app.js
-const AppComponent = ({ Component, pageProps, currentUser }) => { ***
+const AppComponent = ({ Component, pageProps, currentUser }) => {
+  let userInfo = '';
+  if (currentUser) {
+    userInfo = 'Current User: ' + currentUser.email;
+  }
+
   return (
     <div>
-      <h1>Header! Current User: {currentUser.email}</h1> ***
+      <h1>Header! {userInfo}</h1>
       <Component {...pageProps} />
     </div>
   );

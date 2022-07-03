@@ -2,9 +2,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import buildClient from '../api/build-client';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
+  let userInfo = '';
+  if (currentUser) {
+    userInfo = 'Current User: ' + currentUser.email;
+  }
+
   return (
     <div>
-      <h1>Header! Current User: {currentUser.email}</h1>
+      <h1>Header! {userInfo}</h1>
       <Component {...pageProps} />
     </div>
   );
