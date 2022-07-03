@@ -474,3 +474,6 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
       <Header currentUser={currentUser} />
+
+11-246. Signing Out
+// signout.js (new)
