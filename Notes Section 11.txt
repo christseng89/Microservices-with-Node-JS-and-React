@@ -313,4 +313,22 @@ LandingPage.getInitialProps = async ({ req }) => { ***
       );
       return data;
 ...
-      
+
+11-236. A Reusable API Client
+// api\build-client.js (new)
+// index.js
+...
+LandingPage.getInitialProps = async (req) => {
+  const client = buildClient(req);
+  try {
+    const { data } = await client.get('/api/users/currentuser');
+    return data;   
+  } catch (error) {
+    return {};
+  }
+};
+...
+
+### Browser 
+- Chrome (with Signup)
+- Edge (without Signup)
