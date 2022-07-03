@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import buildClient from '../api/build-client';
 
-const AppComponent = ({ Component, pageProps }) => {
+const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-      <h1>Header!</h1>
+      <h1>Header! Current User: {currentUser.email}</h1>
       <Component {...pageProps} />
     </div>
   );
@@ -12,18 +12,17 @@ const AppComponent = ({ Component, pageProps }) => {
 
 AppComponent.getInitialProps = async (req) => {
   const client = buildClient(req.ctx);
-  console.log(Object.keys(req)); // [ 'AppTree', 'Component', 'router', 'ctx' ]
+  // console.log(Object.keys(req)); // [ 'AppTree', 'Component', 'router', 'ctx' ]
   try {
     const { data } = await client.get('/api/users/currentuser');
-    console.log('Data in App.js :', data);
-    // [client] Data in App.js : {
-    // [client]   currentUser: {
-    // [client]     id: '62c1451c26b9d6b6556614fa',
-    // [client]     email: 'test@test.com',
-    // [client]     iat: 1656833308
-    // [client]   }
-    // [client] }
-    return data; 
+
+    // pageProps is an object that will be passed to the component
+    let pageProps = {};
+    if (req.Component.getInitialProps) {
+      pageProps = await req.Component.getInitialProps(req.ctx);
+      // console.log('Page Props :', pageProps); 
+    }
+    return {pageProps, ...data};
   } catch (error) {
     return {};
   }
