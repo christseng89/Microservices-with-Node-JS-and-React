@@ -3,11 +3,6 @@ import buildClient from '../api/build-client';
 import Header from '../components/header';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
-  let userInfo = '';
-  if (currentUser) {
-    userInfo = 'Current User: ' + currentUser.email;
-  }
-
   return (
     <div>
       <Header currentUser={currentUser} />
