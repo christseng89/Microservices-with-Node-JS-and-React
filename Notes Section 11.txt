@@ -424,3 +424,19 @@ AppComponent.getInitialProps = async (req) => {
     return {};
   }
 };
+
+11-244. Building the Header
+// components\header.js (new)
+// _app.js
+...
+import Header from '../components/header';
+
+const AppComponent = ({ Component, pageProps, currentUser }) => {
+  ...
+  return (
+    <div>
+      <Header currentUser={currentUser} /> ***
+      <Component {...pageProps} />
+    </div>
+  );
+};
