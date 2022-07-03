@@ -342,3 +342,10 @@ const LandingPage = ({ currentUser }) => {
 
 // Browser 
    Not signed in => Application => Cookie (delete)
+
+11-238. The Sign In Form
+// signin.js (new, copy from signup.js and modify) 
+// banana.js (delete)
+
+### Browser
+https://ticketing.com/auth/signin
