@@ -17,3 +17,32 @@ cd tickets
 npm i --force
 
 minikube image build -t christseng89/tickets .
+minikube ssh
+docker login
+docker push christseng89/tickets
+exit
+
+12-261. Running the Ticket Service
+### Test
+cd ticketing\k8s
+kubectl apply -f auth-secret.yaml
+kubectl apply -f tickets-depl.yaml 
+kubectl apply -f tickets-mongo-depl.yaml
+
+cd ..
+skaffold dev
+
+kubectl get po
+  NAME                                 READY   STATUS    RESTARTS   AGE
+  auth-depl-79d9d89565-4dcxd           1/1     Running   0          2m50s
+  auth-mongo-depl-6cdd7d4bbc-h27lw     1/1     Running   0          2m50s
+  client-depl-84d88b677-v89wf          1/1     Running   0          2m50s
+  tickets-depl-54f8b47c4d-9zd77        1/1     Running   0          2m50s
+  tickets-mongo-depl-6df97b9f5-czjnq   1/1     Running   0          2m50s
+
+kubectl get svc | grep srv
+  auth-mongo-srv      ClusterIP   10.96.2.66       <none>        27017/TCP   3m50s
+  auth-srv            ClusterIP   10.110.43.40     <none>        3000/TCP    3m51s
+  client-srv          ClusterIP   10.97.89.114     <none>        3000/TCP    3m50s
+  tickets-mongo-srv   ClusterIP   10.101.203.214   <none>        27017/TCP   4m52s
+  tickets-srv         ClusterIP   10.96.134.70     <none>        3000/TCP    6m13s
