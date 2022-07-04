@@ -109,3 +109,24 @@ skaffold dev
 // new.test.ts (new)
 cd ticketing\tickets
 npm run test
+
+12-265. Create Ticket Router
+// new.ts (new)
+// app.ts
+import { createTicketRouter } from './routes/new';
+
+const app = express();
+...
+app.use(createTicketRouter);
+
+app.all("*", async () => {
+...
+
+// new.test.ts
+it('has a route handler listening to /api/tickets for post requests', async () => {
+  const response = await request(app)
+    .post('/api/tickets')
+    .send({});
+
+  expect(response.status).toEqual(201);
+});
