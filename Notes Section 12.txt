@@ -46,3 +46,22 @@ kubectl get svc | grep srv
   client-srv          ClusterIP   10.97.89.114     <none>        3000/TCP    3m50s
   tickets-mongo-srv   ClusterIP   10.101.203.214   <none>        27017/TCP   4m52s
   tickets-srv         ClusterIP   10.96.134.70     <none>        3000/TCP    6m13s
+
+// skaffold.yaml
+  ...
+      dockerfile: Dockerfile
+  - image: christseng89/tickets
+    # - image: us.gcr.io/ticketing-com-353405/tickets
+    context: tickets
+    docker:
+      dockerfile: Dockerfile
+    sync:
+  ...
+
+skaffold dev
+  ...
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+  ...
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!

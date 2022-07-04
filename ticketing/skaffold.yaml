@@ -16,6 +16,11 @@ build:
       context: client
       docker:
         dockerfile: Dockerfile
+    - image: christseng89/tickets
+      # - image: us.gcr.io/ticketing-com-353405/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
       sync:
         manual:
           - src: '**/*.js'
