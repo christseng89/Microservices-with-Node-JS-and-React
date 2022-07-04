@@ -1,0 +1,19 @@
+12-259. Project Setup
+cd ticketing\auth
+npm i @cygnetops/common
+// app.ts
+...
+import 'express-async-errors';
+import cookieSession from 'cookie-session';
+import { errorHandler, NotFoundError } from '@cygnetops/common'; ***
+
+import { currentUserRouter } from './routes/current-user';
+...
+
+cd ..
+md tickets
+cd tickets
+// copy files from ticketing\auth to ticketing\tickets
+npm i --force
+
+minikube image build -t christseng89/tickets .
