@@ -116,3 +116,8 @@ npm run pub
   ...
   npm notice
   + @chinasystems/common@1.0.2
+
+12-255. Relocating Shared Code
+npm i express express-validator cookie-session jsonwebtoken @types/cookie-session @types/jsonwebtoken
+tsc
+npm run pub
