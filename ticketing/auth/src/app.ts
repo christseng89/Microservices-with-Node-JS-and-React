@@ -2,7 +2,8 @@ import { json } from "body-parser";
 import express from "express";
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@cygnetops/common';
+
+import { errorHandler, NotFoundError } from '@chinasystems/common';
 
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';

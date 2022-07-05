@@ -121,3 +121,31 @@ npm run pub
 npm i express express-validator cookie-session jsonwebtoken @types/cookie-session @types/jsonwebtoken
 tsc
 npm run pub
+
+12-256. Updating Import Statements
+cd ticketing\auth\src
+rd middlewares /s
+rd errors /s
+
+cd ..
+npm i @chinasystems/common
+
+// Update app.ts, current-user.ts, signin.ts and signup.ts with @chinasystems/common
+
+skaffold dev
+  ...
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!
+
+### Browser
+https://ticketing.com
+
+// Bugfix client
+// signout.js
+  useEffect(() => { doRequest(); }, []); ***
+  return <div>Signing you out...</div>;
+
+### Test
+npm run test

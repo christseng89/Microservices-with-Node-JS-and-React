@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { User } from '../models/user';
 import { Password } from '../services/password';
-import { validateRequest } from '../middlewares/validate-request';
+import { validateRequest } from '@chinasystems/common';
 
 const router = express.Router();
 
