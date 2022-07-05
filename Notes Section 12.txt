@@ -68,3 +68,51 @@ npm run build
 cd build
 node index.js
  { red: 10, blue: 10, green: 10 }
+
+12-254. An Easy Publish Command
+// package.json
+  "description": "",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],  
+
+// index.ts
+...
+console.log(color);
+
+export default color;***
+
+npm version patch
+  v1.0.1
+  npm ru`n build
+  npm publish
+  npm notice 
+  npm notice 📦  @chinasystems/common@1.0.1
+  npm notice === Tarball Contents ===
+  npm notice 131B build/index.d.ts
+  npm notice 189B build/index.js
+  npm notice 461B package.json
+  npm notice === Tarball Details ===
+  npm notice name:          @chinasystems/common
+  npm notice version:       1.0.1
+  npm notice filename:      @chinasystems/common-1.0.1.tgz
+  npm notice package size:  570 B
+  npm notice unpacked size: 781 B
+  npm notice shasum:        c583b66ee8d416298112ad54d566234f472e5073
+  npm notice integrity:     sha512-rBd54b+9haWbu[...]UaW4eOlTWkIqQ==
+  npm notice total files:   3
+  npm notice
+  + @chi`nasystems/common@1.0.1 ***
+
+// package.json
+    ...
+    "build": "npm run clean && tsc",
+    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
+  },  
+
+npm run pub
+  ...
+  npm notice
+  + @chinasystems/common@1.0.2
