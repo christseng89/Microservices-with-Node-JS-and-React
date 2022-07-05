@@ -149,3 +149,26 @@ https://ticketing.com
 
 ### Test
 npm run test
+
+12-257. Updating the Common Module
+cd ticketing\common
+npm run pub
+
+npm update @chinasystems/common
+
+kubectl get po
+  NAME                                  READY   STATUS    RESTARTS   AGE
+  auth-depl-c6d84dc4f-vp5cc             1/1     Running   0          20m
+  auth-mongo-depl-657d4fd5cd-4klmk      1/1     Running   0          20m
+  client-depl-648bc49cfc-5rqdh          1/1     Running   0          20m
+  tickets-depl-55cb8fd864-9kg46         1/1     Running   0          20m
+  tickets-mongo-depl-679d649b96-phpmt   1/1     Running   0          20m
+
+kubectl exec -it auth-depl-c6d84dc4f-vp5cc sh
+  ls
+    Dockerfile         package-lock.json  src
+    node_modules       package.json       tsconfig.json
+  cat package.json | grep @chinasystems
+    "@chinasystems/common": "^1.0.4",
+  exit
+  
