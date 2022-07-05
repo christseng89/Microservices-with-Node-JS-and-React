@@ -3,3 +3,38 @@ https://www.npmjs.com/ => + Add Organization
 https://www.npmjs.com/settings/chinasystems/members
 
 // christseng89/tnnn0#Xxxxx
+
+12-251. Publishing NPM Modules
+md ticketing\common
+cd ticketing\common
+npm init -y
+
+// package.json
+{
+  "name": "@chinasystems/common", ***
+  "version": "1.0.0",
+  "description": "",
+  ...
+
+git init
+git add .
+git commit -m "Initial commit"
+
+npm login
+npm publish --access public
+  npm notice 
+  npm notice 📦  @chinasystems/common@1.0.0
+  npm notice === Tarball Contents ===
+  npm notice 233B package.json
+  npm notice === Tarball Details ===
+  npm notice name:          @chinasystems/common
+  npm notice version:       1.0.0
+  npm notice filename:      @chinasystems/common-1.0.0.tgz
+  npm notice package size:  257 B
+  npm notice unpacked size: 233 B
+  npm notice shasum:        f2f61dd5cc3e1f78cc8446cc1c4e09bc8256370e
+  npm notice integrity:     sha512-vkiMWFvZFqNC6[...]Hr5UDSne5zF0A==
+  npm notice total files:   1
+  npm notice
+  + @chinasystems/common@1.0.0
+  
