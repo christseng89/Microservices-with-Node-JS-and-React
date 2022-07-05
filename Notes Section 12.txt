@@ -37,4 +37,34 @@ npm publish --access public
   npm notice total files:   1
   npm notice
   + @chinasystems/common@1.0.0
-  
+
+12-252. Common Project Setup
+cd ticketing\common
+tsc --init
+  message TS6071: Successfully created a tsconfig.json file.
+
+npm i --save-dev typescript del-cli
+
+// package.json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "del-cli .build/*",
+    "build": "npm run clean && tsc"
+  },
+
+// tsconfig.json
+  /* Emit */
+  "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+  // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
+  // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
+  // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
+  // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. */
+  "outDir": "./build",                                 /* Specify an output folder for all emitted files. */
+  // "removeComments": true,
+
+### Test
+npm run clean
+npm run build
+cd build
+node index.js
+ { red: 10, blue: 10, green: 10 }
