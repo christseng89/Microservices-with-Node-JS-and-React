@@ -1,3 +1,9 @@
+13-258. Ticketing Service Overview
+// api/tickets      GET   get all tickets
+// api/tickets/:id  GET   get ticket by id
+// api/tickets      POST  create ticket         { title, price }
+// api/tickets/:id  PUT   update ticket by id   { title, price }
+
 13-259. Project Setup
 cd ticketing\auth
 npm i @chinasystems/common
