@@ -127,3 +127,31 @@ it('has a route handler listening to /api/tickets for post requests', async () =
 
   expect(response.status).toEqual(201);
 });
+
+13-266. Adding Auth Protection
+// app.ts
+import { errorHandler, NotFoundError, currentUser } from '@chinasystems/common'; ***
+...
+app.use(cookieSession({
+  signed: false,
+  secure: process.env.NODE_ENV !== 'test'
+}));
+
+app.use(currentUser); ***
+app.use(createTicketRouter);
+...
+
+// new.ts
+import { requireAuth } from '@chinasystems/common'; ***
+
+const router = express.Router();
+router.post(
+  '/api/tickets',
+  requireAuth,  *** // middleware
+  async (_req: Request, res: Response) => {
+    res.status(201).send({});
+  }
+);
+
+// new.test.ts
+...

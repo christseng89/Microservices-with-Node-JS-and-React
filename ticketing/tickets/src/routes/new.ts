@@ -1,8 +1,11 @@
 import express, { Request, Response } from 'express';
 
+import { requireAuth } from '@chinasystems/common';
+
 const router = express.Router();
 router.post(
   '/api/tickets',
+  requireAuth, 
   async (_req: Request, res: Response) => {
     res.status(201).send({});
   }
