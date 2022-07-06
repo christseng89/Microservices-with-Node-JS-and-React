@@ -4,7 +4,15 @@ import mongoose from 'mongoose';
 // that are requried to create a new Ticket
 interface TicketAttrs {
   title: string;
-  price: string;
+  price: number;
+  userId: string;
+}
+
+// An interface that describes the properties
+// that a Ticket Document has
+interface TicketDoc extends mongoose.Document {
+  title: string;
+  price: number;
   userId: string;
 }
 
@@ -14,21 +22,13 @@ interface TicketModel extends mongoose.Model<TicketDoc> {
   build(attrs: TicketAttrs): TicketDoc;
 }
 
-// An interface that describes the properties
-// that a Ticket Document has
-interface TicketDoc extends mongoose.Document {
-  title: string;
-  price: string;
-  userId: string;
-}
-
 const ticketSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
   price: {
-    type: String,
+    type: Number,
     required: true
   },
   userId: {
@@ -41,7 +41,6 @@ const ticketSchema = new mongoose.Schema({
     transform(_doc, ret) {
       ret.id = ret._id;
       delete ret._id;
-      delete ret.price;
       delete ret.__v;
     },
   },
