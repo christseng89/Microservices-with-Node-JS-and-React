@@ -281,3 +281,6 @@ it('returns an error if an invalid price is provided', async () => {
     .expect(400);
 });
 ...
+
+13-271. Reminder on Mongoose with TypeScript & 272. Defining the Ticket Model
+// ticket.ts (Mongoosee model)
