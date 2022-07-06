@@ -5,28 +5,16 @@
 // api/tickets/:id  PUT   update ticket by id   { title, price }
 
 13-259. Project Setup
-cd ticketing\auth
-npm i @chinasystems/common
-// app.ts
-...
-import 'express-async-errors';
-import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@chinasystems/common'; ***
-
-import { currentUserRouter } from './routes/current-user';
-...
-
 cd ..
 md tickets
 cd tickets
-// copy files from ticketing\auth to ticketing\tickets
-npm i --force
+// copy files/folder from ticketing\auth to ticketing\tickets
+files => .dockerignore Dockerfile package.json tsconfig.json src\index.ts src\app.ts 
+folder = > test\*.*
 
-minikube image build -t christseng89/tickets .
-minikube ssh
-docker login
-docker push christseng89/tickets
-exit
+// auth => tickets
+// modify non-existing errors if any (app.ts)
+npm i --force
 
 13-261. Running the Ticket Service
 // tickets-depl.yaml tickets-mongo-depl.yaml (new)
