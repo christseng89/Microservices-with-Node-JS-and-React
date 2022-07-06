@@ -22,13 +22,51 @@ it('returns a status 201 if the user is signed in', async () => {
   const response = await request(app)
     .post('/api/tickets')
     .set('Cookie', cookie)
-    .send({});
+    .send({
+      title: 'asldkjf',
+      price: 10,
+    });
  
   expect(response.status).toEqual(201);
 });
 
-it('returns an error if an invalid title is provided', async () => {});
+it('returns an error if an invalid title is provided', async () => {
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: '',
+      price: 10,
+    })
+    .expect(400);
 
-it('returns an error if an invalid price is provided', async () => {});
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.fakeSignup())
+    .send({
+      price: 10,
+    })
+    .expect(400);
+});
+
+it('returns an error if an invalid price is provided', async () => {
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: 'asldkjf',
+      price: -10,
+    })
+    .expect(400);
+
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: 'laskdfj',
+    })
+    .expect(400);
+});
 
 it('creates a ticket with valid inputs', async () => {});
+// Language: typescript
