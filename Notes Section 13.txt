@@ -155,3 +155,53 @@ router.post(
 
 // new.test.ts
 ...
+
+13-267. Faking Authentication During Tests
+### Browser => Sign Up => Network => currentuser => Headers
+// session=eyJqd3QiOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJall5WXpVeVlUQTJNekprWm1ObE5HVmlPRFl4WXpOa01pSXNJbVZ0WVdsc0lqb2lkR1Z6ZEVCMFpYTjBMbU52YlNJc0ltbGhkQ0k2TVRZMU56QTRPRFV4T0gwLm01amJFdG43Mlg0bFhqb1ZCQUJqRlItYl9teWQ4QUo5YXFtaEd3NTYxakkifQ==
+
+// setup.ts
+import jwt from 'jsonwebtoken'; ***
+
+import { app } from '../app'; 
+
+declare global {
+  var signup: () => Promise<string[]>; // cannot be used here...
+  var fakeSignup: () => string[]; ***
+}
+
+...
+global.fakeSignup = () => { ***
+  // 1 Build a JWT payload.  { id, email }
+  const payload = {
+    id: '1lk24j124l',
+    email: 'test@test.com',
+  };
+
+  // 2 Create the JWT!
+  const token = jwt.sign(payload, process.env.JWT_KEY!);
+
+  // 3 Build session Object. { jwt: MY_JWT }
+  const session = { jwt: token };
+
+  // 4 Turn that session into JSON
+  const sessionJSON = JSON.stringify(session);
+
+  // 5 Take JSON and encode it as base64
+  const base64 = Buffer.from(sessionJSON).toString('base64');
+
+  // return a string thats the cookie with the encoded data
+  return [`session=${base64}`];
+
+};
+
+// new.test.ts
+it('returns a status 201 if the user is signed in', async () => {
+  const cookie = await global.fakeSignup();
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({});
+ 
+  expect(response.status).toEqual(201);
+});
