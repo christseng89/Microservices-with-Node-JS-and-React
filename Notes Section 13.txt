@@ -16,6 +16,9 @@ folder = > test\*.*
 // modify non-existing errors if any (app.ts)
 npm i --force
 
+// use minikube image build to build images and 
+   then minikube ssh / docker push images to docker hub first
+
 13-261. Running the Ticket Service
 // tickets-depl.yaml tickets-mongo-depl.yaml (new)
 ### Test
