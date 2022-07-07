@@ -336,3 +336,35 @@ it('creates a ticket with valid inputs',
   app.use(showTicketRouter); ***
 
 ### Test Result => expected 404 "Not Found", got 400 "Bad Request"
+
+13-277. Better Error Logging
+https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
+
+// error-handler.ts
+  console.error(err); ***
+  res.status(400).send({
+    errors: [{ message: err.message }],
+  });
+
+cd ticketing\common
+npm run pub
+
+cd ..
+cd auth
+npm update @chinasystems/common
+
+cd ..
+cd tickets
+npm update @chinasystems/common
+
+// show.test.ts
+import mongoose from 'mongoose'; ***
+import { app } from '../../app';
+
+it('returns a 404 if the ticket is not found', async () => {
+  const id = new mongoose.Types.ObjectId().toHexString(); ***
+  await request(app)
+    .get(`/api/tickets/${id}`) ***
+    .send()
+    .expect(404);
+});
