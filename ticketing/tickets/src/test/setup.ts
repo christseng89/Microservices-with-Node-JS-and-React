@@ -33,7 +33,11 @@ beforeEach(async () => {
 // Stop mongo server after all tests
 afterAll(async () => {
   await mongoose.connection.close();
-  await mongo.stop();
+  try {
+    await mongo.stop();
+  } catch (error) {
+   console.log(error); 
+  }
 });
 
 global.signup = async () => {

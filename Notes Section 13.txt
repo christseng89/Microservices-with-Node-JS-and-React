@@ -323,4 +323,16 @@ it('creates a ticket with valid inputs',
     res.status(201).send(ticket);
   }  
   ...
-  
+
+13-274. Testing Show Routes & 275. Show Route Handler with an Unexpected Failure!
+// show.test.ts (new)
+// show.ts (new)
+// app.ts
+  import { showTicketRouter } from './routes/show'; ***
+
+  ...
+  app.use(currentUser);
+  app.use(createTicketRouter);
+  app.use(showTicketRouter); ***
+
+### Test Result => expected 404 "Not Found", got 400 "Bad Request"
