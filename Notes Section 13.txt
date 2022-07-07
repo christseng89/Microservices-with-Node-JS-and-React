@@ -512,3 +512,21 @@ router.put(
     await ticket.save();
         
     res.status(200).send(ticket);
+
+13-283. Manual Testing (Postman)
+// ingress-srv.yaml
+          - path: /api/tickets/?(.*) ***
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-srv
+                port:
+                  number: 3000
+          - path: /?(.*)
+
+// Postman collections          
+   - New Ticket
+   - Get Tickets
+   - Get Ticket by ticketId
+   - Update Ticket by ticketId
+   
