@@ -392,3 +392,123 @@ const app = express();
 app.use(indexTicketRouter);
 app.use(updateTicketRouter);
 ...
+
+13-281. Permission Checking & 282. Final Update Changes
+// setup.ts
+global.fakeSignup = () => {
+  // 1 Build a JWT payload.  { id, email }
+  const payload = {
+    id: new mongoose.Types.ObjectId().toHexString(), ***
+    email: 'test@test.com',
+  };
+...
+
+// update.test.ts
+it('returns a 401 if the user does not own the ticket', async () => {
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: 'Ticket Title',
+      price: 20,
+    })
+    .expect(201);
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: 'Ticket Title Update',
+      price: 1000,
+    })
+    .expect(401);
+});
+
+it('returns a 400 if the user provides an invalid title or price', async () => {
+  const cookie = global.fakeSignup();
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title',
+      price: 20,
+    })
+    .expect(201);
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: '',
+      price: 20,
+    })
+    .expect(400);
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title',
+      price: -10,
+    })
+    .expect(400);
+});
+
+it('updates the ticket provided valid inputs', async () => {
+  const cookie = global.fakeSignup();
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title',
+      price: 20,
+    })
+    .expect(201);
+
+  const updateTitle = "Ticket Title Update";  
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: updateTitle,
+      price: 100,
+    })
+    .expect(200);
+
+  const ticketResponse = await request(app)
+    .get(`/api/tickets/${response.body.id}`)
+    .send()
+    .expect(200);
+
+  expect(ticketResponse.body.title).toEqual(updateTitle);
+  expect(ticketResponse.body.price).toEqual(100);
+});
+
+// update.ts
+router.put(
+  '/api/tickets/:id',
+  requireAuth,
+  [ ***
+    body('title').not().isEmpty().withMessage('Title is required'),
+    body('price')
+      .isFloat({ gt: 0 })
+      .withMessage('Price must be greater than 0'),
+  ],
+  validateRequest,  ***
+  async (req: Request, res: Response) => {
+    const ticket = await Ticket.findById(req.params.id);
+
+    if (!ticket) {
+      throw new NotFoundError();
+    }
+    if (ticket.userId !== req.currentUser!.id) { ***
+      throw new NotAuthorizedError();
+    }
+        
+    ticket.set({ ***
+      title: req.body.title,
+      price: req.body.price,
+    });
+    await ticket.save();
+        
+    res.status(200).send(ticket);
