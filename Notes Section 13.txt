@@ -380,3 +380,15 @@ app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(indexTicketRouter);
+
+13-279. Ticket Updating & 280. Handling Updates
+// update.test.ts update.ts (new)
+// app.ts
+...
+import { updateTicketRouter } from './routes/update';
+
+const app = express();
+...
+app.use(indexTicketRouter);
+app.use(updateTicketRouter);
+...
