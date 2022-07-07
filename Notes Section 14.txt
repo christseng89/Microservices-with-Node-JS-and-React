@@ -1,3 +1,11 @@
 14-285. NATS Streaming Server Notice
 // NATS Streaming Server will be deprecated after June of 2023. 
 https://github.com/nats-io/nats-streaming-server#warning--deprecation-notice-warning
+
+14-286. Three Important Items
+https://docs.nats.io/
+
+https://docs.nats.io/nats-concepts/jetstream
+https://hub.docker.com/_/nats-streaming
+
+// Commandline Options
