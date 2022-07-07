@@ -1,0 +1,3 @@
+14-285. NATS Streaming Server Notice
+// NATS Streaming Server will be deprecated after June of 2023. 
+https://github.com/nats-io/nats-streaming-server#warning--deprecation-notice-warning
