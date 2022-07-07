@@ -368,3 +368,15 @@ it('returns a 404 if the ticket is not found', async () => {
     .send()
     .expect(404);
 });
+
+13-278. Complete Index Route Implementation
+// index.test.ts index.ts (new)
+// app.ts 
+...
+import { indexTicketRouter } from './routes/index'; ***
+
+...
+app.use(currentUser);
+app.use(createTicketRouter);
+app.use(showTicketRouter);
+app.use(indexTicketRouter);
