@@ -9,3 +9,12 @@ https://docs.nats.io/nats-concepts/jetstream
 https://hub.docker.com/_/nats-streaming
 
 // Commandline Options
+
+14-287. Creating a NATS Streaming Deployment
+// nats-depl.yaml (new)
+
+kubectl get all | grep nats
+  pod/nats-depl-b969fb585-7trgq             1/1     Running   0          5m30s
+  service/nats-srv            ClusterIP   10.97.216.244    <none>        4222/TCP,8222/TCP   5m31s
+  deployment.apps/nats-depl            1/1     1            1           5m31s
+  replicaset.apps/nats-depl-b969fb585             1         1         1       5m31s
