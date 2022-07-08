@@ -49,3 +49,39 @@ kubectl port-forward nats-depl-b969fb585-7trgq 4222:4222
 
 cd ticketing\nats-test
 npm run publish
+  > nats-test@1.0.0 publish
+  > ts-node-dev --notify false src/publisher.ts
+
+  [INFO] 14:23:06 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.2, typescript ver. 4.7.4)       
+  Publisher connected to NATS
+
+14-296. Publishing Events
+// publisher.ts
+...
+stan.on('connect', () => {
+  console.log('Publisher connected to NATS');
+
+  const data = JSON.stringify({ // ***
+    id: '123',
+    title: 'concert',
+    price: 20,
+  });
+
+  stan.publish('ticket:created', data, () => {
+    console.log('Event published');
+  });
+});
+
+// npm run publish (updates ...)
+  [INFO] 14:32:44 Restarting: D:\development\React\Microservices-with-NodeJS-and-React\ticketing\nats-test\src\publisher.ts has been modified
+  Publisher connected to NATS
+  Event published
+
+// package.json (add in the --rs to each command)
+  "scripts": {
+    "publish": "ts-node-dev --rs --notify false src/publisher.ts",
+    "listen": "ts-node-dev --rs --notify false src/listener.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+npm run publish
