@@ -85,3 +85,20 @@ stan.on('connect', () => {
   },
 
 npm run publish
+
+14-298. Listening For Data
+// listener.ts (new)
+// publisher.ts 
+console.clear();
+npm run publish
+  Publisher connected to NATS
+  Event published
+  rs // manual input ***
+
+cd ticketing\nats-test
+npm run listen
+  Listener connected to NATS
+  Message received
+  Message received
+  Message received // *** after each rs
+  ...
