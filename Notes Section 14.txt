@@ -18,3 +18,6 @@ kubectl get all | grep nats
   service/nats-srv            ClusterIP   10.97.216.244    <none>        4222/TCP,8222/TCP   5m31s
   deployment.apps/nats-depl            1/1     1            1           5m31s
   replicaset.apps/nats-depl-b969fb585             1         1         1       5m31s
+
+13-293. Big Notes on NATS Streaming
+https://www.npmjs.com/package/node-nats-streaming
