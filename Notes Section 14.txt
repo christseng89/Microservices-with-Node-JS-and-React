@@ -102,3 +102,19 @@ npm run listen
   Message received
   Message received // *** after each rs
   ...
+
+14-299. Accessing Event Data
+// listener.ts
+import nats, { Message } from 'node-nats-streaming'; ***
+
+...
+  subscription.on('message', (msg: Message) => {
+    console.log(`Received event: #${msg.getSequence()}, with data ${msg.getData()}`);
+  });
+});
+
+npm run listen
+  Listener connected to NATS
+  Received event: #9, with data {"id":"1234","title":"Concert","price":23.99}
+  Received event: #10, with data {"id":"1234","title":"Concert","price":23.99}
+  
