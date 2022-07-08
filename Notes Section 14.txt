@@ -117,4 +117,14 @@ npm run listen
   Listener connected to NATS
   Received event: #9, with data {"id":"1234","title":"Concert","price":23.99}
   Received event: #10, with data {"id":"1234","title":"Concert","price":23.99}
-  
+
+14-300. Client ID Generation
+// listener.ts
+import { randomBytes } from 'crypto'; ***
+
+console.clear();
+const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), { ***
+  url: 'http://localhost:4222',
+});
+
+// multiple clients to listen the same subject
