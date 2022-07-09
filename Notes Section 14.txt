@@ -174,3 +174,10 @@ stan.on('connect', () => {
       msg.ack(); ***
     }
   );
+
+14-305. Client Health Checks (monitoring)
+kubectl port-forward nats-depl-b969fb585-7trgq 8222:8222
+
+### Browser
+http://localhost:8222/streaming
+http://localhost:8222/streaming/channelsz?subs=1
