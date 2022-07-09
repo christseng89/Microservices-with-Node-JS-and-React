@@ -181,3 +181,23 @@ kubectl port-forward nats-depl-b969fb585-7trgq 8222:8222
 ### Browser
 http://localhost:8222/streaming
 http://localhost:8222/streaming/channelsz?subs=1
+
+### rs for Client (out of order ...)
+Listener connected to NATS
+Received event: #27, with data {"id":"1234","title":"Concert","price":23.99}
+Received event: #29, with data {"id":"1234","title":"Concert","price":23.99}
+Received event: #30, with data {"id":"1234","title":"Concert","price":23.99}
+Received event: #28, with data {"id":"1234","title":"Concert","price":23.99}
+
+14-306. Graceful Client Shutdown
+// listener.ts
+stan.on('connect', () => {
+  console.log('Listener connected to NATS');
+
+  stan.on('close', () => { ***
+    console.log('NATS connection closed');
+    process.exit();
+  });
+...
+process.on('SIGINT', () => stan.close());
+process.on('SIGTERM', () => stan.close());
