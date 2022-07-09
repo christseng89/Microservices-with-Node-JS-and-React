@@ -128,3 +128,49 @@ const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), { ***
 });
 
 // multiple clients to listen the same subject
+
+14-301. Queue Groups
+// Multiple instance listeners, subscribe message will be 
+   read by one listener only with QueueGroup
+
+// listener.ts
+stan.on('connect', () => {
+  console.log('Listener connected to NATS');
+
+  const subscription = stan.subscribe(
+    'ticket:created', 
+    'orders-listener-queue-group' // ***
+  );
+
+### Test result
+// listener #1
+  Listener connected to NATS
+  Received event: #20, with data {"id":"1234","title":"Concert","price":23.99}
+  Received event: #22, with data {"id":"1234","title":"Concert","price":23.99}
+// listener #2
+  Listener connected to NATS
+  Received event: #19, with data {"id":"1234","title":"Concert","price":23.99}
+  Received event: #21, with data {"id":"1234","title":"Concert","price":23.99}
+
+14-304. Manual Ack Mode
+https://docs.nats.io/nats-concepts/jetstream/consumers#durable-name
+
+// listener.ts
+stan.on('connect', () => {
+  console.log('Listener connected to NATS');
+  const options = stan.subscriptionOptions() ***
+    .setManualAckMode(true);
+  const subscription = stan.subscribe(
+    'ticket:created', 
+    'orders-listener-queue-group',
+    options ***
+  );
+
+  subscription.on(
+    'message', 
+    (msg: Message) => {
+      console.log(`Received event: #${msg.getSequence()}, with data ${msg.getData()}`);
+
+      msg.ack(); ***
+    }
+  );
