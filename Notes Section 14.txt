@@ -201,3 +201,22 @@ stan.on('connect', () => {
 ...
 process.on('SIGINT', () => stan.close());
 process.on('SIGTERM', () => stan.close());
+
+14-312. Event Redelivery
+// listener.ts
+  const options = stan.subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable(); ***
+  const subscription = stan.subscribe(
+    'ticket:created', 
+    // 'orders-listener-queue-group', ***
+    options
+  );
+
+// Result ...
+  Listener connected to NATS
+  Received event: #1, with data {"id":"123","title":"concert","price":20}
+  Received event: #2, with data {"id":"123","title":"concert","price":20}
+  ...
+  Received event: #49, with data {"id":"1234","title":"Concert","price":23.99}
+  Received event: #50, with data {"id":"1234","title":"Concert","price":23.99}

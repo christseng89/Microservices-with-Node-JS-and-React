@@ -18,10 +18,11 @@ stan.on('connect', () => {
   });
 
   const options = stan.subscriptionOptions()
-    .setManualAckMode(true);
+    .setManualAckMode(true)
+    .setDeliverAllAvailable();  // listener will receive all messages in the queue (if there are any)
   const subscription = stan.subscribe(
     'ticket:created', 
-    'orders-listener-queue-group',
+    // 'orders-listener-queue-group', // listener will receive all messages in the queue (if there are any)
     options
   );
 
