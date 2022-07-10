@@ -19,10 +19,11 @@ stan.on('connect', () => {
 
   const options = stan.subscriptionOptions()
     .setManualAckMode(true)
-    .setDeliverAllAvailable();  // listener will receive all messages in the queue (if there are any)
+    .setDeliverAllAvailable()   // listener will receive all messages in the queue (if there are any)
+    .setDurableName('ticket-service'); // breakpoint resume
   const subscription = stan.subscribe(
     'ticket:created', 
-    // 'orders-listener-queue-group', // listener will receive all messages in the queue (if there are any)
+    'ticket-listener-queue-group', // breakpoint resume
     options
   );
 
