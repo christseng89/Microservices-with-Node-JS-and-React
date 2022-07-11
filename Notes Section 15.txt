@@ -1,0 +1,39 @@
+15-315. The Listener Abstract Class
+// listener.ts
+import nats, { Message, Stan } from 'node-nats-streaming'; ***
+import { randomBytes } from 'crypto';
+...
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()   // listener will receive all messages in the queue (if there are any)
+    .setDurableName('ticket-listener-queue-group'); // breakpoint resume ***
+  const subscription = stan
+    .subscribe(
+      'ticket:created', 
+      'ticket-listener-queue-group', // breakpoint resume
+      options
+  );
+...
+abstract class Listener {
+  private client: Stan;               // 
+  constructor(client: Stan) {
+    this.client = client;
+  }
+
+  abstract subject: string;           // Channel name
+  abstract queueGroupName: string;    // Queue group name
+  abstract onMessage(data: any, msg: Message): void;
+                                      // Function to run when a message is received
+  protected ackWait = 5 * 1000;       // 5 seconds wait for ack
+
+  subscriptionOptions() {
+  ...
+  parseMessage(msg: Message) {
+    ...
+  }
+}
+
+// person.ts (abstract class ts example)
+tsc person.ts
+node person.js
