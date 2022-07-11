@@ -93,3 +93,45 @@ class TicketCreatedListener extends Listener {
 
 // listener.ts
 ### Remove Listener class and TicketCreatedListener class
+
+15-319. Subjects Enum ~ 323. Enforcing Data Types
+// 319. Subjects Enum - subjects.ts (new)
+// 320. Custom Event Interface - ticket-created-event.ts (new)
+// 321. Enforcing Listener Subjects
+// base-listener.ts
+import { Message, Stan } from 'node-nats-streaming';
+import { Subjects } from './subjects'; ***
+
+interface Event { ***
+  subject: Subjects;
+  data: any;
+}
+
+export abstract class Listener <T extends Event> { ***
+  private client: Stan;               // 
+  constructor(client: Stan) {
+    this.client = client;
+  }
+
+  abstract subject: T['subject'];     // Channel name ***
+  abstract queueGroupName: string;    // Queue group name
+  abstract onMessage(data: T['data'], msg: Message): void; ***
+      
+// 322. Enforcing Data Types
+// ticket-created-listener.ts
+import { Message } from 'node-nats-streaming';
+import { Listener } from './base-listener';
+import { TicketCreatedEvent } from './ticket-created-event'; ***
+import { Subjects } from './subjects'; ***
+
+export class TicketCreatedListener extends Listener<TicketCreatedEvent> { ***
+  subject: Subjects.TicketCreated = Subjects.TicketCreated; ***
+  queueGroupName = 'payments-service';
+
+  onMessage(data: TicketCreatedEvent['data'], msg: Message) { ***
+    console.log(`Received event: #${msg.getSequence()}`, 'with data!', data);
+    // Business log here...
+    console.log('Name :', data.title, ', Price :', data.price);
+    msg.ack();
+...
+    
