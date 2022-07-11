@@ -1,16 +1,17 @@
 import { Message } from 'node-nats-streaming';
+
 import { Listener } from './base-listener';
-import { TicketCreatedEvent } from './ticket-created-event';
 import { Subjects } from './subjects';
+import { TicketCreatedEvent } from './ticket-created-event';
 
 export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   subject: Subjects.TicketCreated = Subjects.TicketCreated;
   queueGroupName = 'payments-service';
 
   onMessage(data: TicketCreatedEvent['data'], msg: Message) {
-    console.log(`Received event: #${msg.getSequence()}`, 'with data!', data);
+    console.log(`Event #${msg.getSequence()} subscribed,`, 'with data', data);
     // Business log here...
-    console.log('Name :', data.title, ', Price :', data.price);
+    // console.log('Name :', data.title, ', Price :', data.price);
 
     msg.ack();
   }
