@@ -17,26 +17,7 @@ stan.on('connect', () => {
     process.exit();
   });
 
-  const options = stan
-    .subscriptionOptions()
-    .setManualAckMode(true)
-    .setDeliverAllAvailable()   // listener will receive all messages in the queue (if there are any)
-    .setDurableName('ticket-listener-queue-group'); // breakpoint resume
-  const subscription = stan
-    .subscribe(
-      'ticket:created', 
-      'ticket-listener-queue-group', // breakpoint resume
-      options
-  );
-
-  subscription.on(
-    'message', 
-    (msg: Message) => {
-      console.log(`Received event: #${msg.getSequence()}, with data ${msg.getData()}`);
-
-      msg.ack();
-    }
-  );
+  new TicketCreatedListener(stan).listen();
 });
 
 process.on('SIGINT', () => stan.close());
@@ -86,3 +67,16 @@ abstract class Listener {
       : JSON.parse(data.toString('utf8')); // convert Buffer to string
   }
 }
+
+class TicketCreatedListener extends Listener {
+  subject = 'ticket:created';
+  queueGroupName = 'payments-service';
+
+  onMessage(data: any, msg: Message) {
+    console.log('Event data!', data);
+    console.log(`Received event: #${msg.getSequence()}`, 'with data!', data);
+    // Business log here...
+
+    msg.ack();
+  }
+}  
