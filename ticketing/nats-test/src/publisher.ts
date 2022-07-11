@@ -8,11 +8,16 @@ const stan = nats.connect('ticketing', 'abc', {
 
 stan.on('connect', async () => {
   console.log('Publisher connected to NATS');
-
   const publish = new TicketCreatedPublisher(stan);
-  await publish.publish({
-    id: '1234',
-    title: 'Concert',
-    price: 23.99,
-  });
+  
+  try {
+    await publish.publish({
+      id: '1234',
+      title: 'Concert',
+      price: 23.99,
+    });    
+  } catch (error) {
+    console.error(error);
+  }
+
 });
