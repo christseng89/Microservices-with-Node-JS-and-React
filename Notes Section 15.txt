@@ -147,4 +147,26 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> { ***
     price: 23.99,
   });
   ...  
-  
+
+15-327. Awaiting Event Publication
+// base-publisher.ts
+  publish(data: T['data']) {
+    return new Promise<void>((resolve, reject) => { ***
+      this.client.publish(this.subject, JSON.stringify(data), (err) => {
+        if (err) {
+          return reject(err);
+        }
+
+        console.log(`Event published to subject ${this.subject}, with data`, data);
+        return resolve();
+      });
+    });
+  }
+
+// publisher.ts
+stan.on('connect', async () => { ***
+  console.log('Publisher connected to NATS');
+
+  const publish = new TicketCreatedPublisher(stan);
+  await publish.publish({ ***
+    id: '1234',

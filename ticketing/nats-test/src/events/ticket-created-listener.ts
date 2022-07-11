@@ -9,7 +9,7 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   queueGroupName = 'payments-service';
 
   onMessage(data: TicketCreatedEvent['data'], msg: Message) {
-    console.log(`Event #${msg.getSequence()} subscribed,`, 'with data', data);
+    // console.log(`Event #${msg.getSequence()},`, 'with data', data);
     // Business log here...
     // console.log('Name :', data.title, ', Price :', data.price);
 
