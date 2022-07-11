@@ -170,3 +170,36 @@ stan.on('connect', async () => { ***
   const publish = new TicketCreatedPublisher(stan);
   await publish.publish({ ***
     id: '1234',
+
+15-329. Updating the Common Module & 330. Restarting NATS (clean DB memory)
+// ticketing\common\index.ts
+export * from './events/base-listener';
+export * from './events/base-publisher';
+export * from './events/subjects';
+export * from './events/ticket-created-event';
+export * from './events/ticket-updated-event';
+
+cd ticketing\common
+npm i node-nats-streaming
+npm run pub
+https://www.npmjs.com/settings/chinasystems/packages
+
+cd ..
+cd auth
+npm update @chinasystems\common
+
+cd ..
+cd tickets
+npm update @chinasystems\common
+
+// 330. Restarting NATS (clean DB memory)
+kubectl get po | grep nats
+  nats-depl-b969fb585-7trgq             1/1     Running   0          4d4h
+
+kubectl delete po nats-depl-b969fb585-7trgq
+  pod "nats-depl-b969fb585-7trgq" deleted
+
+kubectl get po | grep nats
+  nats-depl-b969fb585-clctn             1/1     Running   0          21s
+
+git submodule add https://github.com/christseng89/Microservices-with-NodeJS-and-React-ticketing-common.git Microservices-with-NodeJS-and-React-ticketing-common

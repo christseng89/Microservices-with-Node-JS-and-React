@@ -1,0 +1,3 @@
+[submodule "Microservices-with-NodeJS-and-React-ticketing-common"]
+	path = Microservices-with-NodeJS-and-React-ticketing-common
+	url = https://github.com/christseng89/Microservices-with-NodeJS-and-React-ticketing-common.git
