@@ -86,3 +86,10 @@ class TicketCreatedListener extends Listener {
       msg.ack();
     }
   );
+
+15-317. Quick Refactor
+// base-listener.ts (abstract Listener class)
+// ticket-created-listener.ts (extending Listener class for "TicketCreatedListener")
+
+// listener.ts
+### Remove Listener class and TicketCreatedListener class
