@@ -1,2 +1,18 @@
 16-331. Publishing Ticket Creation
 // tickets\events\publishers\ticket-created-publisher.ts (new)
+
+16-332. More on Publishing ~ 336. Singleton Implementation
+// 332. More on Publishing
+// new.ts
+    await ticket.save();
+    await new TicketCreatedPublisher(client) 
+      .publish({
+        id: ticket.id,
+        title: ticket.title,
+        price: ticket.price,
+        userId: ticket.userId,
+      });
+    res.status(201).send(ticket);
+
+// 334. Remember Mongoose? & 336. Singleton Implementation
+// nats-wrapper.ts (new)
