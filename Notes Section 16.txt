@@ -36,4 +36,11 @@ import { natsWrapper } from './nats-wrapper';
         userId: ticket.userId,
       });
     res.status(201).send(ticket);
-    
+
+skaffold dev
+  ...
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!
+  [tickets] Connected to NATS
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
