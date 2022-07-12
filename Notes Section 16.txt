@@ -147,3 +147,22 @@ import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publ
 
 16-342. Handling Publish Failures
 // NOTES: not included in this lecture, solving this issue by yourself.
+
+16-343. Fixing a Few Tests
+cd ticketing\tickets
+npm run test
+  console.error
+    Error: Cannot access NATS client before connecting
+
+16-344. Redirecting Imports
+// __mocks__\nats-wrapper.ts (new) 
+
+*** refer to common\src\events\base-publish.ts
+this.client.publish(this.subject, JSON.stringify(data), (err) => {
+  if (err) {
+    return reject(err);
+  }
+...
+
+// test\setup.ts 
+jest.mock('../nats-wrapper'); ***

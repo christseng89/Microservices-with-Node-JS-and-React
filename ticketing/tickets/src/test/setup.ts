@@ -10,6 +10,7 @@ declare global {
   var fakeSignup: () => string[];
 }
 
+jest.mock('../nats-wrapper');
 let mongo: any;
 
 // Connect to mongo
