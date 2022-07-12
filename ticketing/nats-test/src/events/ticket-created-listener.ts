@@ -8,7 +8,7 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   subject: Subjects.TicketCreated = Subjects.TicketCreated;
   queueGroupName = 'payments-service';
 
-  onMessage(data: TicketCreatedEvent['data'], msg: Message) {
+  onMessage(_data: TicketCreatedEvent['data'], msg: Message) {
     // console.log(`Event #${msg.getSequence()},`, 'with data', data);
     // Business log here...
     // console.log('Name :', data.title, ', Price :', data.price);
