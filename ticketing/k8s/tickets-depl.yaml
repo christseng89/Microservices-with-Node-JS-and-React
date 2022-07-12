@@ -18,6 +18,15 @@ spec:
           image: christseng89/tickets
           # image: us.gcr.io/ticketing-com-353405/tickets
           env:
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            # Using pod name as ClientId such as nats-depl-7b47565c77-ltncx
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
             - name: MONGO_URI
               value: 'mongodb://tickets-mongo-srv:27017/tickets'
             - name: JWT_KEY
