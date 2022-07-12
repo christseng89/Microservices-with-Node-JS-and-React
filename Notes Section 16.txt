@@ -144,3 +144,6 @@ import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publ
   = Update Ticket
 
 // no test listener for TicketUpdated ...
+
+16-342. Handling Publish Failures
+// NOTES: not included in this lecture, solving this issue by yourself.
