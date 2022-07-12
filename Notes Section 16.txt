@@ -85,3 +85,29 @@ kubectl get po
   nats-depl-7b47565c77-ltncx            1/1     Running   0             59s
   tickets-depl-65dc987b8c-bfhgl         1/1     Running   1 (52s ago)   5m36s ***
   tickets-mongo-depl-759f5bf4ff-vmsms   1/1     Running   0             42m
+
+16-339. Successful Publish & Listen!
+### Postman
+  = Signup
+  = New Ticket
+
+// skaffold 
+  ...
+  [tickets] Event published to subject ticket:created, with data {
+  [tickets]   id: '62cd16158de9879f610d90cc',
+  [tickets]   title: 'Ticket title #1',
+  [tickets]   price: 10,
+  [tickets]   userId: '62cd160d73abc7c7687b52e7'
+  [tickets] }
+
+kubectl port-forward nats-depl-7b47565c77-ltncx 4222:4222
+
+cd ticketing\nats-test
+npm run listen
+  Listener connected to NATS
+  Message #1 received from subject ticket:created/payments-service, with data {
+    id: '62cd16158de9879f610d90cc',
+    title: 'Ticket title #1',
+    price: 10,
+    userId: '62cd160d73abc7c7687b52e7'        
+  }
