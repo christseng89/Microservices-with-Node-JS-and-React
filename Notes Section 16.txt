@@ -44,3 +44,44 @@ skaffold dev
   [tickets] Connected to NATS
   [tickets] Connected to MongoDb
   [tickets] Listening on port 3000!!!!!!!!
+
+16-338. Graceful Shutdown
+// index.ts
+  try {
+    await natsWrapper.connect('ticketing', 'tickets-service', 'http://nats-srv:4222');
+    // Graceful Shutdown
+    const stan = natsWrapper.client; ***
+    stan.on('close', () => {
+      console.log('NATS connection closed');
+      process.exit();
+    });
+    process.on('SIGINT', () => stan.close());
+    process.on('SIGTERM', () => stan.close());
+  ...
+
+### Testing
+kubectl get po | grep nats
+  nats-depl-7b47565c77-l5qq9            1/1     Running   0          40m
+
+kubectl delete po nats-depl-7b47565c77-l5qq9
+
+// skaffold
+  [tickets] Listening on port 3000!!!!!!!!
+  [tickets] NATS connection closed ***
+  [tickets] 
+  [tickets] > tickets@1.0.0 start
+  [tickets] > ts-node-dev src/index.ts
+  [tickets]
+  [tickets] [INFO] 05:40:16 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.8.2, typescript ver. 4.7.4)
+  [tickets] Connected to NATS ***
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+
+kubectl get po            
+  NAME                                  READY   STATUS    RESTARTS***   AGE
+  auth-depl-6f8b676f94-9nrx7            1/1     Running   0             42m
+  auth-mongo-depl-ccbcc6d6c-krdbn       1/1     Running   0             42m
+  client-depl-6cbfb5c69d-zsrzd          1/1     Running   0             42m
+  nats-depl-7b47565c77-ltncx            1/1     Running   0             59s
+  tickets-depl-65dc987b8c-bfhgl         1/1     Running   1 (52s ago)   5m36s ***
+  tickets-mongo-depl-759f5bf4ff-vmsms   1/1     Running   0             42m
