@@ -1,7 +1,7 @@
 16-331. Publishing Ticket Creation
 // tickets\events\publishers\ticket-created-publisher.ts (new)
 
-16-332. More on Publishing ~ 336. Singleton Implementation
+16-332. More on Publishing ~ 337. Accessing the NATS Client
 // 332. More on Publishing
 // new.ts
     await ticket.save();
@@ -16,3 +16,24 @@
 
 // 334. Remember Mongoose? & 336. Singleton Implementation
 // nats-wrapper.ts (new)
+
+// index.ts
+import { natsWrapper } from './nats-wrapper';
+...
+  try {
+    await natsWrapper.connect('ticketing', 'tickets-service', 'http://nats-srv:4222'); ***
+    await mongoose.connect(process.env.MONGO_URI, {});
+...
+
+// 337. Accessing the NATS Client
+// new.ts
+    await ticket.save();
+    await new TicketCreatedPublisher(natsWrapper.client)
+      .publish({
+        id: ticket.id,
+        title: ticket.title,
+        price: ticket.price,
+        userId: ticket.userId,
+      });
+    res.status(201).send(ticket);
+    
