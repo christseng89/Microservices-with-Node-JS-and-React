@@ -166,3 +166,180 @@ this.client.publish(this.subject, JSON.stringify(data), (err) => {
 
 // test\setup.ts 
 jest.mock('../nats-wrapper'); ***
+
+16-347. Ensuring Mock Invocations
+// package.json
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "test": "jest --runInBand --detectOpenHandles --watchAll --no-cache" ***
+  },
+
+// test\setup.ts
+beforeAll(async () => {
+  jest.setTimeout(200000); ***
+  process.env.JWT_KEY = 'abcdef';
+...
+// Cleanup database before each test
+beforeEach(async () => {
+  jest.clearAllMocks(); ***
+  const collections = await mongoose.connection.db.collections();
+
+// __mocks__\nats-wrapper.ts
+  client: {
+    publish: jest
+      .fn()
+      .mockImplementation(
+        (_subject: string, _data: string, callback: () => void) => {
+          callback();
+        }
+      ),
+  }, 
+
+// new.test.ts
+import { natsWrapper } from '../../nats-wrapper';
+...
+  it('publishes an event', async () => {
+    const title = 'Ticket Title - New';
+  
+    await request(app)
+      .post('/api/tickets')
+      .set('Cookie', global.fakeSignup())
+      .send({
+        title,
+        price: 20,
+      })
+      .expect(201);
+  
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+  });
+
+// update.test.ts
+import { natsWrapper } from '../../nats-wrapper';
+...
+import { natsWrapper } from '../../nats-wrapper';
+
+it('returns a 404 if the provided id does not exist', async () => {
+  const id = new mongoose.Types.ObjectId().toHexString();
+  await request(app)
+    .put(`/api/tickets/${id}`)
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: 'aslkdfj',
+      price: 20,
+    })
+    .expect(404);
+});
+
+it('returns a 401 if the user is not authenticated', async () => {
+  const id = new mongoose.Types.ObjectId().toHexString();
+  await request(app)
+    .put(`/api/tickets/${id}`)
+    .send({
+      title: 'aslkdfj',
+      price: 20,
+    })
+    .expect(401);
+});
+
+it('returns a 401 if the user does not own the ticket', async () => {
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: 'Ticket Title',
+      price: 20,
+    })
+    .expect(201);
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', global.fakeSignup())
+    .send({
+      title: 'Ticket Title Update',
+      price: 1000,
+    })
+    .expect(401);
+});
+
+it('returns a 400 if the user provides an invalid title or price', async () => {
+  const cookie = global.fakeSignup();
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title',
+      price: 20,
+    })
+    .expect(201);
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: '',
+      price: 20,
+    })
+    .expect(400);
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title',
+      price: -10,
+    })
+    .expect(400);
+});
+
+it('updates the ticket provided valid inputs', async () => {
+  const cookie = global.fakeSignup();
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title',
+      price: 20,
+    })
+    .expect(201);
+
+  const updateTitle = "Ticket Title Update";  
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: updateTitle,
+      price: 100,
+    })
+    .expect(200);
+
+  const ticketResponse = await request(app)
+    .get(`/api/tickets/${response.body.id}`)
+    .send()
+    .expect(200);
+
+  expect(ticketResponse.body.title).toEqual(updateTitle);
+  expect(ticketResponse.body.price).toEqual(100);
+});
+
+it('publishes an event', async () => {
+  const cookie = global.fakeSignup();
+
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title - Publish',
+      price: 20,
+    });
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket Title Updated - Publish',
+      price: 100,
+    })
+    .expect(200);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});

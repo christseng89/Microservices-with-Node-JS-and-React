@@ -6,7 +6,7 @@ const createTicket = () => {
     .post('/api/tickets')
     .set('Cookie', global.fakeSignup())
     .send({
-      title: 'asldkf',
+      title: 'Create Ticket',
       price: 20,
   });
 };
