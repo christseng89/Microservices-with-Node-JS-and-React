@@ -57,3 +57,36 @@ minikube image ls | grep orders
 
 cd ticketing
 skaffold dev
+  ...
+  [orders] Connected to NATS
+  [orders] Connected to MongoDb
+  [orders] Listening on port 3000!!!!!!!!
+  [tickets] Connected to NATS
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+
+17-353. Scaffolding a Few Route Handlers
+// copy folders 'models' and 'routes' from tickets to orders
+// delete update.ts and update.test.ts 
+// Change Ticket => Order, Change ticket => order
+// delete.ts and delete.test.ts (new)
+
+// app.ts
+...
+import { createOrderRouter } from './routes/new';
+import { showOrderRouter } from './routes/show';
+import { indexOrderRouter } from './routes/index';
+import { deleteOrderRouter } from './routes/delete';
+
+const app = express();
+...
+app.use(currentUser);
+app.use(createOrderRouter);
+app.use(showOrderRouter);
+app.use(indexOrderRouter);
+app.use(deleteOrderRouter);
+...
+
+skaffold dev
