@@ -1,0 +1,17 @@
+17-350. Scaffolding the Orders Service
+cd ticketing
+md orders
+cd orders
+md src
+
+### copy files/folder from ticketing\tickets to ticketing\orders
+copy ..\tickets\.dockerignore
+copy ..\tickets\Dockerfile
+copy ..\tickets\package.json
+copy ..\tickets\tsconfig.json
+
+copy ..\tickets\src\index.ts src\index.ts
+copy ..\tickets\src\app.ts src\app.ts
+copy ..\tickets\src\nats-wrapper.ts src\nats-wrapper.ts
+
+npm i
