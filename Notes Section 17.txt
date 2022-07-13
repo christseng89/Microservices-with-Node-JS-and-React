@@ -29,3 +29,31 @@ minikube image build -t christseng89/orders .
 minikube image push christseng89/orders  
 minikube image ls | grep orders
   docker.io/christseng89/orders:latest
+
+17-351. A Touch More Setup & 352. Ingress Routing Rules
+// orders-depl.yaml, orders-mongo-depl.yaml (new)
+
+// skaffold.yaml
+  - image: christseng89/orders ***
+    # - image: us.gcr.io/ticketing-com-353405/orders
+    context: orders
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+    ...    
+
+// ingress-srv.yaml
+  - path: /api/orders/?(.*)
+    pathType: Prefix
+    backend:
+      service:
+        name: orders-srv
+        port:
+          number: 3000                  
+  - path: /?(.*)
+    pathType: Prefix
+  ...
+
+cd ticketing
+skaffold dev
