@@ -1,19 +1,23 @@
 import mongoose from 'mongoose';
+import { OrderStatus } from '@chinasystems/common';
+import { TicketDoc } from './ticket';
 
 // An interface that describes the properties
-// that are requried to create a new Order
+// that are required to create a new Order
 interface OrderAttrs {
-  title: string;
-  price: number;
   userId: string;
+  status: OrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
 }
 
 // An interface that describes the properties
 // that a Order Document has
 interface OrderDoc extends mongoose.Document {
-  title: string;
-  price: number;
   userId: string;
+  status: OrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
 }
 
 // An interface that describes the properties
@@ -22,29 +26,36 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
   build(attrs: OrderAttrs): OrderDoc;
 }
 
-const orderSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: Number,
-    required: true
-  },
-  userId: {
-    type: String,
-    required: true
-  }
-},
-{
-  toJSON: {
-    transform(_doc, ret) {
-      ret.id = ret._id;
-      delete ret._id;
-      delete ret.__v;
+const orderSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Created,
+    },
+    expiresAt: {
+      type: mongoose.Schema.Types.Date,
+    },
+    ticket: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Ticket',
     },
   },
-});
+  {
+    toJSON: {
+      transform(_doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      },
+    },
+  }
+);
 
 orderSchema.pre('save', async function(done) {
   done();
@@ -55,15 +66,4 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 };
 
 const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
-
-// New Order Example ...
-// const Order = {
-//   title: 'Test',
-//   price: '11112',
-//   userId: '5e9f8f8f8f8f8f8f8f8f8f8f'
-// };
-
-// console.log(Order.build(Order));
-// console.log(new Order(Order));
-
 export { Order };

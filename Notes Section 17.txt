@@ -67,7 +67,7 @@ skaffold dev
   [tickets] Connected to MongoDb
   [tickets] Listening on port 3000!!!!!!!!
 
-17-353. Scaffolding a Few Route Handlers
+17-353. Scaffolding a Few Route Handlers ~ 363. Defining the Ticket Model
 // copy folders 'models' and 'routes' from tickets to orders
 // delete update.ts and update.test.ts 
 // Change Ticket => Order, Change ticket => order
@@ -90,3 +90,32 @@ app.use(deleteOrderRouter);
 ...
 
 skaffold dev
+
+// 358. Creating an Order Status Enum
+// common\src\events\types\order-status.ts (new)
+// common\src\index.ts
+...
+export * from './events/ticket-updated-event';
+
+export * from './events/types/order-status';***
+
+cd ticketing\common
+npm run pub
+
+cd ..
+cd auth
+npm i @chinasystems/common --force
+
+cd ..
+cd tickets
+npm i @chinasystems/common --force
+
+cd ..
+cd orders
+npm i @chinasystems/common --force
+
+// 363. Defining the Ticket Model
+models\ticket.ts (new)
+
+// 359. Order Model Setup
+models\order.ts (new)
