@@ -1,39 +1,63 @@
 import express, { Request, Response } from 'express';
+import mongoose from 'mongoose';
 import { body } from 'express-validator';
 
-import { requireAuth, validateRequest } from '@chinasystems/common';
+import { requireAuth, validateRequest, NotFoundError, OrderStatus } from '@chinasystems/common';
 import { Order } from '../models/order';
-// import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
+import { Ticket } from '../models/ticket';
 import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 router.post(
   '/api/orders',
   requireAuth, 
-  // [
-  //   body('title').not().isEmpty().withMessage('Title is required'),
-  //   body('price')
-  //     .isFloat({ gt: 0 })
-  //     .withMessage('Price must be greater than 0'),
-  // ],
+  [
+    body('ticketId')
+      .not()
+      .isEmpty()
+      .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage('TicketId is required'),
+  ],
   validateRequest,  
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
-    const order = Order.build({ 
-      // title, 
-      // price, 
-      // userId: req.currentUser!.id 
-    });
+    const { ticketId } = req.body;
 
-    await order.save();
+    // Find the ticket the user is trying to order in the database
+    const ticket = await Ticket.findById(ticketId);
+    if (!ticket) {
+      throw new NotFoundError();
+    }
+
+    // Make sure that this ticket is not already reserved
+    // Run query to look at all orders.  Find an order where the ticket
+    // is the ticket we just found *and* the orders status is *not* cancelled.
+    // If we find an order from that means the ticket *is* reserved
+    const existingOrder = await Order.findOne({
+      ticket: ticket,
+      status: {
+        $in: [
+          OrderStatus.Created,
+          OrderStatus.AwaitingPayment,
+          OrderStatus.Complete,
+        ],
+      },
+    });
+    if (existingOrder) {
+      throw new Error('Ticket is already reserved');
+    }
+    // Calculate an expiration date for this order
+    // Build the order and save it to the database
+    // await order.save();    
+    // Publish an event saying that an order was created
     // await new OrderCreatedPublisher(natsWrapper.client)
     //   .publish({
     //     id: order.id,
     //     title: order.title,
     //     price: order.price,
-    //     userId: order.userId,
+    //     ticketId: ticket.id,
     //   });
-    res.status(201).send(order);
+
+    res.status(201).send();
   }
 );
 
