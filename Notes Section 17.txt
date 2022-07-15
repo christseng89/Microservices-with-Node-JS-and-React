@@ -236,3 +236,16 @@ const router = express.Router();
 
 17-371. Asserting Tickets Exist ~ 373. Testing the Success Case
 // new.test.ts (new)
+
+17-374. Fetching a User's Orders
+// index.ts
+// Index all active orders for the current user
+router.get('/api/orders',
+  requireAuth,  ***
+  async (req: Request, res: Response) => {
+    const orders = await Order.find({
+      userId: req.currentUser!.id, ***
+    }).populate('ticket');
+
+    res.status(200).send(orders);
+});
