@@ -297,3 +297,29 @@ router.delete(
 
 // 379. Can We Cancel?
 // delete.test.ts (new)
+
+cd ticketing\orders
+npm run test
+  PASS  src/routes/__test__/index.test.ts
+  PASS  src/routes/__test__/new.test.ts
+  PASS  src/routes/__test__/show.test.ts
+  PASS  src/routes/__test__/delete.test.ts
+
+  Test Suites: 4 passed, 4 total
+  Tests:       2 todo, 7 passed, 9 total
+  Snapshots:   0 total
+  Time:        9.245 s
+  Ran all test suites.
+
+skaffold dev
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+  [tickets] Connected to NATS  
+  [orders] Connected to MongoDb
+  [orders] Listening on port 3000!!!!!!!!
+  [orders] Connected to NATS  
+
+### Postman ******
+// cannot new order (due to the event listener needs to get tickets event into orders DB)
