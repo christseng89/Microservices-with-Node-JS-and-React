@@ -120,8 +120,9 @@ models\ticket.ts (new)
 // 359. Order Model Setup
 models\order.ts (new)
 
-17-364. Order Creation Logic ~ 365. Finding Reserved Tickets
+17-364. Order Creation Logic ~ 366. Convenience Document Methods
 // new.ts
+# 364. Order Creation Logic
 router.post(
   '/api/orders',
   requireAuth, 
@@ -142,11 +143,9 @@ router.post(
       throw new NotFoundError();
     }
 
-    // Make sure that this ticket is not already reserved
-    // Run query to look at all orders.  Find an order where the ticket
-    // is the ticket we just found *and* the orders status is *not* cancelled.
-    // If we find an order from that means the ticket *is* reserved
-    const existingOrder = await Order.findOne({ ***
+## 365. Finding Reserved Tickets
+    // Make sure that this ticket is not reserved in the Order database
+    const reservedOrder = await Order.findOne({
       ticket: ticket,
       status: {
         $in: [
@@ -156,9 +155,47 @@ router.post(
         ],
       },
     });
-    if (existingOrder) {
+    if (reservedOrder) {
       throw new Error('Ticket is already reserved');
     }
+    
+# 366. Convenience Document Methods
+// ticket.ts
+export interface TicketDoc extends mongoose.Document {
+  title: string;
+  price: number;
+  isReserved(): Promise<boolean>; ***
+}
+...
+ticketSchema.methods.isReserved = async function() {
+  // this === the ticket document that we just called 'isReserved' on
+  const reservedOrder = await Order.findOne({
+    ticket: this,
+    status: {
+      $in: [
+        OrderStatus.Created,
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Complete,
+      ],
+    },
+  });
+
+  return !!reservedOrder;
+};
+...
+// orders.ts
+import { OrderStatus } from '@chinasystems/common';
+import { TicketDoc } from './ticket';
+
+export { OrderStatus }; ***
+
+// new.ts
+    // Make sure that this ticket is not reserved in the Order database
+    const isReserved = await ticket.isReserved();
+    if (isReserved) {
+      throw new Error('Ticket is already reserved');
+    }
+  
     // Calculate an expiration date for this order
     // Build the order and save it to the database
     // await order.save();    
