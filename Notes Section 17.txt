@@ -253,7 +253,7 @@ router.get('/api/orders',
 17-375. A Slightly Complicated Test
 // index.test.ts (new)
 
-17-376. Fetching Individual Orders
+17-376. Fetching Individual Orders ~ 377. Does Fetching Work?
 // show.ts
 router.get(
   '/api/orders/:id',
@@ -271,3 +271,6 @@ router.get(
 
     res.status(200).send(order);
 });
+
+// 377. Does Fetching Work?
+// show.test.ts (new)
