@@ -25,6 +25,7 @@ beforeAll(async () => {
 
 // Cleanup database before each test
 beforeEach(async () => {
+  jest.setTimeout(500000);
   jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
 
@@ -35,6 +36,7 @@ beforeEach(async () => {
 
 // Stop mongo server after all tests
 afterAll(async () => {
+  jest.setTimeout(500000);
   await mongoose.connection.close();
   try {
     await mongo.stop();

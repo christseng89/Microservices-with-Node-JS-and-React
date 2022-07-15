@@ -274,3 +274,26 @@ router.get(
 
 // 377. Does Fetching Work?
 // show.test.ts (new)
+
+17-378. Cancelling an Order & 379. Can We Cancel?
+// delete.ts
+router.delete(
+  '/api/orders/:id',
+  requireAuth,
+  async (req: Request, res: Response) => {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      throw new NotFoundError();
+    }
+    if (order.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
+    order.status = OrderStatus.Cancelled; *** Update status ONLY...
+    await order.save();
+
+    res.status(204).send(order);
+  }
+
+// 379. Can We Cancel?
+// delete.test.ts (new)
