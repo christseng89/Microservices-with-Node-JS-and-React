@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { body } from 'express-validator';
 
-import { requireAuth, validateRequest, NotFoundError } from '@chinasystems/common';
+import { requireAuth, validateRequest, NotFoundError, BadRequestError } from '@chinasystems/common';
 import { Order, OrderStatus } from '../models/order';
 import { Ticket } from '../models/ticket';
 import { natsWrapper } from '../nats-wrapper';
@@ -32,7 +32,7 @@ router.post(
     // Make sure that this ticket is not reserved in the Order database
     const isReserved = await ticket.isReserved();
     if (isReserved) {
-      throw new Error('Ticket is already reserved');
+      throw new BadRequestError('Ticket is already reserved');
     }
 
     // Calculate an expiration date for this order
