@@ -29,4 +29,13 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
       price,
     });
     await ticket.save();
-    
+
+19-394. Ticket Updated Listener Implementation
+// *.test.ts Tests for ID Adjustment
+  const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),  ***
+    title: 'concert',
+    price: 20,
+  });
+
+// ticket-updated-listener.ts (new)
