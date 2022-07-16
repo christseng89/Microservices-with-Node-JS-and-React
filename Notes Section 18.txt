@@ -1,4 +1,4 @@
-18-382. Creating the Events
+18-382. Creating the Events (common)
 // common\src\events
 // subject.ts
 ...
@@ -18,3 +18,6 @@ npm run pub
 cd ..
 cd orders
 npm i @chinasystems/common --force
+
+18-383. Implementing the Publishers
+// orders\src\events\order-created-event.ts order-cancelled-event.ts (new)
