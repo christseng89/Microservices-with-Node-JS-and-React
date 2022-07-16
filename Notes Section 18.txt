@@ -61,4 +61,80 @@ import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-pu
           id: order.ticket.id,
       }, 
     });    
-    
+
+18-386. Testing Event Publishing
+// __mocks__\nats-wrapper.ts (new)
+// order-cancelled-publisher.ts, order-created-publisher.ts (update)
+  readonly subject = Subjects.OrderCancelled;
+  readonly subject = Subjects.OrderCreated;
+
+// new.test.ts
+...
+import { natsWrapper } from '../../nats-wrapper';
+...
+it('publishes an order created event', async () => {
+  const ticket = Ticket.build({
+    title: 'concert',
+    price: 20,
+  });
+  await ticket.save();
+
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', global.fakeSignup())
+    .send({
+      ticketId: ticket.id,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+// delete.test.ts
+...
+import { natsWrapper } from '../../nats-wrapper';
+...
+it('publishes a order cancelled event', async () => {
+  const ticket = Ticket.build({
+    title: 'concert',
+    price: 20,
+  });
+  await ticket.save();
+
+  const user = global.fakeSignup();
+  // make a request to create an order
+  const { body: order } = await request(app)
+    .post('/api/orders')
+    .set('Cookie', user)
+    .send({ ticketId: ticket.id })
+    .expect(201);
+
+  // make a request to cancel the order
+  await request(app)
+    .delete(`/api/orders/${order.id}`)
+    .set('Cookie', user)
+    .send()
+    .expect(204);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+npm run test
+  console.log
+    Event published to subject order:created, with data { ***
+      id: '62d2a4bf32d801739a46d090',
+      userId: '62d2a4bf32d801739a46d08d',
+      status: 'created',
+      expiresAt: '2022-07-16T12:00:03.609Z',
+      ticket: { id: '62d2a4bf32d801739a46d08b', price: 20 }
+    }
+
+    at node_modules/@chinasystems/common/build/events/base-publisher.js:15:25
+
+  console.log
+    Event published to subject order:cancelled, with data { ***
+      id: '62d2a4bf32d801739a46d090',
+      ticket: { id: '62d2a4bf32d801739a46d08b' }
+    }
+
+    at node_modules/@chinasystems/common/build/events/base-publisher.js:15:25
