@@ -1,2 +1,32 @@
 19-390. Blueprint for Listeners ~ 392. Simple onMessage Implementation
 // events\listeners\ticket-created-listener.ts & queue-group-name.ts
+
+19-393. ID Adjustment
+// ticket.ts
+...
+interface TicketAttrs {
+  id: string;
+  title: string;
+  price: number;
+}
+...
+ticketSchema.statics.build = (attrs: TicketAttrs) => {
+  return new Ticket({ ***
+    _id: attrs.id, 
+    title: attrs.title,
+    price: attrs.price,
+  });
+};
+...
+
+// ticket-created-listener.ts
+  async onMessage(data: TicketCreatedEvent['data'], msg: Message) {
+    const { id, title, price } = data;
+
+    const ticket = Ticket.build({
+      id,
+      title,
+      price,
+    });
+    await ticket.save();
+    
