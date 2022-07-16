@@ -42,3 +42,23 @@ import { OrderCreatedPublisher } from './../events/publishers/order-created-publ
       });    
 
     res.status(201).send(order);
+
+18-385. Publishing Order Cancellation
+// delete.ts
+import { natsWrapper } from '../nats-wrapper';
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
+...
+  async (req: Request, res: Response) => {
+    const order = await Order.findById(req.params.id).populate('ticket'); ***
+    ...
+    await order.save();
+
+    // Publish an event saying that an order was cancelled
+    await new OrderCancelledPublisher(natsWrapper.client)
+    .publish({
+      id: order.id,
+      ticket: {
+          id: order.ticket.id,
+      }, 
+    });    
+    
