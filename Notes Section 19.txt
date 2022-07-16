@@ -1,0 +1,2 @@
+19-390. Blueprint for Listeners ~ 392. Simple onMessage Implementation
+// events\listeners\ticket-created-listener.ts & queue-group-name.ts
