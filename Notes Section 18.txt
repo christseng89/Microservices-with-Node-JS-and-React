@@ -21,3 +21,24 @@ npm i @chinasystems/common --force
 
 18-383. Implementing the Publishers
 // orders\src\events\order-created-event.ts order-cancelled-event.ts (new)
+
+18-384. Publishing the Order Creation
+// new.ts
+...
+import { natsWrapper } from '../nats-wrapper';
+import { OrderCreatedPublisher } from './../events/publishers/order-created-publisher';
+...
+    // Publish an event saying that an order was created ***
+    await new OrderCreatedPublisher(natsWrapper.client)
+      .publish({
+        id: order.id,
+        userId: order.userId,
+        status: order.status, 
+        expiresAt: order.expiresAt.toISOString(),
+        ticket: {
+            id: ticket.id,
+            price: ticket.price,
+        }, 
+      });    
+
+    res.status(201).send(order);

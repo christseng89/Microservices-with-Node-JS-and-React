@@ -6,6 +6,7 @@ import { requireAuth, validateRequest, NotFoundError, BadRequestError } from '@c
 import { Order, OrderStatus } from '../models/order';
 import { Ticket } from '../models/ticket';
 import { natsWrapper } from '../nats-wrapper';
+import { OrderCreatedPublisher } from './../events/publishers/order-created-publisher';
 
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 const router = express.Router();
@@ -49,13 +50,17 @@ router.post(
     await order.save();
 
     // Publish an event saying that an order was created
-    // await new OrderCreatedPublisher(natsWrapper.client)
-    //   .publish({
-    //     id: order.id,
-    //     title: order.title,
-    //     price: order.price,
-    //     ticketId: ticket.id,
-    //   });    
+    await new OrderCreatedPublisher(natsWrapper.client)
+      .publish({
+        id: order.id,
+        userId: order.userId,
+        status: order.status, 
+        expiresAt: order.expiresAt.toISOString(),
+        ticket: {
+            id: ticket.id,
+            price: ticket.price,
+        }, 
+      });    
 
     res.status(201).send(order);
   }
