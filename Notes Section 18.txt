@@ -1,0 +1,20 @@
+18-382. Creating the Events
+// common\src\events
+// subject.ts
+...
+  OrderCreated = 'order:created',
+  OrderCancelled = 'order:cancelled',
+}
+
+// order-created-event.ts order-cancelled-event.ts (new)
+
+// index.ts
+export * from './events/order-created-event';
+export * from './events/order-cancelled-event';
+
+cd ticketing\common
+npm run pub
+
+cd ..
+cd orders
+npm i @chinasystems/common --force
