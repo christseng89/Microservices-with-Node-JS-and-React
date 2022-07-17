@@ -180,3 +180,21 @@ it('increments the version number on multiple saves', async () => {
 19-405. Who Updates Versions?
 'Version' number incremental ONLY when the "Primary Service" responsible 
 for a record publishes an event to describe a create/update/delete to a record.
+
+19-406. Including Versions in Events
+// ticketing\common\src\events
+    readonly id: string;
+    readonly version: number; ***
+- order-cancelled-event.ts
+- order-created-event.ts
+- ticket-created-event.ts
+- ticket-updated-event.ts
+
+cd ticketing\common
+npm run pub
+
+cd ..\tickets
+npm i @chinasystems/common --force
+
+cd ..\orders
+npm i @chinasystems/common --force
