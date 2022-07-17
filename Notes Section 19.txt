@@ -133,3 +133,29 @@ npm i mongoose-update-if-current
 cd ..
 cd orders
 npm i mongoose-update-if-current
+
+19-401. Implementing OCC with Mongoose ~ 403. Testing OCC
+// models\ticket.ts
+...
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current'; ***
+...
+// An interface that describes the properties
+// that a Ticket Document has
+interface TicketDoc extends mongoose.Document {
+  title: string;
+  price: number;
+  userId: string;
+  version: number; ***
+}
+...
+ticketSchema.set('versionKey', 'version'); ***
+ticketSchema.plugin(updateIfCurrentPlugin);
+ticketSchema.pre('save', async function(done) {
+  done();
+});
+...
+
+// __test__\ticket.test.ts (new)
+
+cd ticketing\tickets
+npm run test

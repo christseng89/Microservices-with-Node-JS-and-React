@@ -15,7 +15,8 @@ let mongo: any;
 
 // Connect to mongo
 beforeAll(async () => {
-  jest.setTimeout(200000);
+  const newTimeout = 1000000;
+  jest.setTimeout(newTimeout);
   process.env.JWT_KEY = 'abcdef';
   mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
@@ -25,6 +26,7 @@ beforeAll(async () => {
 
 // Cleanup database before each test
 beforeEach(async () => {
+  jest.setTimeout(500000);
   jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
 
@@ -35,6 +37,7 @@ beforeEach(async () => {
 
 // Stop mongo server after all tests
 afterAll(async () => {
+  jest.setTimeout(500000);
   await mongoose.connection.close();
   try {
     await mongo.stop();
