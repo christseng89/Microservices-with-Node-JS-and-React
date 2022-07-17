@@ -62,3 +62,31 @@ skaffold dev
   [orders] }
   [orders] Connected to MongoDb
   [orders] Listening on port 3000!!!!!!!!
+
+19-396. A Quick Manual Test (Postman)
+### Postman
+= SignIn or SignUp
+= Create Ticket
+= Create Order
+= Get Orders
+= Get Order by Id
+= Cancel Order (twice)
+= Get Orders
+
+### Bugfix
+// delete.ts
+  async (req: Request, res: Response) => {
+    if( !mongoose.Types.ObjectId.isValid(req.params.id) ) { ***
+      throw new BadRequestError('Valid order ID required');
+    }
+    const order = await Order.findById(req.params.id).populate('ticket');
+    ...
+    if (order.status === OrderStatus.Cancelled) { ***
+      throw new BadRequestError('Ticket is already cancelled');
+    }  
+
+// show.ts
+  async (req: Request, res: Response) => {
+    if( !mongoose.Types.ObjectId.isValid(req.params.id) ) { ***
+      throw new BadRequestError('Valid order ID required');
+    }  

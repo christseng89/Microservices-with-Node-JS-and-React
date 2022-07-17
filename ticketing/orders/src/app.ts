@@ -20,8 +20,8 @@ app.use(cookieSession({
 app.use(currentUser);
 app.use(createOrderRouter);
 app.use(showOrderRouter);
-app.use(indexOrderRouter);
 app.use(deleteOrderRouter);
+app.use(indexOrderRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();
