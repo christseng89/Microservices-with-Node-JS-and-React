@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+
 import { OrderStatus } from '@chinasystems/common';
 import { TicketDoc } from './ticket';
 
@@ -15,6 +17,7 @@ interface OrderAttrs {
 // An interface that describes the properties
 // that a Order Document has
 interface OrderDoc extends mongoose.Document {
+  version: number;  
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
@@ -58,6 +61,8 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 orderSchema.pre('save', async function(done) {
   done();
 });

@@ -198,3 +198,93 @@ npm i @chinasystems/common --force
 
 cd ..\orders
 npm i @chinasystems/common --force
+
+19-407. Updating Tickets Event Definitions ~ 409. Applying a Version Query
+### TICKETS
+// ticketing\tickets\src\routes
+news.ts 
+  await new TicketCreatedPublisher(natsWrapper.client)
+    .publish({
+      id: ticket.id,
+      version: ticket.version, ***
+
+update.ts
+  await new TicketUpdatedPublisher(natsWrapper.client)
+    .publish({
+      id: ticket.id,
+      version: ticket.version, ***
+
+cd ticketing\tickets
+npm run test
+  ...
+  Test Suites: 5 passed, 5 total                                                              
+  Tests:       18 passed, 18 total
+  Snapshots:   0 total
+  Time:        16.927 s
+
+### ORDERS
+// ticketing\orders\src\models
+ticket.ts
+...
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+...
+export interface TicketDoc extends mongoose.Document {
+  version: number;  ***
+  title: string;
+  price: number;
+  isReserved(): Promise<boolean>;
+}
+...
+ticketSchema.set('versionKey', 'version'); ***
+ticketSchema.plugin(updateIfCurrentPlugin);
+ticketSchema.statics.build = (attrs: TicketAttrs) => {
+...
+
+order.ts
+...
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+...
+interface OrderDoc extends mongoose.Document {
+  userId: string;
+  status: OrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
+  version: number; ***
+}
+...
+orderSchema.set('versionKey', 'version');***
+orderSchema.plugin(updateIfCurrentPlugin);
+orderSchema.pre('save', async function(done) {
+...
+
+routes/add.ts
+  await new OrderCreatedPublisher(natsWrapper.client)
+    .publish({
+      id: order.id,
+      version: order.version, ***
+      userId: order.userId,
+      status: order.status, 
+
+routes/delete.ts
+  await new OrderCancelledPublisher(natsWrapper.client)
+    .publish({
+      id: order.id,
+      version: order.version, ***
+      ticket: {
+
+events/listeners/ticket-updated-listener.ts
+  async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
+    const ticket = await Ticket.findOne({ ***
+      _id: data.id, 
+      version: data.version - 1 
+    });
+...
+
+cd ticketing\orders
+npm run test
+
+### Postman
+= Create Ticket
+= Create Order
+= Update Ticket
+= Cancel Order
