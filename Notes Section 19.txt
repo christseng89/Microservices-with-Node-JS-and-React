@@ -39,3 +39,26 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
   });
 
 // ticket-updated-listener.ts (new)
+
+19-395. Initializing the Listeners
+// index.ts
+import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
+import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener'; ***
+
+const start = async () => {
+  ...
+  process.on('SIGTERM', () => stan.close());
+
+  new TicketCreatedListener(stan).listen(); ***
+  new TicketUpdatedListener(stan).listen();
+
+skaffold dev
+  [orders] Connected to NATS
+  [orders] Message #1 received from subject ticket:created/orders-service, with data {
+  [orders]   id: '62d1762ab78860b3f01e4251',
+  [orders]   title: 'Ticket title #1',
+  [orders]   price: 10,
+  [orders]   userId: '62d176217dd5e98778a1f3fa'
+  [orders] }
+  [orders] Connected to MongoDb
+  [orders] Listening on port 3000!!!!!!!!
