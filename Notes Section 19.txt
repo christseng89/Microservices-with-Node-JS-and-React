@@ -176,3 +176,7 @@ it('increments the version number on multiple saves', async () => {
   await ticket.save();
   expect(ticket.version).toEqual(2);
 });
+
+19-405. Who Updates Versions?
+'Version' number incremental ONLY when the "Primary Service" responsible 
+for a record publishes an event to describe a create/update/delete to a record.
