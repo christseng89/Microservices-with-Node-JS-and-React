@@ -119,3 +119,17 @@ skaffold dev
     if( !mongoose.Types.ObjectId.isValid(req.params.id) ) { ***
       throw new BadRequestError('Valid order ID required');
     }  
+
+19-399. Optimistic Concurrency Control
+https://en.wikipedia.org/wiki/Optimistic_concurrency_control#:~:text=Optimistic%20concurrency%20control%20(OCC)%2C,without%20interfering%20with%20each%20other.
+https://en.wikipedia.org/wiki/Relational_database#RDBMS
+
+19-400. Mongoose Update-If-Current
+https://www.npmjs.com/package/mongoose-update-if-current
+
+cd ticketing\tickets
+npm i mongoose-update-if-current
+
+cd ..
+cd orders
+npm i mongoose-update-if-current
