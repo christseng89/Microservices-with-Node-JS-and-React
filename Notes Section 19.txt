@@ -72,6 +72,35 @@ skaffold dev
 = Get Order by Id
 = Cancel Order (twice)
 = Get Orders
+= Update Ticket
+= Get Orders
+//
+[
+  {
+      "userId": "62d373ed7dd5e98778a1f3fd",
+      "status": "cancelled",
+      "expiresAt": "2022-07-17T03:52:12.130Z",
+      "ticket": {
+          "title": "Ticket Title Update2 #4", ***
+          "price": 12,
+          "__v": 0,
+          "id": "62d383e019e08a389a5a37ee"
+      },
+      "id": "62d383e8ad014a169baf5b28"
+  },
+  {
+      "userId": "62d373ed7dd5e98778a1f3fd",
+      "status": "created",
+      "expiresAt": "2022-07-17T04:00:14.125Z",
+      "ticket": {
+          "title": "Ticket Title Update2 #4", ***
+          "price": 12,
+          "__v": 0,
+          "id": "62d383e019e08a389a5a37ee"
+      },
+      "id": "62d385caad014a169baf5b3d"
+  }
+]
 
 ### Bugfix
 // delete.ts
