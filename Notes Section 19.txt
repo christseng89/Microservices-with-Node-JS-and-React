@@ -378,4 +378,8 @@ kubectl exec -it orders-mongo-depl-56b7d4f6f-d8zc7 mongo
   show tables;
   db.tickets.find({ price: 12.7 });
     { "_id" : ObjectId("62d43ec02f421dbe58c5c9b0"), "title" : "movie #1 update 7", "price" : 12.7, "version" : 7 }
-    
+
+### Part 2: Change it back to Update-If-Current
+// ticketing\orders\src\models\ticket.ts
+// ticket-updated-listener.ts
+ 
