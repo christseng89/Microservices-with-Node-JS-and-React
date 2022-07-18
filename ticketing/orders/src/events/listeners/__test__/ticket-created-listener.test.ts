@@ -20,32 +20,9 @@ const setup = async () => {
   };
 
   // create a fake message object
+  // @ts-ignore
   const msg: Message = {
     ack: jest.fn(),
-    getSubject: function (): string {
-      throw new Error('Function not implemented.');
-    },
-    getSequence: function (): number {
-      throw new Error('Function not implemented.');
-    },
-    getRawData: function (): Buffer {
-      throw new Error('Function not implemented.');
-    },
-    getData: function (): String | Buffer {
-      throw new Error('Function not implemented.');
-    },
-    getTimestampRaw: function (): number {
-      throw new Error('Function not implemented.');
-    },
-    getTimestamp: function (): Date {
-      throw new Error('Function not implemented.');
-    },
-    isRedelivered: function (): boolean {
-      throw new Error('Function not implemented.');
-    },
-    getCrc32: function (): number {
-      throw new Error('Function not implemented.');
-    }
   };
 
   return { listener, data, msg };
