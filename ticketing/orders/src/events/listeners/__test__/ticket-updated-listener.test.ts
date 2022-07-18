@@ -51,7 +51,7 @@ it('finds, updates, and saves a ticket', async () => {
 });
 
 it('acks the message', async () => {
-  console.info('Acks the Message, Process NODE env:', process.env.NODE_ENV);
+  console.info('Ack Message, Process NODE env:', process.env.NODE_ENV);
 
   // create a listener
   const { msg, data, listener } = await setup();  
