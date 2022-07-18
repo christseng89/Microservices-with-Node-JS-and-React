@@ -318,3 +318,64 @@ ticketSchema.statics.findByEvent = (event: { id: string; version: number }) => {
       throw new Error('Ticket not found');
     }
 ...
+
+19-412. [Optional] Versioning Without Update-If-Current
+// ticket-updated-listener.ts
+...
+  const { title, price, version } = data; ***
+  ticket.set({ title, price, version }); ***
+  await ticket.save();
+...
+
+// models\ticket.ts
+...
+ticketSchema.set('versionKey', 'version'); 
+// ticketSchema.plugin(updateIfCurrentPlugin); // without Update-If-Current plugin ***
+ticketSchema.pre('save', function(done) { ***
+  this.$where = {
+    version: this.get('version') - 1
+  }
+  done();
+});  
+...
+
+### Postman 
+= Update Ticket (3 times)
+
+### Skaffold
+  [orders] Connected to NATS
+  [orders] Connected to MongoDb
+  [orders] Listening on port 3000!!!!!!!!
+  [orders] Message #4 received from subject ticket:updated/orders-service, with data {
+  [orders]   id: '62d43ec02f421dbe58c5c9b0',
+  [orders]   version: 4,
+  [orders]   title: 'movie #1 update 4',
+  [orders]   price: 12.4,
+  [orders]   userId: '62d373ed7dd5e98778a1f3fd'
+  [orders] }
+  [orders] Message #5 received from subject ticket:updated/orders-service, with data {
+  [orders]   id: '62d43ec02f421dbe58c5c9b0',
+  [orders]   version: 5,
+  [orders]   title: 'movie #1 update 5',
+  [orders]   price: 12.5,
+  [orders]   userId: '62d373ed7dd5e98778a1f3fd'
+  [orders] }
+  [orders] Message #6 received from subject ticket:updated/orders-service, with data {
+  [orders]   id: '62d43ec02f421dbe58c5c9b0',
+  [orders]   version: 6,
+  [orders]   title: 'movie #1 update 6',
+  [orders]   price: 12.6,
+  [orders]   userId: '62d373ed7dd5e98778a1f3fd'
+  [orders] }
+
+### Check Orders Mongo DB 
+kubectl get po | grep orders-mongo
+  orders-mongo-depl-56b7d4f6f-d8zc7     1/1     Running   0          12h
+
+kubectl exec -it orders-mongo-depl-56b7d4f6f-d8zc7 mongo
+  show dbs;
+  use orders;
+  show tables;
+  db.tickets.find({ price: 12.7 });
+    { "_id" : ObjectId("62d43ec02f421dbe58c5c9b0"), "title" : "movie #1 update 7", "price" : 12.7, "version" : 7 }
+    
