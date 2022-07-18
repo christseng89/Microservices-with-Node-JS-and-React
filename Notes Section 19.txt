@@ -430,3 +430,7 @@ it('acks the message', async () => {
   // write assertions to make sure ack function is called
   expect(msg.ack).toHaveBeenCalled();
 });
+
+19-416. Testing the Ticket Updated Listener
+### ORDERS
+// events\listeners\__test__\ticket-updated-listener.test.ts (new)
