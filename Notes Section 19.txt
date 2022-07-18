@@ -434,3 +434,29 @@ it('acks the message', async () => {
 19-416. Testing the Ticket Updated Listener
 ### ORDERS
 // events\listeners\__test__\ticket-updated-listener.test.ts (new)
+
+19-417. Success Ticket Updated Event Listener Case Testing
+// ticket-updated-listener.test.ts
+const setup = async () => {
+  // Create a listener
+  const listener = new TicketUpdatedListener(natsWrapper.client);
+  ...
+  return { msg, ticket, data, listener }; ***
+};
+
+it('finds, updates, and saves a ticket', async () => {
+  console.info('Finds, Updates, and Saves a ticket, Process NODE env:', process.env.NODE_ENV);
+  // create a listener
+  const { msg, ticket, data, listener } = await setup();
+  await listener.onMessage(data, msg);
+...
+it('acks the message', async () => {
+  console.info('Acks the Message, Process NODE env:', process.env.NODE_ENV);
+
+  // create a listener
+  const { msg, data, listener } = await setup();  
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
+  

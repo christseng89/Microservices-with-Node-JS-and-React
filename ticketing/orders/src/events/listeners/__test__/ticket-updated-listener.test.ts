@@ -34,18 +34,28 @@ const setup = async () => {
   };
 
   // return all of this stuff
-  return { msg, data, ticket, listener };
+  return { msg, ticket, data, listener };
 };
 
 it('finds, updates, and saves a ticket', async () => {
   console.info('Finds, Updates, and Saves a ticket, Process NODE env:', process.env.NODE_ENV);
   // create a listener
-  const { listener, data, msg } = await setup();
+  const { msg, ticket, data, listener } = await setup();
+  await listener.onMessage(data, msg);
 
+  const updatedTicket = await Ticket.findById(ticket.id);
+
+  expect(updatedTicket!.title).toEqual(data.title);
+  expect(updatedTicket!.price).toEqual(data.price);
+  expect(updatedTicket!.version).toEqual(data.version);
 });
 
 it('acks the message', async () => {
-  // create a listener
-  const { listener, data, msg } = await setup();  
+  console.info('Acks the Message, Process NODE env:', process.env.NODE_ENV);
 
+  // create a listener
+  const { msg, data, listener } = await setup();  
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
 });
