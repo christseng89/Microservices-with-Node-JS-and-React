@@ -382,4 +382,7 @@ kubectl exec -it orders-mongo-depl-56b7d4f6f-d8zc7 mongo
 ### Part 2: Change it back to Update-If-Current
 // ticketing\orders\src\models\ticket.ts
 // ticket-updated-listener.ts
- 
+
+19-413. Testing Listeners
+### ORDERS
+// events\listeners\__test__\ticket-created-listener.test.ts (new)

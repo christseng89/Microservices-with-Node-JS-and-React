@@ -15,7 +15,8 @@ let mongo: any;
 
 // Connect to mongo
 beforeAll(async () => {
-  jest.setTimeout(500000);
+  const newTimeout = 2000000;
+  jest.setTimeout(newTimeout);
   process.env.JWT_KEY = 'abcdef';
   mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
