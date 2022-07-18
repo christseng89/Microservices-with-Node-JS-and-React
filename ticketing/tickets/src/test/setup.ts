@@ -5,19 +5,23 @@ import jwt from 'jsonwebtoken';
 
 import { app } from '../app';
 
+// @ts-ignore
 declare global {
   var signup: () => Promise<string[]>; // cannot be used here...
   var fakeSignup: () => string[];
 }
 
 jest.mock('../nats-wrapper');
+jest.useRealTimers();
 let mongo: any;
+let processEnv = process.env;
 
 // Connect to mongo
 beforeAll(async () => {
   const newTimeout = 2000000;
   jest.setTimeout(newTimeout);
   process.env.JWT_KEY = 'abcdef';
+  process.env.NODE_ENV = 'test';
   mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
 
@@ -39,6 +43,7 @@ beforeEach(async () => {
 afterAll(async () => {
   jest.setTimeout(500000);
   await mongoose.connection.close();
+  process.env = processEnv;
   try {
     await mongo.stop();
   } catch (error) {

@@ -5,12 +5,14 @@ import jwt from 'jsonwebtoken';
 
 import { app } from '../app';
 
+// @ts-ignore
 declare global {
   var signup: () => Promise<string[]>; // cannot be used here...
   var fakeSignup: () => string[];
 }
 
 jest.mock('../nats-wrapper');
+jest.useRealTimers();
 let mongo: any;
 let processEnv = process.env;
 
