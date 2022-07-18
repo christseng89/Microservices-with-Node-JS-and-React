@@ -288,3 +288,33 @@ npm run test
 = Create Order
 = Update Ticket
 = Cancel Order
+
+19-411. Abstracted Query Method
+// ticketing\orders\src\models\ticket.ts
+...
+interface TicketModel extends mongoose.Model<TicketDoc> {
+  build(attrs: TicketAttrs): TicketDoc;
+  findByEvent(event: { ***
+    id: string;
+    version: number;
+  }): Promise<TicketDoc | null>;
+}
+...
+ticketSchema.set('versionKey', 'version'); 
+ticketSchema.plugin(updateIfCurrentPlugin);
+ticketSchema.statics.findByEvent = (event: { id: string; version: number }) => { ***
+  return Ticket.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
+};
+
+// ticket-updated-listener.ts
+...
+  async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
+    const ticket = await Ticket.findByEvent(data); ***
+
+    if (!ticket) {
+      throw new Error('Ticket not found');
+    }
+...
