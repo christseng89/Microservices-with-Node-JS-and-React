@@ -386,3 +386,34 @@ kubectl exec -it orders-mongo-depl-56b7d4f6f-d8zc7 mongo
 19-413. Testing Listeners
 ### ORDERS
 // events\listeners\__test__\ticket-created-listener.test.ts (new)
+
+19-414. A Complete Listener Test
+// setup.ts
+...
+let mongo: any;
+let processEnv = process.env;
+...
+beforeAll(async () => {
+  const newTimeout = 2000000;
+  jest.setTimeout(newTimeout);
+  process.env.JWT_KEY = 'abcdef';
+  process.env.NODE_ENV = 'test'; ***
+...
+afterAll(async () => {
+  jest.setTimeout(500000);
+  await mongoose.connection.close();
+  process.env = processEnv; ***
+
+// events\listeners\__test__\ticket-created-listener.test.ts
+const setup = async () => {
+  // create an instance of the listener
+  const listener = new TicketCreatedListener(natsWrapper.client);
+...
+it('creates and saves a ticket', async () => {
+  console.info('Creates and Saves a Ticket, Process NODE env:', process.env.NODE_ENV);
+  // create a listener
+  const { listener, data, msg } = await setup();
+
+  // call the onMessage function with the data object + message object
+  await listener.onMessage(data, msg);
+...
