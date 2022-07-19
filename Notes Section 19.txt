@@ -459,4 +459,12 @@ it('acks the message', async () => {
 
   expect(msg.ack).toHaveBeenCalled();
 });
-  
+
+19-421. Listeners in the Tickets Service
+// order_created Lock down ticket update
+// order_cancelled allow ticket update
+
+19-422. Building the Listener
+// ticketing\tickets\src\events\listeners (new)
+- order-created-listener.ts
+- queue-group-name.ts
