@@ -580,3 +580,6 @@ it('publishes a ticket updated event', async () => {
   expect(ticketUpdatedSubject).toEqual('ticket:updated');
   expect(data.id).toEqual(ticketUpdatedData.orderId);
 });
+
+19-431. Order Cancelled Listener
+// events\listeners\order-cancelled-listener.ts (new)
