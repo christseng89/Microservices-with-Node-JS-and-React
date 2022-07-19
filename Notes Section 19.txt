@@ -468,3 +468,46 @@ it('acks the message', async () => {
 // ticketing\tickets\src\events\listeners (new)
 - order-created-listener.ts
 - queue-group-name.ts
+
+19-424. Reserving a Ticket
+### Tickets
+// model/ticket.ts
+...
+interface TicketDoc extends mongoose.Document {
+  title: string;
+  price: number;
+  userId: string;
+  version: number;
+  orderId?: string; ***
+}
+...
+  },
+  orderId: { ***
+    type: String,
+  },  
+},
+{
+  toJSON: {
+...
+
+// order-created-listener.ts
+...
+  async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
+    // Find the ticket that the order is reserving
+    const ticket = await Ticket.findById(data.ticket.id);
+
+    // If no ticket, throw error
+    if (!ticket) {
+      throw new Error('Ticket not found');
+    }
+
+    // Mark the ticket as being reserved by setting its orderId property
+    ticket.set({ orderId: data.id });
+
+    // Save the ticket
+    await ticket.save();
+
+    // ack the message
+    msg.ack();
+  }
+}
