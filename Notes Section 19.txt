@@ -638,3 +638,30 @@ import { OrderCancelledListener } from './events/listeners/order-cancelled-liste
 = Update Ticket
 = New Order
 = New Order (Already reserved)
+
+19-434. Rejecting Edits of Reserved Tickets
+// update.test.ts
+it('rejects updates if the ticket is reserved', async () => {
+  const cookie = global.fakeSignup();
+
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Test Ticket',
+      price: 20,
+    });
+
+  const ticket = await Ticket.findById(response.body.id);
+  ticket!.set({ orderId: new mongoose.Types.ObjectId().toHexString() });
+  await ticket!.save();
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'Test Ticket Update',
+      price: 100,
+    })
+    .expect(400);
+});
