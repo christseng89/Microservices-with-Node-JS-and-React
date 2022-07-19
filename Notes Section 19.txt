@@ -601,3 +601,16 @@ beforeAll(async () => {
 
   await mongoose.connect(mongoUri, {});
 }, 1000000); ***
+
+19-433. Don't Forget to Listen!
+// tickets\index.ts
+import { natsWrapper } from './nats-wrapper';
+import { OrderCreatedListener } from './events/listeners/order-created-listener'; ***
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
+...
+    // Start listening for orders events
+    new OrderCreatedListener(natsWrapper.client).listen(); ***
+    new OrderCancelledListener(natsWrapper.client).listen();
+    
+    await mongoose.connect(process.env.MONGO_URI, {});
+   
