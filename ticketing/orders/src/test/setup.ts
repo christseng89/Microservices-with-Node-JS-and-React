@@ -12,36 +12,31 @@ declare global {
 }
 
 jest.mock('../nats-wrapper');
-jest.useRealTimers();
 let mongo: any;
 let processEnv = process.env;
 
-// Connect to mongo
+// Connect to mongo https://jestjs.io/docs/api#beforeallfn-timeout
 beforeAll(async () => {
-  const newTimeout = 2000000;
-  jest.setTimeout(newTimeout);
   process.env.JWT_KEY = 'abcdef';
   process.env.NODE_ENV = 'test';
   mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {});
-});
+}, 1000000);
 
-// Cleanup database before each test
+// Cleanup database before each test https://jestjs.io/docs/api#beforeeachfn-timeout
 beforeEach(async () => {
-  jest.setTimeout(500000);
   jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
 
   for (let collection of collections) {
     await collection.deleteMany({});
   }
-});
+}, 500000);
 
-// Stop mongo server after all tests
+// Stop mongo server after all tests https://jestjs.io/docs/api#afterallfn-timeout
 afterAll(async () => {
-  jest.setTimeout(500000);
   await mongoose.connection.close();
   process.env = processEnv;
   try {
@@ -49,7 +44,7 @@ afterAll(async () => {
   } catch (error) {
    console.log(error); 
   }
-});
+}, 500000);
 
 global.signup = async () => {
   const email = 'test@test.com';

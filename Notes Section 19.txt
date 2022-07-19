@@ -583,3 +583,21 @@ it('publishes a ticket updated event', async () => {
 
 19-431. Order Cancelled Listener
 // events\listeners\order-cancelled-listener.ts (new)
+
+19-432. A Lightning-Quick Test
+// order-cancelled-listener.test.ts (new)
+
+### Jest
+https://jestjs.io/docs/api#beforeallfn-timeout
+https://jestjs.io/docs/api#beforeeachfn-timeout
+https://jestjs.io/docs/api#afterallfn-timeout
+
+// test\setup.ts
+beforeAll(async () => {
+  process.env.JWT_KEY = 'abcdef';
+  process.env.NODE_ENV = 'test';
+  mongo = await MongoMemoryServer.create();
+  const mongoUri = mongo.getUri();
+
+  await mongoose.connect(mongoUri, {});
+}, 1000000); ***
