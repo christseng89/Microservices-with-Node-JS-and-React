@@ -514,3 +514,50 @@ interface TicketDoc extends mongoose.Document {
 
 19-425. Setup for Testing Reservation ~ 426. Test Implementation
 // events\listeners\__test__\order-created-listener.test.ts (new)
+
+19-429. Publishing While Listening
+### Common
+// base-listener.ts
+export abstract class Listener <T extends Event> {
+  protected client: Stan; ***
+  constructor(client: Stan) {
+    this.client = client;
+  }
+
+// base-publisher.ts
+export abstract class Publisher<T extends Event> {
+  abstract subject: T['subject'];
+  protected client: Stan; ***
+
+// ticket-updated-event.ts
+...
+    readonly userId: string;
+    readonly orderId?: string; ***
+  };
+
+cd ticketing\common
+npm run pub
+
+cd ..\tickets
+npm i @chinasystems/common --force
+
+cd ..\orders
+npm i @chinasystems/common --force
+
+### Tickets
+// order-created-listener.ts (Listener also Publish an Event)
+  ...
+  // Save the ticket
+  await ticket.save();
+
+  // Publish an event saying that the ticket has been updated
+  await new TicketUpdatedPublisher(this.client) ***
+    .publish({
+      id: ticket.id,
+      version: ticket.version,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+      orderId: ticket.orderId,
+    });
+  ...
