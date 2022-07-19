@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 
-import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from '@chinasystems/common';
+import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError, BadRequestError } from '@chinasystems/common';
 import { Ticket } from '../models/ticket';
 
 import { natsWrapper } from '../nats-wrapper';
@@ -25,6 +25,9 @@ router.put(
     if (!ticket) {
       throw new NotFoundError();
     }
+    if (ticket.orderId !== undefined) {
+      throw new BadRequestError('Ticket is already reserved');
+    }  
     if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }

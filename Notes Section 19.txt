@@ -111,7 +111,7 @@ skaffold dev
     const order = await Order.findById(req.params.id).populate('ticket');
     ...
     if (order.status === OrderStatus.Cancelled) { ***
-      throw new BadRequestError('Ticket is already cancelled');
+      throw new BadRequestError('Order is already cancelled');
     }  
 
 // show.ts
@@ -613,4 +613,28 @@ import { OrderCancelledListener } from './events/listeners/order-cancelled-liste
     new OrderCancelledListener(natsWrapper.client).listen();
     
     await mongoose.connect(process.env.MONGO_URI, {});
-   
+
+14-433. Don't Forget to Listen!
+### Orders
+// delete.ts
+    if (order.status === OrderStatus.Cancelled) {
+      throw new BadRequestError('Order is already cancelled'); ***
+    }  
+### Tickets
+// update.ts
+  if (ticket.orderId !== undefined) { ***
+    throw new BadRequestError('Ticket is already reserved');
+  }  
+  if (ticket.userId !== req.currentUser!.id) {
+    throw new NotAuthorizedError();
+  }
+
+### Postman
+= New Ticket
+= New Order
+= Update Ticket (Already reserved)
+= Cancel Order
+= Cancel Order (Already cancelled)
+= Update Ticket
+= New Order
+= New Order (Already reserved)

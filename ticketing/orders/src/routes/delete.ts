@@ -24,7 +24,7 @@ router.delete(
       throw new NotAuthorizedError();
     }
     if (order.status === OrderStatus.Cancelled) {
-      throw new BadRequestError('Ticket is already cancelled');
+      throw new BadRequestError('Order is already cancelled');
     }  
 
     order.status = OrderStatus.Cancelled;

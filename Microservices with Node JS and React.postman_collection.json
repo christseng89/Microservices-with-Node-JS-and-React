@@ -615,7 +615,12 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"ticketId\", pm.response.json().id);"
+											"\r",
+											"// pm.environment.set(\"ticketStatusCode\", pm.response.status);\r",
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"  pm.environment.set(\"ticketId\", pm.response.json().id);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -626,7 +631,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Ticket title #4\",\r\n    \"price\": 24\r\n}",
+									"raw": "{\r\n    \"title\": \"movie #14\",\r\n    \"price\": 14\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -720,7 +725,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Ticket Title Update #4\",\r\n    \"price\": 120\r\n}",
+									"raw": "{\r\n    \"title\": \"movie #14.1\",\r\n    \"price\": 14\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -755,7 +760,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"orderId\", pm.response.json().id);"
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"  pm.environment.set(\"orderId\", pm.response.json().id);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
