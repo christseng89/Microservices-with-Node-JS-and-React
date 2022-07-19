@@ -56,3 +56,23 @@ it('ack the message', async () => {
 
   expect(msg.ack).toHaveBeenCalled();
 });
+
+it('publishes a ticket updated event', async () => {
+  console.info('Publishes a Ticket Updated Event, Process NODE env:', process.env.NODE_ENV);
+  const { listener, data, msg } = await setup();
+  await listener.onMessage(data, msg);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+  // console.log((natsWrapper.client.publish as jest.Mock).mock.calls[0]);
+  // [
+  //   'ticket:updated',
+  //   '{"id":"62d68c30f2014a3989905ee7","version":1,"title":"concert","price":99,"userId":"62d68c30f2014a3989905ee6","orderId":"62d68c30f2014a3989905ee9"}',
+  // ];
+  const ticketUpdatedSubject = (natsWrapper.client.publish as jest.Mock).mock.calls[0][0];
+  const ticketUpdatedData = JSON.parse(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+  );
+
+  expect(ticketUpdatedSubject).toEqual('ticket:updated');
+  expect(data.id).toEqual(ticketUpdatedData.orderId);
+});
