@@ -189,4 +189,26 @@ import { expirationQueue } from '../../queues/expiration-queue'; ***
   [expiration] Waiting this many milliseconds to process the job: 899932 
 
   900 secs = 15 minutes
-  
+
+20-450. Defining the Expiration Complete Event
+### Common
+// subject.ts
+  ExpirationComplete = 'expiration:complete', ***
+}
+
+// expiration-complete-event.ts (new)
+
+// index.ts
+export * from './events/expiration-complete-event';
+
+cd ticketing\common
+npm run pub
+
+cd ../tickets
+npm i @chinasystems/common --force
+
+cd ../orders
+npm i @chinasystems/common --force
+
+cd ../expiration
+npm i @chinasystems/common --force
