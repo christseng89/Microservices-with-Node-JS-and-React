@@ -143,3 +143,50 @@ import { expirationQueue } from '../../queues/expiration-queue'; ***
   [expiration]   expiresAt: '2022-07-20T10:20:41.215Z',
   [expiration]   ticket: { id: '62d7d32bb79664c7024df89c', price: 14 }
   [expiration] }
+
+20-449. Delaying Job Processing
+// order-created-listener.ts
+    await expirationQueue.add({ orderId: data.id }, { delay: 10000 }); ***
+
+### Postman
+= Create Ticket
+= Create Order
+
+### skaffold
+  [expiration] Message #2 received from subject order:created/expiration-service, with data {
+  [expiration]   id: '62d82278c2dea3be95c6398f',
+  [expiration]   version: 0,
+  [expiration]   userId: '62d7d247a5ceeda643abfe84',
+  [expiration]   status: 'created',
+  [expiration]   expiresAt: '2022-07-20T15:57:48.330Z',
+  [expiration]   ticket: { id: '62d82273b79664c7024df8a0', price: 15 }
+  [expiration] }
+  [expiration] I want to publish an expiration:complete event for orderId 62d82278c2dea3be95c6398f
+
+// order-created-listener.ts
+ async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
+    const delay = new Date(data.expiresAt).getTime() - new Date().getTime(); ***
+    console.log('Waiting this many milliseconds to process the job:', delay);
+
+    // Do something with the data
+    await expirationQueue.add(
+      { orderId: data.id }, 
+      // { delay: 10000 }
+      { delay } ***
+    ); 
+
+### skaffold
+  [expiration] [INFO] 15:47:11 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.1, typescript ver. 4.7.4)
+  [expiration] Connected to NATS
+  [expiration] Message #3 received from subject order:created/expiration-service, with data {
+  [expiration]   id: '62d823aec2dea3be95c63997',
+  [expiration]   version: 0,
+  [expiration]   userId: '62d7d247a5ceeda643abfe84',
+  [expiration]   status: 'created',
+  [expiration]   expiresAt: '2022-07-20T16:02:58.310Z',
+  [expiration]   ticket: { id: '62d823aab79664c7024df8a4', price: 16 }
+  [expiration] }
+  [expiration] Waiting this many milliseconds to process the job: 899932 
+
+  900 secs = 15 minutes
+  
