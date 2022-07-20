@@ -103,3 +103,27 @@ kubectl get po | grep expiration
 https://www.npmjs.com/package/bull
 
 // expiration-queue.ts (new)
+
+20-447. Queueing a Job on Event Arrival
+// index.ts
+...
+    process.on('SIGINT', () => stan.close());
+    process.on('SIGTERM', () => stan.close());
+
+    new OrderCreatedListener(natsWrapper.client).listen();***
+  } catch (err) {
+...    
+
+// order-created-listener.ts
+import { queueGroupName } from './queue-group-name';
+import { expirationQueue } from '../../queues/expiration-queue'; ***
+
+...
+  async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
+    // Do something with the data
+    console.log('Event data!', data);
+    await expirationQueue.add({ orderId: data.id }); ***
+    // Ack the message
+    msg.ack();
+  }
+}
