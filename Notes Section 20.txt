@@ -98,3 +98,8 @@ kubectl get po | grep expiration
 
 20-444. Listener Creation
 // queue-group-name.ts order-created-listener.ts (new)
+
+20-446. Creating a Queue
+https://www.npmjs.com/package/bull
+
+// expiration-queue.ts (new)
