@@ -1,0 +1,67 @@
+20-440. Initial Setup
+cd ticketing
+md expiration
+md expiration\src
+md expiration\src\__mocks__
+
+cd expiration
+copy ..\tickets\.dockerignore
+copy ..\tickets\Dockerfile
+copy ..\tickets\package.json
+copy ..\tickets\tsconfig.json
+
+copy ..\tickets\src\index.ts src\index.ts
+copy ..\tickets\src\nats-wrapper.ts src\nats-wrapper.ts
+copy ..\tickets\src\__mocks__\* src\__mocks__\*
+
+// Revise package.json (with Nats ONLY ...)
+  "dependencies": {
+    "@chinasystems/common": "^1.0.14",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.3",
+    "jest": "^28.1.1",
+    "ts-jest": "^28.0.5"
+  }
+
+npm i
+npm i bull @types/bull
+
+// index.ts
+import { natsWrapper } from './nats-wrapper';
+
+const start = async () => {
+  if (!process.env.NATS_CLUSTER_ID) {
+    throw new Error('NATS_CLUSTER_ID must be defined');
+  }
+  if (!process.env.NATS_CLIENT_ID) {
+    throw new Error('NATS_CLIENT_ID must be defined');
+  }   
+  if (!process.env.NATS_URL) {
+    throw new Error('NATS_URL must be defined');
+  }  
+  
+  try {
+    await natsWrapper.connect(
+      process.env.NATS_CLUSTER_ID, 
+      process.env.NATS_CLIENT_ID, 
+      process.env.NATS_URL
+    );
+    // Graceful Shutdown
+    const stan = natsWrapper.client;
+    stan.on('close', () => {
+      console.log('NATS connection closed');
+      process.exit();
+    });
+    process.on('SIGINT', () => stan.close());
+    process.on('SIGTERM', () => stan.close());
+  
+  } catch (err) {
+    console.error(err);
+  }
+
+};
+
+start();
