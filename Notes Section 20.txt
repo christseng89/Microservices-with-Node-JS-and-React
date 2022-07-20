@@ -66,8 +66,23 @@ import { natsWrapper } from './nats-wrapper';
 
   start();
 
+20-442. A Touch of Kubernetes Setup
 // Build image - expiration
 minikube image build -t christseng89/expiration .
 minikube image push christseng89/expiration  
 minikube image ls | grep expiration
   docker.io/christseng89/expiration:latest
+
+// minikube ssh + docker login
+minikube ssh
+docker login
+docker push christseng89/expiration
+
+// expiration-depl.yaml expiration-redis-depl.yaml (new)
+
+skaffold dev
+
+kubectl get po | grep expiration
+  expiration-depl-7f9bf99755-kh955         1/1     Running   0          3m7s
+  expiration-redis-depl-649f5dcb6f-wwkcn   1/1     Running   0          3m6s
+  
