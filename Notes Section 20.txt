@@ -127,3 +127,19 @@ import { expirationQueue } from '../../queues/expiration-queue'; ***
     msg.ack();
   }
 }
+
+20-448. Testing Job Processing
+### Postman
+= Signup
+= New Ticket
+= New Order
+
+### skaffold
+  [expiration] Message #1 received from subject order:created/expiration-service, with data {
+  [expiration]   id: '62d7d375c2dea3be95c63987',
+  [expiration]   version: 0,
+  [expiration]   userId: '62d7d247a5ceeda643abfe84',
+  [expiration]   status: 'created',
+  [expiration]   expiresAt: '2022-07-20T10:20:41.215Z',
+  [expiration]   ticket: { id: '62d7d32bb79664c7024df89c', price: 14 }
+  [expiration] }

@@ -9,7 +9,6 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
   async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
     // Do something with the data
-    console.log('Event data!', data);
     await expirationQueue.add({ orderId: data.id });
     // Ack the message
     msg.ack();
