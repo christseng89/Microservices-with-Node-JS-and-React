@@ -85,4 +85,13 @@ skaffold dev
 kubectl get po | grep expiration
   expiration-depl-7f9bf99755-kh955         1/1     Running   0          3m7s
   expiration-redis-depl-649f5dcb6f-wwkcn   1/1     Running   0          3m6s
-  
+
+20-443. File Sync Setup
+// skaffold.yaml
+...
+  - image: christseng89/expiration ****
+    # - image: us.gcr.io/ticketing-com-353405/expiration
+    context: expiration
+    docker:
+      dockerfile: Dockerfile        
+    sync:
