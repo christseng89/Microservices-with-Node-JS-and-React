@@ -32,36 +32,42 @@ npm i bull @types/bull
 // index.ts
 import { natsWrapper } from './nats-wrapper';
 
-const start = async () => {
-  if (!process.env.NATS_CLUSTER_ID) {
-    throw new Error('NATS_CLUSTER_ID must be defined');
-  }
-  if (!process.env.NATS_CLIENT_ID) {
-    throw new Error('NATS_CLIENT_ID must be defined');
-  }   
-  if (!process.env.NATS_URL) {
-    throw new Error('NATS_URL must be defined');
-  }  
-  
-  try {
-    await natsWrapper.connect(
-      process.env.NATS_CLUSTER_ID, 
-      process.env.NATS_CLIENT_ID, 
-      process.env.NATS_URL
-    );
-    // Graceful Shutdown
-    const stan = natsWrapper.client;
-    stan.on('close', () => {
-      console.log('NATS connection closed');
-      process.exit();
-    });
-    process.on('SIGINT', () => stan.close());
-    process.on('SIGTERM', () => stan.close());
-  
-  } catch (err) {
-    console.error(err);
-  }
+  const start = async () => {
+    if (!process.env.NATS_CLUSTER_ID) {
+      throw new Error('NATS_CLUSTER_ID must be defined');
+    }
+    if (!process.env.NATS_CLIENT_ID) {
+      throw new Error('NATS_CLIENT_ID must be defined');
+    }   
+    if (!process.env.NATS_URL) {
+      throw new Error('NATS_URL must be defined');
+    }  
+    
+    try {
+      await natsWrapper.connect(
+        process.env.NATS_CLUSTER_ID, 
+        process.env.NATS_CLIENT_ID, 
+        process.env.NATS_URL
+      );
+      // Graceful Shutdown
+      const stan = natsWrapper.client;
+      stan.on('close', () => {
+        console.log('NATS connection closed');
+        process.exit();
+      });
+      process.on('SIGINT', () => stan.close());
+      process.on('SIGTERM', () => stan.close());
+    
+    } catch (err) {
+      console.error(err);
+    }
 
-};
+  };
 
-start();
+  start();
+
+// Build image - expiration
+minikube image build -t christseng89/expiration .
+minikube image push christseng89/expiration  
+minikube image ls | grep expiration
+  docker.io/christseng89/expiration:latest
