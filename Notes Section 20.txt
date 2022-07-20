@@ -212,3 +212,25 @@ npm i @chinasystems/common --force
 
 cd ../expiration
 npm i @chinasystems/common --force
+
+20-451. Publishing an Event on Job Processing
+### Expiration
+// expiration-complete-publisher.ts (new)
+
+// expiration-queue.ts
+... 
+expirationQueue.process(async (job) => {
+  // Publish an expiration:complete event
+  await new ExpirationCompletePublisher(natsWrapper.client).publish({ ***
+      orderId: job.data.orderId,
+  });
+});
+
+### Postman
+= New Ticket
+= New Order
+
+### skaffold
+  [expiration] Waiting this many milliseconds to process the job: 899781
+  ...
+  [expiration] Event published to subject expiration:complete, with data { orderId: '62d833ec95ae81d9ab1e2e4c' }
