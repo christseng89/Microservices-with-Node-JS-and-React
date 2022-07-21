@@ -239,6 +239,17 @@ expirationQueue.process(async (job) => {
 ### Orders
 // expiration-complete-listener.ts (new)
 
+// index.ts
+...
+import { ExpirationCompleteListener } from './events/listeners/expiration-complete-listener'; ***
+
+  ...
+    new TicketUpdatedListener(stan).listen();
+    new ExpirationCompleteListener(stan).listen();***
+    
+    await mongoose.connect(process.env.MONGO_URI, {});
+  ...
+
 ### Postman
 = Create Ticket
 = Create Order
