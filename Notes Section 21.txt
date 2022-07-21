@@ -48,3 +48,17 @@ minikube image ls | grep payments
       sync:
 
 // k8s\payments-depl.yaml & payments-mongo-depl.yaml (new)
+
+### Skaffold
+  [expiration] Connected to NATS
+  [payments] Connected to NATS
+  [payments] Connected to MongoDb
+  [payments] Listening on port 3000!!!!!!!!
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!
+  [tickets] Connected to NATS
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+  [orders] Connected to NATS
+  [orders] Connected to MongoDb
+  [orders] Listening on port 3000!!!!!!!!
