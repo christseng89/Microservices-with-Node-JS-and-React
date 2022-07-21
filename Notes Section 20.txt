@@ -234,3 +234,12 @@ expirationQueue.process(async (job) => {
   [expiration] Waiting this many milliseconds to process the job: 899781
   ...
   [expiration] Event published to subject expiration:complete, with data { orderId: '62d833ec95ae81d9ab1e2e4c' }
+
+20-452. Handling an Expiration Event ~ 453. Emitting the Order Cancelled Event
+### Orders
+// expiration-complete-listener.ts (new)
+
+### Postman
+= Create Ticket
+= Create Order
+// wait for 15 mins
