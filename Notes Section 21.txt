@@ -65,3 +65,17 @@ minikube image ls | grep payments
 
 21-462. Another Order Model!
 // order.ts (new)
+
+21-464. Replicating Orders ~ 465. Testing Order Creation
+### Payments
+// order.ts
+orderSchema.statics.build = (attrs: OrderAttrs) => {
+  return new Order({ ***
+    ...attrs,
+    _id: attrs.id,
+  });
+};
+
+// order-created-listener.ts, queue-group-name, order-created-listener.test.ts (new)
+
+npm run test

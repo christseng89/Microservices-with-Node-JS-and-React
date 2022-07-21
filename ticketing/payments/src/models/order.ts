@@ -63,7 +63,10 @@ orderSchema.pre('save', async function(done) {
 });
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
-  return new Order(attrs);
+  return new Order({
+    ...attrs,
+    _id: attrs.id,
+  });
 };
 
 const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
