@@ -2,3 +2,49 @@
 ### Orders Services => Order-created, Order-cancelled;
 ### Payments Services => Payment-created;
 // ### Refunds Services => Refund-created;
+
+21-460. Initial Setup
+cd ticketing
+md payments
+md payments\src
+md payments\src\__mocks__
+md payments\src\test
+md payments\src\models
+md payments\src\routes
+md payments\src\events
+
+cd payments
+copy ..\tickets\.dockerignore
+copy ..\tickets\Dockerfile
+copy ..\tickets\package.json
+copy ..\tickets\tsconfig.json
+
+copy ..\tickets\src\index.ts src\index.ts
+copy ..\tickets\src\app.ts src\app.ts
+copy ..\tickets\src\nats-wrapper.ts src\nats-wrapper.ts
+copy ..\tickets\src\__mocks__\* src\__mocks__\*
+copy ..\tickets\src\test\* src\test\*
+
+// package.json
+{
+  "name": "payments", ***
+  
+npm i
+
+// index.ts app.ts (remove unavailable imports)
+
+// Build image - payments
+minikube image build -t christseng89/payments .
+minikube image push christseng89/payments  
+minikube image ls | grep payments
+  docker.io/christseng89/payments:latest
+
+// skaffold.yaml
+    - image: christseng89/payments ***
+      # - image: us.gcr.io/ticketing-com-353405/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+
+// k8s\payments-depl.yaml & payments-mongo-depl.yaml (new)

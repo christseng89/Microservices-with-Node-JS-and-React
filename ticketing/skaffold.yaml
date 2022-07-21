@@ -31,6 +31,11 @@ build:
       context: expiration
       docker:
         dockerfile: Dockerfile
+    - image: christseng89/payments
+      # - image: us.gcr.io/ticketing-com-353405/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
       sync:
         manual:
           - src: '**/*.js'
