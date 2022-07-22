@@ -79,3 +79,17 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 // order-created-listener.ts, queue-group-name, order-created-listener.test.ts (new)
 
 npm run test
+
+21-466. Marking an Order as Cancelled ~ 468. Starting the Listeners
+// order-cancelled-listener.ts order-cancelled-listener.test.ts (new) 
+
+// index.ts
+...
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
+...
+    // Start listening for orders events
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
+...
+    
