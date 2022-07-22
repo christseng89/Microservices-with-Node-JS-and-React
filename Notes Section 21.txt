@@ -280,3 +280,31 @@ import { stripe } from '../stripe'; ***
 https://dashboard.stripe.com/test/payments
 
 ### Note: "tok_visa" is a test token for developer mode ONLY.
+
+21-478. Automated Payment Testing
+### Payments
+// __mock__\stripe.ts
+// test\setup.ts
+jest.mock('../nats-wrapper');
+jest.mock('../stripe'); ***
+
+// new.test.ts
+it('returns a 204 with valid inputs', async () => {
+  const userId = new mongoose.Types.ObjectId().toHexString();
+  const order = Order.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    userId,
+    version: 0,
+    price: 20,
+    status: OrderStatus.Created,
+  });
+  await order.save();
+
+  await request(app)
+    .post('/api/payments')
+    .set('Cookie', global.fakeSignup(userId))
+    .send({
+      token: 'tok_visa',
+      orderId: order.id,
+    });
+});
