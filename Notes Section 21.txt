@@ -92,4 +92,40 @@ import { OrderCancelledListener } from './events/listeners/order-cancelled-liste
     new OrderCreatedListener(natsWrapper.client).listen();
     new OrderCancelledListener(natsWrapper.client).listen();
 ...
-    
+
+### skaffold
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!
+  [tickets] Connected to NATS
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+  [orders] Connected to NATS
+  [orders] Connected to MongoDb
+  [orders] Listening on port 3000!!!!!!!!
+  [payments] Connected to NATS
+  [payments] Connected to MongoDb
+  [payments] Listening on port 3000!!!!!!!!
+
+### Postman
+= New Ticket
+= New Order
+= Cancel Order
+
+### skaffold
+// New Order
+  [payments] Message #1 received from subject order:created/payments-service, with data {
+  [payments]   id: '62da247e5298fdf078ba4d08',
+  [payments]   version: 0,
+  [payments]   userId: '62d7d247a5ceeda643abfe84',
+  [payments]   status: 'created',
+  [payments]   expiresAt: '2022-07-22T04:30:58.683Z',
+  [payments]   ticket: { id: '62da2478d0d54b85c1ae446a', price: 1.2 }
+  [payments] }
+
+// Cancel Order
+  [payments] Message #1 received from subject order:cancelled/payments-service, with data {
+  [payments]   id: '62da247e5298fdf078ba4d08',
+  [payments]   version: 1,
+  [payments]   ticket: { id: '62da2478d0d54b85c1ae446a' }
+  [payments] }
+  
