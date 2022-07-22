@@ -200,3 +200,23 @@ global.fakeSignup = (id?: string) => { ***
 npm i @chinasystems\common --force
 // Using BadRequestError for signin.ts and signup.ts
 // Add timeout to setup.ts
+
+24-474. Stripe Setup
+cd ticketing\payments
+npm i stripe
+
+https://dashboard.stripe.com/test/apikeys
+  NAME              TOKEN         LAST USED       CREATED
+  Publishable key   pk_test_xxx   Feb 9, 2020     Feb 9, 2020
+  Secret key        sk_test_xxx   Feb 9, 2020     Feb 9, 2020
+
+kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_xxx
+  secret/stripe-secret created
+
+// payments-depl.yaml
+      key: JWT_KEY
+    - name: STRIPE_KEY ***
+    valueFrom:
+    secretKeyRef:
+      name: stripe-secret
+      key: STRIPE_KEY
