@@ -266,4 +266,17 @@ import { stripe } from '../stripe'; ***
     
     res.send({ success: true });
   ... 
-   
+
+21-477. Manual Testing of Payments
+### Postman
+= New Ticket
+= New Order
+= New Payment
+  {
+      "orderId": "{{orderId}}",
+      "token": "tok_visa"
+  }
+
+https://dashboard.stripe.com/test/payments
+
+### Note: "tok_visa" is a test token for developer mode ONLY.
