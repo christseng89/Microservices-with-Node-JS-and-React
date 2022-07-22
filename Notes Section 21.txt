@@ -180,3 +180,23 @@ app.use(createChargeRouter); ***
 ...
 
 // routes/__test__/new.test.ts (new, incomplete)
+
+21-473. Testing Same-User Validation
+// setup.ts (Tickets, Orders, and Payments)
+...
+declare global {
+  var signup: () => Promise<string[]>; // cannot be used here...
+  var fakeSignup: (id?: string) => string[]; ***
+}
+...
+global.fakeSignup = (id?: string) => { ***
+  // 1 Build a JWT payload.  { id, email }
+  const payload = {
+    id: id || new mongoose.Types.ObjectId().toHexString(), ***
+    email: 'test@test.com',
+  };
+
+### Auth
+npm i @chinasystems\common --force
+// Using BadRequestError for signin.ts and signup.ts
+// Add timeout to setup.ts

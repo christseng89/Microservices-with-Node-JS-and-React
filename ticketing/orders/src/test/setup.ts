@@ -8,7 +8,7 @@ import { app } from '../app';
 // @ts-ignore
 declare global {
   var signup: () => Promise<string[]>; // cannot be used here...
-  var fakeSignup: () => string[];
+  var fakeSignup: (id?: string) => string[];
 }
 
 jest.mock('../nats-wrapper');
@@ -61,10 +61,10 @@ global.signup = async () => {
   return response.get('Set-Cookie');
 }
 
-global.fakeSignup = () => {
+global.fakeSignup = (id?: string) => {
   // 1 Build a JWT payload.  { id, email }
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com',
   };
 

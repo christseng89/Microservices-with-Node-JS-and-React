@@ -26,6 +26,7 @@ it('returns a 401 when purchasing an order that doesnt belong to the user', asyn
   });
   await order.save();
 
+  // fakeSignup a new user
   await request(app)
     .post('/api/payments')
     .set('Cookie', global.fakeSignup())
@@ -37,5 +38,22 @@ it('returns a 401 when purchasing an order that doesnt belong to the user', asyn
 });
 
 it('returns a 400 when purchasing a cancelled order', async () => {
-  // build a fake order
+  const userId = new mongoose.Types.ObjectId().toHexString();
+  const order = Order.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    userId,
+    version: 0,
+    price: 20,
+    status: OrderStatus.Cancelled,
+  });
+  await order.save();
+
+  await request(app)
+    .post('/api/payments')
+    .set('Cookie', global.fakeSignup(userId))
+    .send({
+      orderId: order.id,
+      token: 'token...',
+    })
+    .expect(400);
 });

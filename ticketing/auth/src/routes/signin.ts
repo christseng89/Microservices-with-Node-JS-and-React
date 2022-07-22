@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { User } from '../models/user';
 import { Password } from '../services/password';
-import { validateRequest } from '@chinasystems/common';
+import { validateRequest, BadRequestError } from '@chinasystems/common';
 
 const router = express.Router();
 
@@ -26,14 +26,14 @@ async (req: Request, res: Response) => {
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
     req.session = null;
-    throw new Error ('Invalid credentials');
+    throw new BadRequestError ('Invalid credentials');
   }
 
   // 2. Compare password as part of the models/user.ts
   const result = await Password.compare(existingUser.password, password);
   if (!result) {
     req.session = null;
-    throw new Error ('Invalid credentials');
+    throw new BadRequestError ('Invalid credentials');
   }
   
   // 3. Generate JWT

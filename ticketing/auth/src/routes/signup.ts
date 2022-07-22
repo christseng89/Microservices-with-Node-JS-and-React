@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { validateRequest } from '@chinasystems/common';
+import { validateRequest, BadRequestError } from '@chinasystems/common';
 import { User } from '../models/user';
 
 const router = express.Router();
@@ -28,7 +28,7 @@ router.post(
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       req.session = null;
-      throw new Error ('Email in use');
+      throw new BadRequestError ('Email in use');
     }
 
     // 2. Hash password as part of the models/user.ts

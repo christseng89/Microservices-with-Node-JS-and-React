@@ -16,7 +16,7 @@ beforeAll(async () => {
   const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {});
-});
+}, 1000000);
 
 // Cleanup database before each test
 beforeEach(async () => {
@@ -25,13 +25,13 @@ beforeEach(async () => {
   for (let collection of collections) {
     await collection.deleteMany({});
   }
-});
+}, 500000);
 
 // Stop mongo server after all tests
 afterAll(async () => {
   await mongoose.connection.close();
   await mongo.stop();
-});
+}, 500000);
 
 global.signup = async () => {
   const email = 'test@test.com';
