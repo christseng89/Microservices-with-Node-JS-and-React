@@ -128,4 +128,29 @@ import { OrderCancelledListener } from './events/listeners/order-cancelled-liste
   [payments]   version: 1,
   [payments]   ticket: { id: '62da2478d0d54b85c1ae446a' }
   [payments] }
-  
+
+21-469. Payments Flow with Stripe JS ~ 470. Implementing the Create Charge Handler
+// refer to diagram
+https://stripe.com/docs/js/initializing
+
+// routes/new.ts (new, incomplete)
+
+// app.ts
+...
+app.use(currentUser);
+app.use(createChargeRouter); ***
+...
+
+// ingress-srv.yaml 
+...
+  - path: /api/payments/?(.*) ***
+    pathType: Prefix
+    backend:
+      service:
+        name: payments-srv
+        port:
+          number: 3000
+  - path: /?(.*)
+
+### Postman
+= New Payment (with empty body {})

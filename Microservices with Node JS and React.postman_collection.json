@@ -628,10 +628,16 @@
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "session={{cookie-session}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"movie #14\",\r\n    \"price\": 14\r\n}",
+									"raw": "{\r\n    \"title\": \"movie #3.2\",\r\n    \"price\": 3.2\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -751,7 +757,7 @@
 					]
 				},
 				{
-					"name": "Order Services",
+					"name": "Orders Services",
 					"item": [
 						{
 							"name": "New Order",
@@ -771,7 +777,13 @@
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "session={{cookie-session}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"ticketId\": \"{{ticketId}}\"\r\n}",
@@ -897,6 +909,49 @@
 									"path": [
 										"api",
 										"orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Payments Services",
+					"item": [
+						{
+							"name": "New Payment",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "session={{cookie-session}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://ticketing.com/api/payments",
+									"protocol": "https",
+									"host": [
+										"ticketing",
+										"com"
+									],
+									"path": [
+										"api",
+										"payments"
 									]
 								}
 							},
