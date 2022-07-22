@@ -220,3 +220,50 @@ kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_xx
     secretKeyRef:
       name: stripe-secret
       key: STRIPE_KEY
+
+21-476. Creating a Charge with Stripe
+https://stripe.com/docs/api
+https://stripe.com/docs/api/charges
+https://stripe.com/docs/api/charges/create
+
+curl https://api.stripe.com/v1/charges \
+  -u sk_test_xxx: \
+  -H "Stripe-Version: 2020-08-27"
+
+// Create a charge
+curl https://api.stripe.com/v1/charges \
+  -u sk_test_xxx: \
+  -d amount=2000 \
+  -d currency=usd \
+  -d source=tok_visa \
+  -d description="My First Test Charge (created for API docs at https://www.stripe.com/docs/api)"
+
+https://stripe.com/docs/api/charges/create?lang=node
+  const stripe = require('stripe')('sk_test_xxx');
+
+  // `source` is obtained with Stripe.js; see https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token
+  const charge = await stripe.charges.create({
+    amount: 2000,
+    currency: 'usd',
+    source: 'tok_mastercard',
+    description: 'My First Test Charge (created for API docs at https://www.stripe.com/docs/api)',
+  });
+
+### Payments
+// stripe.ts (new)
+// new.ts
+...
+import { Order } from '../models/order';
+import { stripe } from '../stripe'; ***
+...
+    // Charge the customer ***
+    const charge = await stripe.charges.create({
+      currency: 'usd',
+      amount: order.price * 100,
+      source: token,
+      description: 'Charge for order #' + order.id
+    });
+    
+    res.send({ success: true });
+  ... 
+   
