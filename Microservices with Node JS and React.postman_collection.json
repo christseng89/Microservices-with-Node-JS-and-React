@@ -637,7 +637,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"movie #3.2\",\r\n    \"price\": 3.2\r\n}",
+									"raw": "{\r\n    \"title\": \"movie #12.1\",\r\n    \"price\": 12.1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -922,9 +922,6 @@
 						{
 							"name": "New Payment",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -935,7 +932,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\r\n}",
+									"raw": "{\r\n    \"orderId\": \"{{orderId}}\",\r\n    \"token\": \"tok_visa\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
