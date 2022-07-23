@@ -332,3 +332,75 @@ import { stripe } from '../../stripe';   ***
     expect(chargeOptions.amount).toEqual(20 * 100);
     expect(chargeOptions.currency).toEqual('usd');    
 });  
+
+21-480. A More Realistic Test Setup ~ 481. Realistic Test Implementation
+// __mock__\stripe.ts => rename to stripe1.ts
+
+// scripe.ts
+import Stripe from 'stripe';
+import { stripeKey } from './stripe-key'; ***
+
+if (!process.env.STRIPE_KEY) { ***
+  process.env.STRIPE_KEY = stripeKey;
+}
+
+export const stripe = new Stripe(process.env.STRIPE_KEY, { ***
+  apiVersion: '2020-08-27',
+});
+
+// setup.ts
+jest.mock('../nats-wrapper');
+// jest.mock('../stripe'); ***
+
+// new.test.ts
+...
+let stripeTestDescription = 'returns a 201 with valid inputs';
+if (process.env.STRIPE_KEY) {
+  stripeTestDescription = stripeTestDescription + ' REAL STRIPE TEST';
+} else {
+  stripeTestDescription = stripeTestDescription + ' MOCK STRIPE TEST';
+}
+...
+it(stripeTestDescription, async () => {
+  const userId = new mongoose.Types.ObjectId().toHexString();
+  const price = Math.floor(Math.random() * 100000);
+  const order = Order.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    userId,
+    version: 0,
+    price,
+    status: OrderStatus.Created,
+  });
+  await order.save();
+
+  await request(app)
+    .post('/api/payments')
+    .set('Cookie', global.fakeSignup(userId))
+    .send({
+      token: 'tok_visa',
+      orderId: order.id,
+    })
+    .expect(201);
+   
+  if (process.env.STRIPE_KEY) {
+    // REAL STRIPE TEST
+    const stripeCharges = await stripe.charges.list({ limit: 10, });
+    const stripeCharge = stripeCharges['data'].find((charge) => {
+      return charge.amount === price * 100;
+    });
+  
+    expect(stripeCharge).toBeDefined();
+    expect(stripeCharge!.currency).toEqual('usd');
+    expect(stripeCharge!.amount).toEqual(price * 100);  
+  } else  {
+    // FAKE STRIPE TEST
+    const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+    expect(chargeOptions.source).toEqual('tok_visa');
+    expect(chargeOptions.amount).toEqual(price * 100);
+    expect(chargeOptions.currency).toEqual('usd');  
+  }
+});
+
+npm run test
+
+https://dashboard.stripe.com/test/payments?status[0]=successful

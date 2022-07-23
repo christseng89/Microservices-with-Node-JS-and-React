@@ -12,7 +12,7 @@ declare global {
 }
 
 jest.mock('../nats-wrapper');
-jest.mock('../stripe');
+// jest.mock('../stripe');
 
 let mongo: any;
 let processEnv = process.env;
