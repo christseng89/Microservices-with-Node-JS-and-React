@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
+import Stripe from 'stripe';
 
 import { OrderStatus } from '@chinasystems/common';
 import { app } from '../../app';
 import { Order } from '../../models/order';
+import { Payment } from '../../models/payment';
 
 import { stripe } from '../../stripe';
 
@@ -87,21 +89,33 @@ it(stripeTestDescription, async () => {
     })
     .expect(201);
    
+  let returnCharge: Stripe.Charge | undefined;
   if (process.env.STRIPE_KEY) {
     // REAL STRIPE TEST
     const stripeCharges = await stripe.charges.list({ limit: 10, });
     const stripeCharge = stripeCharges['data'].find((charge) => {
       return charge.amount === price * 100;
     });
-  
+    
+    returnCharge = stripeCharge;
     expect(stripeCharge).toBeDefined();
     expect(stripeCharge!.currency).toEqual('usd');
     expect(stripeCharge!.amount).toEqual(price * 100);  
   } else  {
     // FAKE STRIPE TEST
     const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+    returnCharge = chargeOptions;
     expect(chargeOptions.source).toEqual('tok_visa');
     expect(chargeOptions.amount).toEqual(price * 100);
     expect(chargeOptions.currency).toEqual('usd');  
   }
+
+  // Check payment ....
+  const payment = await Payment.findOne({
+    orderId: order.id,
+    stripeId: returnCharge!.id,
+  });
+  expect(payment).not.toBeNull();  
+  expect(payment!.orderId).toEqual(order.id);
+  expect(payment!.stripeId).toEqual(returnCharge!.id);
 });

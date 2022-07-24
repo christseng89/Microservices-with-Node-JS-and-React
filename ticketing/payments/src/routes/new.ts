@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import { requireAuth, validateRequest, BadRequestError, NotFoundError, NotAuthorizedError, OrderStatus,} from '@chinasystems/common';
 
 import { Order } from '../models/order';
+import { Payment } from '../models/payment';
 import { stripe } from '../stripe';
 
 const router = express.Router();
@@ -34,6 +35,12 @@ router.post(
       source: token,
       description: 'Charge for order #' + order.id
     });
+    // Create a payment
+    const payment = Payment.build({
+      orderId,
+      stripeId: charge.id,
+    });
+    await payment.save();    
     
     res.status(201).send({ success: true });
   }
