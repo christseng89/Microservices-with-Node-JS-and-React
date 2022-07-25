@@ -499,3 +499,14 @@ import { PaymentCreatedPublisher } from '../events/publishers/payment-created-pu
       stripeId: payment.stripeId,
     });    
     res.status(201).send({ success: true });
+
+21-486. Marking an Order as Complete
+### Orders
+// payment-created-listener.ts (new)
+
+// index.ts
+...
+  new PaymentCreatedListener(stan).listen();
+
+### Expiration
+// expiration-complete-listener.ts
