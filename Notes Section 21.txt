@@ -508,5 +508,32 @@ import { PaymentCreatedPublisher } from '../events/publishers/payment-created-pu
 ...
   new PaymentCreatedListener(stan).listen();
 
-### Expiration
+21-488. Don't Cancel Completed Orders!
+### Orders
 // expiration-complete-listener.ts
+...
+  if (!order) {
+    throw new Error('Order not found');
+  }
+  if (order.status === OrderStatus.Complete) { ***
+    return msg.ack();
+  }
+
+// delete.ts
+    if (order.status === OrderStatus.Cancelled) {
+      throw new BadRequestError('Order is already cancelled');
+    }  
+    if (order.status === OrderStatus.Complete) { ***
+      throw new BadRequestError('Order is already completed');
+    }  
+
+skaffold dev
+
+### Postman
+= Signin or Signup
+= New Ticket
+= New Order
+= New Payment
+= Cancel Order
+
+https://dashboard.stripe.com/test/payments?status[0]=successful
