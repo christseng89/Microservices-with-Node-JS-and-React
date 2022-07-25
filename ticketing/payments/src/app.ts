@@ -4,7 +4,8 @@ import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@chinasystems/common';
 
-import { createChargeRouter } from './routes/new';
+import { createPaymentRouter } from './routes/new';
+import { indexPaymentRouter } from './routes/index';
 
 const app = express();
 app.set('trust proxy', true);
@@ -15,7 +16,8 @@ app.use(cookieSession({
 }));
 
 app.use(currentUser);
-app.use(createChargeRouter);
+app.use(createPaymentRouter);
+app.use(indexPaymentRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();

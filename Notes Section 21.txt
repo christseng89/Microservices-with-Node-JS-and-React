@@ -138,7 +138,7 @@ https://stripe.com/docs/js/initializing
 // app.ts
 ...
 app.use(currentUser);
-app.use(createChargeRouter); ***
+app.use(createPaymentRouter); ***
 ...
 
 // ingress-srv.yaml 
@@ -537,3 +537,108 @@ skaffold dev
 = Cancel Order
 
 https://dashboard.stripe.com/test/payments?status[0]=successful
+
+kubectl get po
+  NAME                                     READY   STATUS    RESTARTS   AGE
+  auth-depl-69656cc5f7-rqttc               1/1     Running   0          4m17s
+  auth-mongo-depl-cfff8ccc8-xljfd          1/1     Running   0          4m16s
+  client-depl-f7b5c464f-pzv9x              1/1     Running   0          4m16s
+  expiration-depl-6858d8f76b-6gxj8         1/1     Running   0          4m16s
+  expiration-redis-depl-59cf5b745c-swt8h   1/1     Running   0          4m16s
+  nats-depl-7b85cbd59b-q747d               1/1     Running   0          4m15s
+  orders-depl-f47dd989c-nnlr4              1/1     Running   0          4m15s
+  orders-mongo-depl-844ddb5876-z8x6k       1/1     Running   0          4m15s
+  payments-depl-7f7c5594cb-f5554           1/1     Running   0          4m14s
+  payments-mongo-depl-6c498664b4-9xllx     1/1     Running   0          4m14s
+  tickets-depl-ff66f988d-f2rc7             1/1     Running   0          4m14s
+  tickets-mongo-depl-79c58d9d9b-z8v4x      1/1     Running   0          4m13s
+
+minikube ssh
+docker image prune -a
+docker image ls
+
+21-X1 Add a Payment Index (GET /api/payments)
+### Payments
+// index.ts (new)
+
+// app.ts
+app.use(currentUser);
+app.use(createPaymentRouter); ***
+app.use(indexPaymentRouter);
+
+// models\payment.ts
+interface PaymentAttrs {
+  orderId: string;
+  stripeId: string;
+  price: number; ***
+}
+
+interface PaymentDoc extends mongoose.Document {
+  orderId: string;
+  stripeId: string;
+  price: number; ***
+}
+
+interface PaymentModel extends mongoose.Model<PaymentDoc> {
+  build(attrs: PaymentAttrs): PaymentDoc;
+}
+
+const paymentSchema = new mongoose.Schema(
+  {
+    orderId: {
+      required: true,
+      type: String,
+    },
+    stripeId: {
+      required: true,
+      type: String,
+    },
+    price: { ***
+      required: true,
+      type: Number,
+    },
+    order: { ***
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order',
+    },
+  },
+
+// new.ts
+    // Create a payment
+    const payment = Payment.build({
+      orderId,
+      stripeId: charge.id,
+      price: order.price ***
+    });
+...
+export { router as createPaymentRouter };
+
+// new.test.ts
+...
+  expect(payment!.stripeId).toEqual(returnCharge!.id);
+
+  // Test Payments Index (GET /api/payments) 
+  const payments = await request(app)
+  .get('/api/payments')
+  .set('Cookie', global.fakeSignup(userId))
+  .send({})
+  .expect(200);
+
+  expect(payments.body.length).toEqual(1);
+  expect(payments.body[0].orderId).toEqual(order.id);
+  expect(payments.body[0].price).toEqual(order.price);
+});
+
+### Postman
+= Signin or Signup
+= New Ticket
+= New Order
+= New Payment
+= Get Payments
+= Cancel Order (X)
+
+= New Ticket
+= New Order
+= Cancel Order
+= New Payment (X)
+= Get Payments

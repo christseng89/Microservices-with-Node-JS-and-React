@@ -41,6 +41,7 @@ router.post(
     const payment = Payment.build({
       orderId,
       stripeId: charge.id,
+      price: order.price
     });
     await payment.save();    
 
@@ -54,4 +55,4 @@ router.post(
   }
 );
 
-export { router as createChargeRouter };
+export { router as createPaymentRouter };

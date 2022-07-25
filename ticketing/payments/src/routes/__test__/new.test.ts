@@ -100,7 +100,7 @@ it(stripeTestDescription, async () => {
     returnCharge = stripeCharge;
     expect(stripeCharge).toBeDefined();
     expect(stripeCharge!.currency).toEqual('usd');
-    expect(stripeCharge!.amount).toEqual(price * 100);  
+    expect(stripeCharge!.amount).toEqual(price * 100);
   } else  {
     // FAKE STRIPE TEST
     const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
@@ -118,4 +118,15 @@ it(stripeTestDescription, async () => {
   expect(payment).not.toBeNull();  
   expect(payment!.orderId).toEqual(order.id);
   expect(payment!.stripeId).toEqual(returnCharge!.id);
+
+  // Test Payments Index 
+  const payments = await request(app)
+  .get('/api/payments')
+  .set('Cookie', global.fakeSignup(userId))
+  .send({})
+  .expect(200);
+
+  expect(payments.body.length).toEqual(1);
+  expect(payments.body[0].orderId).toEqual(order.id);
+  expect(payments.body[0].price).toEqual(order.price);
 });

@@ -3,11 +3,13 @@ import mongoose from 'mongoose';
 interface PaymentAttrs {
   orderId: string;
   stripeId: string;
+  price: number;
 }
 
 interface PaymentDoc extends mongoose.Document {
   orderId: string;
   stripeId: string;
+  price: number;
 }
 
 interface PaymentModel extends mongoose.Model<PaymentDoc> {
@@ -23,6 +25,14 @@ const paymentSchema = new mongoose.Schema(
     stripeId: {
       required: true,
       type: String,
+    },
+    price: {
+      required: true,
+      type: Number,
+    },
+    order: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order',
     },
   },
   {
