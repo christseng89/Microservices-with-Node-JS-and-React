@@ -6,27 +6,21 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
       <Header currentUser={currentUser} />
-      <Component {...pageProps} />
+      <Component currentUser={currentUser} {...pageProps} />
     </div>
   );
 };
 
 AppComponent.getInitialProps = async (req) => {
   const client = buildClient(req.ctx);
-  // console.log(Object.keys(req)); // [ 'AppTree', 'Component', 'router', 'ctx' ]
-  try {
-    const { data } = await client.get('/api/users/currentuser');
-
-    // pageProps is an object that will be passed to the component
-    let pageProps = {};
-    if (req.Component.getInitialProps) {
-      pageProps = await req.Component.getInitialProps(req.ctx);
-      // console.log('Page Props :', pageProps); 
-    }
-    return {pageProps, ...data};
-  } catch (error) {
-    return {};
+  const { data } = await client.get('/api/users/currentuser');
+  let pageProps = {};
+  if (req.Component.getInitialProps) {
+    pageProps = await req.Component.getInitialProps(
+      req.ctx, client, data.currentUser
+    );
   }
+  return {pageProps, ...data};
 };
 
 export default AppComponent;

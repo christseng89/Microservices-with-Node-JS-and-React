@@ -1,0 +1,53 @@
+22-492. Two Quick Fixes
+### Bugfixing
+// 1 signup.js
+const Signup = () => {
+  ...
+export default Signup;
+
+// 2 signin.js
+const Signin = () => {
+  ...
+export default Signin;
+
+// 3 signout.js
+const Signout = () => {
+  ...
+export default Signout;
+
+// 4 next.config.js 
+module.exports = {
+  webpack: (config) => { ***
+  ...
+
+// 5 _app.js
+...
+  <div>
+    <Header currentUser={currentUser} />
+    <Component currentUser={currentUser} {...pageProps} /> ***
+  </div>
+...
+AppComponent.getInitialProps = async (req) => {
+  const client = buildClient(req.ctx);
+  const { data } = await client.get('/api/users/currentuser'); ***
+  let pageProps = {};
+  if (req.Component.getInitialProps) {
+    pageProps = await req.Component.getInitialProps( ***
+      req.ctx, client, data.currentUser
+    );
+  }
+  return {pageProps, ...data};
+};
+...   
+
+// 6 index.js
+const LandingPage = ({ currentUser }) => {
+  console.log('Current user is: ', currentUser);
+  return currentUser ? <h1>You are signed in.</h1> : <h1>You are NOT signed in.</h1>;
+};
+
+LandingPage.getInitialProps = async (_ctx, _client, _currentUser) => {***
+  return {};
+};
+
+export default LandingPage;
