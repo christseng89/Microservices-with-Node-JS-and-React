@@ -452,3 +452,50 @@ import { Payment } from '../../models/payment'; ***
   expect(payment!.orderId).toEqual(order.id);
   expect(payment!.stripeId).toEqual(returnCharge!.id);
 });
+
+21-484. Publishing a Payment Created Event ~ 485. More on Publishing
+### Common
+// subject.ts
+...
+  PaymentCreated = 'payment:created', ***
+}
+
+// payment-created-event.ts (new)
+// index.ts
+export * from './events/expiration-complete-event';
+export * from './events/payment-created-event'; ***
+
+cd ticketing\common
+npm run pub
+
+cd ..\payments
+npm i @chinasystems/common --force
+
+cd ..\tickets
+npm i @chinasystems/common --force
+
+cd ..\orders
+npm i @chinasystems/common --force
+
+cd ..\expiration
+npm i @chinasystems/common --force
+
+cd ..\auth
+npm i @chinasystems/common --force
+
+### Payments
+// payment-created-publisher.ts (new)
+
+// new.ts
+...
+import { natsWrapper } from '../nats-wrapper'; ***
+import { stripe } from '../stripe';
+import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher'; ***
+...
+    // Publish an event to payments-service ***
+    await new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId: payment.orderId,
+      stripeId: payment.stripeId,
+    });    
+    res.status(201).send({ success: true });
