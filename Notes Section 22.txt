@@ -74,3 +74,32 @@ LandingPage.getInitialProps = async (_ctx, _client, _currentUser) => {***
 // tickets\new.js (new)
 
 https://ticketing.com/tickets/new
+
+22-494. Sanitizing Price Input
+import { useState } from 'react';
+
+const NewTicket = () => {
+  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState('');
+
+  const onBlur = () => {
+    const value = parseFloat(price);
+    if (isNaN(value)) {
+      return;
+    }
+    setPrice(value.toFixed(2));
+  };
+...
+  <input
+    value={title}
+    onChange={(e) => setTitle(e.target.value)}
+    className="form-control"
+  />
+...
+  <input
+    value={price}
+    onBlur={onBlur}
+    onChange={(e) => setPrice(e.target.value)}
+    className="form-control"
+  />          
+...
