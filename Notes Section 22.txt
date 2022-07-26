@@ -37,3 +37,35 @@ module.exports = {
       <Component {...pageProps} />
     </div>
   </div>
+
+22-492. Two Quick Fixes #2
+### Bugfixing Step #1
+// 1 index.js
+LandingPage.getInitialProps = async (req) => {
+  return {};
+};
+
+// 2 _app.js
+...
+  <div>
+    <Header currentUser={currentUser} />
+    <Component currentUser={currentUser} {...pageProps} /> ***
+  </div>
+...
+
+npm run build
+
+### Bugfixing Step #2
+
+// 1. _app.js
+    if (req.Component.getInitialProps) {
+      pageProps = await req.Component.getInitialProps(req.ctx, client, data.currentUser); ***
+    }
+...   
+
+// 2 index.js
+LandingPage.getInitialProps = async (_ctx, _client, _currentUser) => {***
+  return {};
+};
+
+### Always access /api/auth/currentUser from the next backend (i.e. _app.js)
