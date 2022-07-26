@@ -31,3 +31,10 @@ https://github.com/webmakaka/Microservices-with-Node-JS-and-React
 
 // 8 months ago ...
 https://github.com/Microservices-with-Node-JS-and-React/ticketing 
+
+### Minikube wsarecv: A connection attempt failed because the connected party 
+    did not properly respond after a period of time, or established connection 
+    failed because connected host has failed to respond.
+https://minikube.sigs.k8s.io/docs/handbook/vpn_and_proxy/
+set NO_PROXY=localhost,127.0.0.1,10.96.0.0/12,192.168.59.0/24,192.168.49.0/24,192.168.39.0/24
+minikube start

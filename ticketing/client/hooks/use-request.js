@@ -1,11 +1,12 @@
-import axios from 'axios';  
+import axios from 'axios';
 import { useState } from 'react';
 
-export default ({url, method, body, onSuccess}) => {
-  const [errors, setErrors] = useState([]);
+export default ({ url, method, body, onSuccess }) => {
+  const [errors, setErrors] = useState(null);
+
   const doRequest = async () => {
     try {
-      setErrors([]);
+      setErrors(null);
       const response = await axios[method](url, body);
 
       if (onSuccess) {
@@ -13,16 +14,15 @@ export default ({url, method, body, onSuccess}) => {
       }
 
       return response.data;
-    } catch (error) {
+    } catch (err) {
       setErrors(
         <div className="alert alert-danger">
           <h4>Errors:</h4>
           <ul className="my-0">
-            {error.response.data.errors.map(err => (
-              <li key={err.message}>{err.message}</li>
+            {err.response.data.errors.map(error => (
+              <li key={error.message}>{error.message}</li>
             ))}
           </ul>
-          <br/>    
         </div>
       );
     }
