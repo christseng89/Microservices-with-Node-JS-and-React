@@ -1,3 +1,4 @@
+22-492. Two Quick Fixes #1
 ### ENSURE SHOWS => skaffold dev
   [auth] Connected to MongoDb
   [auth] Listening on port 3000!!!!!!!!
@@ -11,56 +12,28 @@
   [payments] Connected to MongoDb
   [payments] Listening on port 3000!!!!!!!!
 
-22-492. Two Quick Fixes
-### Bugfixing
-// 1 signup.js
-const Signup = () => {
-  ...
-export default Signup;
+// 1 package.json
+  "scripts": {
+    "build": "next build", ***
+    "dev": "next"
+  },
 
-// 2 signin.js
-const Signin = () => {
-  ...
-export default Signin;
+npm run build
+  Warning: You have opted-out of Automatic Static Optimization due to `getInitialProps` in `pages/_app`. This does not opt-out pages with `getStaticProps`
+  Read more: https://nextjs.org/docs/messages/opt-out-auto-static-optimization
 
-// 3 signout.js
-const Signout = () => {
-  ...
-export default Signout;
+// 2 Dockerfile
+FROM node:16-alpine ***
 
-// 4 next.config.js 
+// 3 next.config.js 
 module.exports = {
   webpack: (config) => { ***
   ...
 
-// 5 _app.js
-...
+// 4 _app.js
   <div>
     <Header currentUser={currentUser} />
-    <Component currentUser={currentUser} {...pageProps} /> ***
+    <div className="container"> ***
+      <Component {...pageProps} />
+    </div>
   </div>
-...
-AppComponent.getInitialProps = async (req) => {
-  const client = buildClient(req.ctx);
-  const { data } = await client.get('/api/users/currentuser'); ***
-  let pageProps = {};
-  if (req.Component.getInitialProps) {
-    pageProps = await req.Component.getInitialProps( ***
-      req.ctx, client, data.currentUser
-    );
-  }
-  return {pageProps, ...data};
-};
-...   
-
-// 6 index.js
-const LandingPage = ({ currentUser }) => {
-  console.log('Current user is: ', currentUser);
-  return currentUser ? <h1>You are signed in.</h1> : <h1>You are NOT signed in.</h1>;
-};
-
-LandingPage.getInitialProps = async (_ctx, _client, _currentUser) => {***
-  return {};
-};
-
-export default LandingPage;

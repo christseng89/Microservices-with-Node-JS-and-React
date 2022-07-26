@@ -25,3 +25,9 @@ kubectl delete svc posts-srv
   service "posts-srv" deleted
 kubectl delete svc query-srv
   service "query-srv" deleted
+
+[Stephen Grider] source 
+https://github.com/webmakaka/Microservices-with-Node-JS-and-React
+
+// 8 months ago ...
+https://github.com/Microservices-with-Node-JS-and-React/ticketing 
