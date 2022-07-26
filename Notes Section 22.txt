@@ -1,3 +1,16 @@
+### ENSURE SHOWS => skaffold dev
+  [auth] Connected to MongoDb
+  [auth] Listening on port 3000!!!!!!!!
+  [tickets] Connected to NATS
+  [tickets] Connected to MongoDb
+  [tickets] Listening on port 3000!!!!!!!!
+  [orders] Connected to NATS
+  [orders] Connected to MongoDb
+  [orders] Listening on port 3000!!!!!!!!
+  [payments] Connected to NATS
+  [payments] Connected to MongoDb
+  [payments] Listening on port 3000!!!!!!!!
+
 22-492. Two Quick Fixes
 ### Bugfixing
 // 1 signup.js

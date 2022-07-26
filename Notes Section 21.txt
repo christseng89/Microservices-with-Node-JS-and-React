@@ -642,3 +642,13 @@ export { router as createPaymentRouter };
 = Cancel Order
 = New Payment (X)
 = Get Payments
+
+### Bugfix 
+// current-user.ts
+  // Check if user exists in DB ***
+  const { email } = req.currentUser;
+  const existingUser = await User.findOne({ email });
+  if (!existingUser) {
+    req.session = null;
+    return res.status(400).send({ currentUser: null });
+  }
