@@ -69,3 +69,8 @@ LandingPage.getInitialProps = async (_ctx, _client, _currentUser) => {***
 };
 
 ### Always access /api/auth/currentUser from the next backend (i.e. _app.js)
+
+22-493. Scaffolding a Form
+// tickets\new.js (new)
+
+https://ticketing.com/tickets/new
