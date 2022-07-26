@@ -214,3 +214,27 @@ LandingPage.getInitialProps = async (_context, client, _currentUser) => { ***
   const { data } = await client.get('/api/tickets');
   return { tickets: data };
 };
+
+22-497. Linking to Wildcard Routes
+// [ticketId].js (new)
+
+// index.js
+import Link from 'next/link'; ***
+...
+  const ticketList = tickets.map((ticket) => {
+    return (
+        ...
+        <td>{ticket.price}</td>
+        <td> ***
+          <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
+            <a>View</a>
+          </Link>
+        </td>        
+..
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Link</th> ***
+          </tr>
+...
+          
