@@ -237,4 +237,6 @@ import Link from 'next/link'; ***
             <th>Link</th> ***
           </tr>
 ...
-          
+
+22-498. Creating an Order
+// [ticketId].js (rewrite)
