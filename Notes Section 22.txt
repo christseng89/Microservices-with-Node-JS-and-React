@@ -367,3 +367,17 @@ const OrderShow = ({ order, currentUser }) => {
     // Update the Order Status to Complete ***
     order.status = OrderStatus.Complete;
     await order.save();
+
+22-506. Filtering Reserved Tickets ~ 507. Header Links
+// header.js
+    currentUser && { label: 'Sell Ticket', href: '/tickets/new' }, ***
+    currentUser && { label: 'My Orders', href: '/orders' },
+    currentUser && { label: 'Sign Out', href: '/auth/signout' }
+
+// Tickets
+// index.js
+router.get('/api/tickets', 
+  async (_req: Request, res: Response) => {
+    const tickets = await Ticket.find({
+      orderId: undefined, ***
+    });
