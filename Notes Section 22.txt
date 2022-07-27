@@ -262,3 +262,16 @@ CMD ["npm", "run", "dev"]
 ### Orders
 // new.ts
 const EXPIRATION_WINDOW_SECONDS = 3 * 60;
+
+22-501. Displaying the Expiration
+// [orderId].js 
+...
+const OrderShow = ({ order }) => {
+  const [timeLeft, setTimeLeft] = useState(0); ***
+...
+    if (timeLeft < 0) { ***
+    return <div>Order expired</div>;
+  }
+
+  return <div>Time left to pay: {timeLeft} seconds</div>;
+  
