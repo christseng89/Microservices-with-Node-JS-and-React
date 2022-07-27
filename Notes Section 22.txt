@@ -274,4 +274,43 @@ const OrderShow = ({ order }) => {
   }
 
   return <div>Time left to pay: {timeLeft} seconds</div>;
-  
+
+22-502. Showing a Stripe Payment Form ~ 504. Test Credit Card Numbers
+https://www.npmjs.com/package/react-stripe-checkout
+cd ticketing\client
+npm i react-stripe-checkout
+
+https://dashboard.stripe.com/test/apikeys
+Public Key => pk_test_8LjXX2Ms6dHcQmIXJyFlPMoz00JRkayqGo
+
+https://stripe.com/docs/testing#cards
+
+// 503. Configuring Stripe 
+// [orderId].js
+import StripeCheckout from 'react-stripe-checkout';
+...
+  return (
+    <div> ***
+      Time left to pay: {timeLeft} seconds
+      <br />
+      <StripeCheckout
+        token={(token) => console.log(token)}
+        stripeKey="pk_test_8LjXX2Ms6dHcQmIXJyFlPMoz00JRkayqGo"
+        amount={order.ticket.price * 100}
+        email={currentUser.email}
+      />
+    </div>
+  );
+
+// Browser
+  card: {id: 'card_1LQ5myDR18q3CygjuDYUzRpX', object: 'card', address_city: null, address_country: null, address_line1: null, …}
+  client_ip: "218.172.136.184"
+  created: 1658911221
+  email: "test@test.com"
+  id: "tok_1LQ5mzDR18q3Cygj9qk2BWvY" ***
+  livemode: false
+  object: "token"
+  type: "card"
+  used: false
+  ...
+  }
