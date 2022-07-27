@@ -314,3 +314,56 @@ import StripeCheckout from 'react-stripe-checkout';
   used: false
   ...
   }
+
+22-505. Paying for an Order
+// user-request.js
+  const doRequest = async ( props = {}) => { ***
+    try {
+      setErrors(null);
+      const response = await axios[method](url, { ...body, ...props }); ***
+
+// [orderId].js
+import useRequest from '../../hooks/use-request'; ***
+
+const OrderShow = ({ order, currentUser }) => {
+  const [timeLeft, setTimeLeft] = useState(0);
+  const { doRequest, errors } = useRequest({ ***
+    url: '/api/payments',
+    method: 'post',
+    body: {
+      orderId: order.id,
+    },
+    onSuccess: (payment) => console.log(payment),
+  });
+...
+      <StripeCheckout
+        token={({ id }) => doRequest({ token: id })} ***
+        stripeKey="pk_test_8LjXX2Ms6dHcQmIXJyFlPMoz00JRkayqGo"
+        amount={order.ticket.price * 100}
+        email={currentUser.email}
+      />
+    <br />
+    {errors} ***
+    </div>
+
+// [ticketId].js
+      {errors}
+      <button onClick={() => doRequest()} className="btn btn-primary"> ***
+
+### Browser
+{id: '62e106f8e9a9078af68d70ed', success: true}
+
+### Orders (avoid double paid)
+// new.ts
+    if (order.status === OrderStatus.Cancelled) {
+      throw new BadRequestError('Cannot pay for a cancelled order');
+    }
+    if (order.status === OrderStatus.Complete) { ***
+      throw new BadRequestError('Cannot pay for a completed order');
+    }
+...
+    await payment.save();    
+
+    // Update the Order Status to Complete ***
+    order.status = OrderStatus.Complete;
+    await order.save();

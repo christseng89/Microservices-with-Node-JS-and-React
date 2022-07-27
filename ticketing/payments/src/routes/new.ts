@@ -27,7 +27,10 @@ router.post(
       throw new NotAuthorizedError();
     }
     if (order.status === OrderStatus.Cancelled) {
-      throw new BadRequestError('Cannot pay for an cancelled order');
+      throw new BadRequestError('Cannot pay for a cancelled order');
+    }
+    if (order.status === OrderStatus.Complete) {
+      throw new BadRequestError('Cannot pay for a completed order');
     }
 
     // Charge the customer
@@ -44,6 +47,10 @@ router.post(
       price: order.price
     });
     await payment.save();    
+
+    // Update the Order Status to Complete
+    order.status = OrderStatus.Complete;
+    await order.save();
 
     // Publish an event to payments-service
     await new PaymentCreatedPublisher(natsWrapper.client).publish({
