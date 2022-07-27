@@ -9,7 +9,7 @@ const OrderShow = ({ order }) => {
       setTimeLeft(Math.round(msLeft / 1000));
     };
 
-    getTimeLeft();
+    getTimeLeft(); // Show time left immediately
     const timerId = setInterval(getTimeLeft, 1000);
 
     return () => {
