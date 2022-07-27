@@ -381,3 +381,14 @@ router.get('/api/tickets',
     const tickets = await Ticket.find({
       orderId: undefined, ***
     });
+
+22-508. Rendering a List of Orders
+// orders\index.js (new)
+
+// [orderId].js 
+...
+import StripeCheckout from 'react-stripe-checkout';
+import Router from 'next/router'; ***
+...
+    onSuccess: () => Router.push('/orders'), ***
+    
