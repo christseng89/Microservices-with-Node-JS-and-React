@@ -1,5 +1,5 @@
-import useRequest from '../../hooks/use-request';
 import Router from 'next/router';
+import useRequest from '../../hooks/use-request';
 
 const TicketShow = ({ ticket }) => {
   const { doRequest, errors } = useRequest({
@@ -10,7 +10,7 @@ const TicketShow = ({ ticket }) => {
     },
     onSuccess: (order) => {
       console.log(order);
-      Router.push('/');  // Payment page
+      Router.push('/orders/[orderId]', `/orders/${order.id}`);
     },
   });
 

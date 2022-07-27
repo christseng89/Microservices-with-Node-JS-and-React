@@ -240,3 +240,18 @@ import Link from 'next/link'; ***
 
 22-498. Creating an Order
 // [ticketId].js (rewrite)
+
+22-499. Programmatic Navigation to Wildcard Routes
+// [orderId].js (new)
+
+// [ticketId].js
+    onSuccess: (order) => {
+      console.log(order);
+      Router.push('/orders/[orderId]', `/orders/${order.id}`); ***
+    },
+
+// Dockerfile
+COPY . .
+RUN npm run build ***
+
+CMD ["npm", "run", "dev"]
