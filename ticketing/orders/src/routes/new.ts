@@ -8,7 +8,7 @@ import { Ticket } from '../models/ticket';
 import { natsWrapper } from '../nats-wrapper';
 import { OrderCreatedPublisher } from './../events/publishers/order-created-publisher';
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 3 * 60;
 const router = express.Router();
 router.post(
   '/api/orders',

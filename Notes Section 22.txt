@@ -255,3 +255,10 @@ COPY . .
 RUN npm run build ***
 
 CMD ["npm", "run", "dev"]
+
+22-500. The Expiration Timer
+// [orderId].js (rewrite)
+
+### Orders
+// new.ts
+const EXPIRATION_WINDOW_SECONDS = 3 * 60;
