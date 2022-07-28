@@ -73,3 +73,21 @@ it('responds with a cookie when given valid credentials', async () => {
 
 git commit -am "23-515. Output of Failing Tests #2"
 git push origin dev
+
+### Manually create a PR (Pull Request) once.  CI will run automatically.
+
+23-516. Running Tests in Parallel
+// package.json (tickets, orders, payments)
+    "test:ci": "jest" ***
+
+// package.json (expiration)
+  "scripts": {
+    "start": "ts-node-dev src/index.ts"
+  },
+
+git commit -am "23-516. Running Tests in Parallel #1"
+git push origin dev
+
+### .github\workflows
+ren tests.yaml => tests-auth.yaml
+// tests-tickets.yaml, tests-orders.yaml, tests-payments.yaml (new)
