@@ -23,5 +23,5 @@ yarn-debug.log*/
 yarn-error.log*/
 
 stripe.keys
-stripe-key.ts
+# stripe-key.ts
 stripe-test.*

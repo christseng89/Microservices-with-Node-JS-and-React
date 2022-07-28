@@ -95,3 +95,8 @@ ren tests.yaml => tests-auth.yaml
 git add .
 git commit -am "23-516. Running Tests in Parallel #2"
 git push origin dev
+
+### Add stripe-key.ts (temporary)
+git add .
+git commit -am "23-516. Running Tests in Parallel #3"
+git push origin dev
