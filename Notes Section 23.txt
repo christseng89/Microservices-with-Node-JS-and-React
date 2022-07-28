@@ -159,3 +159,16 @@ https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/br
 
 git commit -am "23-518. Selective #5"
 git push origin dev
+
+### Delete branch
+git switch master
+git pull
+git branch -d dev
+  Deleted branch dev (was 5a8a3b1).
+git branch
+    JeffWang
+  * master  
+
+// update auth\index.ts
+git commit -am "23-518. Selective #6"
+git push origin master
