@@ -38,3 +38,8 @@ git checkout -b dev
 
 git commit -am "23-514. Running Tests on PR Creation #1"
 git push origin dev
+
+// tests.yaml
+      - run: cd ticketing && cd auth && npm install && npm run test:ci ***
+git push origin dev
+      
