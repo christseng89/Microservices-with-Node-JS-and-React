@@ -128,3 +128,15 @@ on:
 git add .
 git commit -am "23-518. Selective Test Execution"
 git push origin dev
+### Merge dev => master
+git push origin dev:master
+git pull origin master
+
+### Payments
+index.ts
+const start = async () => {
+  console.log('Starting up ...');  ***
+
+git commit -am "23-518. Selective Test Execution #2"
+git push origin dev
+git push origin dev:master
