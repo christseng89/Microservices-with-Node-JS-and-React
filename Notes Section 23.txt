@@ -153,3 +153,9 @@ git merge dev master
 git commit -am "23-518. Selective #4"
 git push origin dev
 git merge dev master  
+
+https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/branches
+  x Require a pull request before merging
+
+git commit -am "23-518. Selective #5"
+git push origin dev
