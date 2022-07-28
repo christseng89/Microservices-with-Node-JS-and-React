@@ -148,3 +148,4 @@ https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/br
 
 git commit -am "23-518. Selective #3"
 git push origin dev
+git merge dev master  
