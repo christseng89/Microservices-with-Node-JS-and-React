@@ -23,4 +23,5 @@ jobs:
 
 git add .
 git commit -am "23-512. Creating a GitHub Action ~ 513. Adding a CI Test Script"
+git pull
 git push
