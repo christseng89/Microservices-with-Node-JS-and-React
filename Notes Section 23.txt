@@ -33,6 +33,7 @@ const start = async () => {
   console.log('Starting up ...'); ***
   if (!process.env.JWT_KEY) {
 
+// Create a Branch
 git checkout -b dev
   Switched to a new branch 'dev'    
 
@@ -100,3 +101,29 @@ git push origin dev
 git add .
 git commit -am "23-516. Running Tests in Parallel #3"
 git push origin dev
+
+### PULL REQUEST by using CLI
+git branch
+  * dev
+    master
+
+git push origin dev:master
+git switch master
+git branch
+    dev
+  * master
+git pull
+
+23-518. Selective Test Execution
+git switch dev
+git branch
+git pull origin master
+
+### Revise tests-xxxx.yaml
+on:
+  pull_request:
+    paths:
+      - 'ticketing/xxxx/**'
+
+git add .
+git commit -am "23-518. Selective Test Execution"
