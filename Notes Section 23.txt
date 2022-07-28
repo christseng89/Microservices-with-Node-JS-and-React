@@ -91,3 +91,7 @@ git push origin dev
 ### .github\workflows
 ren tests.yaml => tests-auth.yaml
 // tests-tickets.yaml, tests-orders.yaml, tests-payments.yaml (new)
+
+git add .
+git commit -am "23-516. Running Tests in Parallel #2"
+git push origin dev
