@@ -25,3 +25,15 @@ git add .
 git commit -am "23-512. Creating a GitHub Action ~ 513. Adding a CI Test Script"
 git pull
 git push
+
+23-514. Running Tests on PR Creation
+### Auth
+index.ts
+const start = async () => {
+  console.log('Starting up ...'); ***
+  if (!process.env.JWT_KEY) {
+
+git checkout -b dev
+  Switched to a new branch 'dev'    
+
+git commit -am "23-514. Running Tests on PR Creation #1"
