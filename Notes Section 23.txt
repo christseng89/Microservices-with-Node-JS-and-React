@@ -37,3 +37,4 @@ git checkout -b dev
   Switched to a new branch 'dev'    
 
 git commit -am "23-514. Running Tests on PR Creation #1"
+git push origin dev
