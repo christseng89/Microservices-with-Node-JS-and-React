@@ -172,3 +172,10 @@ git branch
 // update auth\index.ts
 git commit -am "23-518. Selective #6"
 git push origin master
+
+https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/branches
+  v Require a pull request before merging
+  
+// update auth\index.ts
+git commit -am "23-518. Selective #7"
+git push origin master
