@@ -42,4 +42,17 @@ git push origin dev
 // tests.yaml
       - run: cd ticketing && cd auth && npm install && npm run test:ci ***
 git push origin dev
-      
+
+### Github => Pull Requests => New Pull Request => master <- dev
+
+23-515. Output of Failing Tests
+// signin.test.ts
+it('responds with a cookie when given valid credentials', async () => {
+  const cookie = await global.signup();
+  const response = await request(app)
+    .post('/api/users/signin')
+    .send({
+      email: 'test@test.com',
+      password: 'password'
+    })
+    .expect(400); ***
