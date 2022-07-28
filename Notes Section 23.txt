@@ -59,3 +59,17 @@ it('responds with a cookie when given valid credentials', async () => {
 
 git commit -am "23-515. Output of Failing Tests #1"
 git push origin dev
+
+// signin.test.ts
+it('responds with a cookie when given valid credentials', async () => {
+  const cookie = await global.signup();
+  const response = await request(app)
+    .post('/api/users/signin')
+    .send({
+      email: 'test@test.com',
+      password: 'password'
+    })
+    .expect(200); ***
+
+git commit -am "23-515. Output of Failing Tests #2"
+git push origin dev
