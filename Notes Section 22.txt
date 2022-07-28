@@ -391,4 +391,15 @@ import StripeCheckout from 'react-stripe-checkout';
 import Router from 'next/router'; ***
 ...
     onSuccess: () => Router.push('/orders'), ***
+
+### Bugfixing Payments
+// new.ts
+    const amount = Math.round(order.price * 100); ***
+    // Charge the customer
+    const charge = await stripe.charges.create({
+      currency: 'usd',
+      amount, ***
+      source: token,
+      description: 'Charge for order #' + order.id
+    });
     

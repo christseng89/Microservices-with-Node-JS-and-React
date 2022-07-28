@@ -33,10 +33,11 @@ router.post(
       throw new BadRequestError('Cannot pay for a completed order');
     }
 
+    const amount = Math.round(order.price * 100);
     // Charge the customer
     const charge = await stripe.charges.create({
       currency: 'usd',
-      amount: order.price * 100,
+      amount,
       source: token,
       description: 'Charge for order #' + order.id
     });
