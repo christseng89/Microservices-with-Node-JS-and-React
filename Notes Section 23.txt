@@ -1,0 +1,26 @@
+23-512. Creating a GitHub Action ~ 513. Adding a CI Test Script
+https://docs.github.com/en/github-ae@latest/actions/using-workflows/events-that-trigger-workflows
+
+### Github => Choose Repository => Actions => Yourself
+https://github.com/christseng89/Microservices-with-Node-JS-and-React/new/master?filename=.github%2Fworkflows%2Fmain.yml&workflow_template=blank
+
+// tests.yaml
+name: tests
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd auth && npm install && npm run test:ci
+
+### Auth
+// package.json
+    "test": "jest --runInBand --detectOpenHandles --watchAll --no-cache",
+    "test:ci": "jest" ***
+
+git add .
+git commit -am "23-512. Creating a GitHub Action ~ 513. Adding a CI Test Script"
+git push
