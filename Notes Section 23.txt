@@ -139,4 +139,6 @@ const start = async () => {
 
 git commit -am "23-518. Selective Test Execution #2"
 git push origin dev
+git switch master
+git merge dev master
 git push origin dev:master
