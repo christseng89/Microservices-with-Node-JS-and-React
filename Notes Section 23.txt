@@ -385,3 +385,19 @@ git commit -am "22-522. Reminder on Swapping Contexts #2"
 git push origin chris
 
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+23-524. Building an Image in an Action ~ 526. Restarting the Deployment
+git checkout ticketing/payments/src/stripe-key.ts
+git switch master
+git pull
+
+// .github\workflows\deploy-auth.yml (new)
+
+### Github => Settings => Secrets => Actions => New Repository Secret
+DOCKER_USERNAME (christseng89) => Add secret
+DOCKER_PASSWORD (tn2nn#Xxxxx) => Add secret
+DIGITALOCEAN_ACCESS_TOKEN (***) => Add secret
+
+git add .
+git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #1"
+git push origin master
