@@ -220,3 +220,13 @@ git push origin chris
 auth\index.ts
 git commit -am "23-514. Running Tests on PR Creation *2"
 git push origin chris
+
+### Github (PR => Pull Request chris to master)
+  @christseng89   23-514. Running Tests on PR Creation *1   003012d
+  @christseng89   23-514. Running Tests on PR Creation *2   00f8511
+    ...
+    All checks have passed => Merge pull request => Confirm merge
+
+git add .
+git commit -am "23-514. Running Tests on PR Creation *3"
+git push origin chris
