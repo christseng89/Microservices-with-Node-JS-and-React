@@ -339,6 +339,7 @@ https://cloud.digitalocean.com/projects?i=bc31ee
 https://docs.digitalocean.com/reference/doctl/how-to/install/
 choco install doctl
 
+22-521. Reminder on Kubernetes Context
 https://cloud.digitalocean.com/account/api/tokens?i=bc31ee
 API => Generate New Token (doctl) => Generate Token
 
