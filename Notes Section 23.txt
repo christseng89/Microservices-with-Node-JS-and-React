@@ -211,3 +211,12 @@ git status
 
 git commit -am "23-514. Running Tests on PR Creation *1"
 git push origin chris
+
+### Github => Pull requests => New pull request => base:master <- compare:chris =>
+    Pull Request chris to master => Create pull request
+    ...
+    All checks have passed => Merge pull request
+
+auth\index.ts
+git commit -am "23-514. Running Tests on PR Creation *2"
+git push origin chris
