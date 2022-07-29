@@ -239,4 +239,16 @@ auth\index.ts
 git commit -am "23-514. Running Tests on PR Creation *5"
 git push origin chris
 
-### Github
+### Github => Merge PR => Confirm merge
+git switch master
+git pull
+.github\workflows
+
+tests-auth.yml, tests-tickets.yml, tests-orders.yml, tests-payments.yml
+
+// package.json
+    "test:ci": "jest" ***
+
+git add .
+git commit -am "23-514. Running Tests on PR Creation *6(master)"
+git push origin master
