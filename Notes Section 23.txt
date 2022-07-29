@@ -325,3 +325,7 @@ git commit -am "23-517. Verifying a Test Run"
 git push origin chris
 
 ### Github PR (New pull request => Pull Request chris to master) => Merge PR => Confirm merge
+
+23-519. Deployment Options
+// Digital Ocean (samfire5202@gmail.com)
+https://cloud.digitalocean.com/projects?i=bc31ee
