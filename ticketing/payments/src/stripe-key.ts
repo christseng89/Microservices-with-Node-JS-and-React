@@ -1,1 +1,1 @@
-export const stripeKey = 'sk_test_mock';
+export const stripeKey = 'sk_test_moGmrwtjG3WjKBlrRxHNKrgu00Q4335cED';
