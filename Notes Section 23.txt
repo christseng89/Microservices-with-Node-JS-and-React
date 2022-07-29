@@ -420,3 +420,15 @@ git push origin chris
 
 git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #3"
 git push origin master
+
+### Step #4 - chris 
+git checkout chris
+git merge master
+
+// auth\src\index.ts
+
+git add .
+git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #4"
+git push origin chris
+
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
