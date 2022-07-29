@@ -325,3 +325,54 @@ git commit -am "23-517. Verifying a Test Run"
 git push origin chris
 
 ### Github PR (New pull request => Pull Request chris to master) => Merge PR => Confirm merge
+
+23-519. Deployment Options
+// Digital Ocean (samfire5202@gmail.com)
+https://cloud.digitalocean.com/projects?i=bc31ee
+
+22-520. Creating a Hosted Cluster
+= Create => Kubernetes => datacenter region (Singapore) => 
+  Name* (ticketing-cluster) => Create Cluster
+
+22-520. Creating a Hosted Cluster
+2 => Connecting to Kubernetes
+https://docs.digitalocean.com/reference/doctl/how-to/install/
+choco install doctl
+
+22-521. Reminder on Kubernetes Context
+https://cloud.digitalocean.com/account/api/tokens?i=bc31ee
+API => Generate New Token (doctl) => Generate Token
+
+doctl auth init
+  Enter your access token: ***
+
+22-522. Reminder on Swapping Contexts
+https://docs.digitalocean.com/reference/doctl/how-to/install/
+doctl auth list
+doctl account get
+  User Email               Team       Droplet Limit    Email Verified    User UUID                               Status
+  samfire5202@gmail.com    My Team    10               true              3baa1487-fa1a-434f-9c0d-d30c2cd6bd74    active
+
+doctl kubernetes cluster kubeconfig save ticketing-cluster
+  Notice: Adding cluster credentials to kubeconfig file found in "C:\\Users\\Chris Tseng\\.kube\\config"
+  Notice: Setting current-context to do-sgp1-ticketing-cluster
+
+kubectl get po
+  No resources found in default namespace.
+
+kubectl get node
+  NAME                   STATUS   ROLES    AGE   VERSION
+  pool-s8nssup3j-czpw2   Ready    <none>   93m   v1.23.9
+  pool-s8nssup3j-czpwl   Ready    <none>   94m   v1.23.9
+  pool-s8nssup3j-czpwp   Ready    <none>   94m   v1.23.9
+
+kubectl config view | grep cluster:
+  - cluster:
+      cluster: do-sgp1-ticketing-cluster
+
+### PR changes
+git add .
+git commit -am "22-522. Reminder on Swapping Contexts"
+git push origin chris
+
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
