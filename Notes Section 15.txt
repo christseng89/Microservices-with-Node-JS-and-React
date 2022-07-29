@@ -202,4 +202,4 @@ kubectl delete po nats-depl-b969fb585-7trgq
 kubectl get po | grep nats
   nats-depl-b969fb585-clctn             1/1     Running   0          21s
 
-git submodule add https://github.com/christseng89/Microservices-with-NodeJS-and-React-ticketing-common.git Microservices-with-NodeJS-and-React-ticketing-common
+// git submodule add https://github.com/christseng89/Microservices-with-NodeJS-and-React-ticketing-common.git Microservices-with-NodeJS-and-React-ticketing-common
