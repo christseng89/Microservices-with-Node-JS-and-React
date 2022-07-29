@@ -9,6 +9,15 @@ import { Payment } from '../../models/payment';
 
 import { stripe } from '../../stripe';
 
+let stripeTest = false;
+let stripeTestDescription = "returns a 201 with valid inputs"
+if (process.env.STRIPE_KEY?.length === 42) {
+  stripeTest = true;
+  stripeTestDescription = stripeTestDescription + " real Stripe Test"
+} else {
+  stripeTestDescription = stripeTestDescription + " fake Stripe Test"
+}
+
 it('returns a 404 when purchasing an order that does not exist', async () => {
   await request(app)
     .post('/api/payments')
@@ -62,7 +71,7 @@ it('returns a 400 when purchasing a cancelled order', async () => {
     .expect(400);
 });
 
-it('returns a 201 with valid inputs - Real Stripe Test', async () => {
+it(stripeTestDescription, async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
   const price = Math.floor(Math.random() * 100000);
   const order = Order.build({
@@ -84,32 +93,34 @@ it('returns a 201 with valid inputs - Real Stripe Test', async () => {
     .expect(201);
    
   let returnCharge: Stripe.Charge | undefined;
-  // REAL STRIPE TEST
-  const stripeCharges = await stripe.charges.list({ limit: 10, });
-  const stripeCharge = stripeCharges['data'].find((charge) => {
-    return charge.amount === price * 100;
-  });
-  
-  returnCharge = stripeCharge;
-  expect(stripeCharge).toBeDefined();
-  expect(stripeCharge!.currency).toEqual('usd');
-  expect(stripeCharge!.amount).toEqual(price * 100);
-  
-  // Check payment ....
-  const payment = await Payment.findOne({
-    orderId: order.id,
-    stripeId: returnCharge!.id,
-  });
-  expect(payment).not.toBeNull();  
-  expect(payment!.orderId).toEqual(order.id);
-  expect(payment!.stripeId).toEqual(returnCharge!.id);
+  if (stripeTest) {
+    // REAL STRIPE TEST LIST
+    const stripeCharges = await stripe.charges.list({ limit: 10, });
+    const stripeCharge = stripeCharges['data'].find((charge) => {
+      return charge.amount === price * 100;
+    });
+    
+    returnCharge = stripeCharge;
+    expect(stripeCharge).toBeDefined();
+    expect(stripeCharge!.currency).toEqual('usd');
+    expect(stripeCharge!.amount).toEqual(price * 100); 
+
+    // Check payment ....
+    const payment = await Payment.findOne({
+      orderId: order.id,
+      stripeId: returnCharge!.id,
+    });
+    expect(payment).not.toBeNull();  
+    expect(payment!.orderId).toEqual(order.id);
+    expect(payment!.stripeId).toEqual(returnCharge!.id);
+  }
 
   // Test Payments Index 
   const payments = await request(app)
-  .get('/api/payments')
-  .set('Cookie', global.fakeSignup(userId))
-  .send({})
-  .expect(200);
+    .get('/api/payments')
+    .set('Cookie', global.fakeSignup(userId))
+    .send({})
+    .expect(200);
 
   expect(payments.body.length).toEqual(1);
   expect(payments.body[0].orderId).toEqual(order.id);

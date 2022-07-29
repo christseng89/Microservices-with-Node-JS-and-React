@@ -252,3 +252,76 @@ tests-auth.yml, tests-tickets.yml, tests-orders.yml, tests-payments.yml
 git add .
 git commit -am "23-514. Running Tests on PR Creation *6(master)"
 git push origin master
+
+// 517. Verifying a Test Run
+git checkout chris
+git merge master
+
+### Payments
+// stripe-key.ts
+export const stripeKey = 'sk_test_mock';
+
+### Skip stripe for a Faked Stripe Key ...
+// new.ts
+  let charge = { id: "fake-stripe-id" }; ***
+  if (process.env.STRIPE_KEY?.length === 42) {
+    const amount = Math.round(order.price * 100);
+    // Charge the customer
+    charge = await stripe.charges.create({
+      currency: 'usd',
+      amount,
+      source: token,
+      description: 'Charge for order #' + order.id
+    });
+  }
+
+// new.test.ts
+...
+let stripeTest = false;
+let stripeTestDescription = "returns a 201 with valid inputs"
+if (process.env.STRIPE_KEY?.length === 42) {
+  stripeTest = true;
+  stripeTestDescription = stripeTestDescription + " real Stripe Test"
+} else {
+  stripeTestDescription = stripeTestDescription + " fake Stripe Test"
+}
+...
+it(stripeTestDescription, async () => { ***
+  ...
+  let returnCharge: Stripe.Charge | undefined;
+  if (stripeTest) { ***
+    // REAL STRIPE TEST LIST
+    const stripeCharges = await stripe.charges.list({ limit: 10, });
+    const stripeCharge = stripeCharges['data'].find((charge) => {
+      return charge.amount === price * 100;
+    });
+    
+    returnCharge = stripeCharge;
+    expect(stripeCharge).toBeDefined();
+    expect(stripeCharge!.currency).toEqual('usd');
+    expect(stripeCharge!.amount).toEqual(price * 100); 
+
+    // Check payment ....
+    const payment = await Payment.findOne({
+      orderId: order.id,
+      stripeId: returnCharge!.id,
+    });
+    expect(payment).not.toBeNull();  
+    expect(payment!.orderId).toEqual(order.id);
+    expect(payment!.stripeId).toEqual(returnCharge!.id);
+  }
+
+  ...
+});
+
+cd ticketing\payments
+npm run test
+npm run test:ci
+
+### Push to git branch chris
+cd ..\..\
+git add .
+git commit -am "23-517. Verifying a Test Run"
+git push origin chris
+
+### Github PR (New pull request => Pull Request chris to master) => Merge PR => Confirm merge
