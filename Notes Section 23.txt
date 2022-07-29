@@ -329,3 +329,7 @@ git push origin chris
 23-519. Deployment Options
 // Digital Ocean (samfire5202@gmail.com)
 https://cloud.digitalocean.com/projects?i=bc31ee
+
+22-520. Creating a Hosted Cluster
+= Create => Kubernetes => datacenter region (Singapore) => 
+  Name* (ticketing-cluster) => Create Cluster
