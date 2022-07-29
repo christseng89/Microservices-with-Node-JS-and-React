@@ -376,3 +376,12 @@ git commit -am "22-522. Reminder on Swapping Contexts"
 git push origin chris
 
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+cd ticketing\payments\src
+git update-index --assume-unchanged stripe-key.ts
+
+git add .
+git commit -am "22-522. Reminder on Swapping Contexts #2"
+git push origin chris
+
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
