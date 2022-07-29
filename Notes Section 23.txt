@@ -190,3 +190,33 @@ git branch
 // update auth\index.ts
 git commit -am "23-518. Selective #8"
 git push origin dev
+
+// Delete branch from Github
+git switch master
+git pull
+git branch -d dev
+git push origin --delete dev
+
+### Retry 514. Running Tests on PR Creation ~ 518. Selective Test Execution
+use branch chris instead of dev
+git checkout -b chris
+git push origin chris
+git switch chris
+
+auth\index.ts
+
+git status
+  modified:   Notes Section 23.txt
+  modified:   ticketing/auth/src/index.ts
+
+git commit -am "23-514. Running Tests on PR Creation *1"
+git push origin chris
+
+### Github => Pull requests => New pull request => base:master <- compare:chris =>
+    Pull Request chris to master => Create pull request
+    ...
+    All checks have passed => Merge pull request
+
+auth\index.ts
+git commit -am "23-514. Running Tests on PR Creation *2"
+git push origin chris
