@@ -387,6 +387,7 @@ git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
 
 23-524. Building an Image in an Action ~ 526. Restarting the Deployment
+### Step #1 - master
 git checkout ticketing/payments/src/stripe-key.ts
 git switch master
 git pull
@@ -401,3 +402,15 @@ DIGITALOCEAN_ACCESS_TOKEN (***) => Add secret
 git add .
 git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #1"
 git push origin master
+
+### Step #2 - chris 
+git checkout chris
+git merge master
+
+// auth\src\index.ts
+
+git add .
+git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #2"
+git push origin chris
+
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
