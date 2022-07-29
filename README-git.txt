@@ -6,3 +6,7 @@ https://github.com/Microservices-with-Node-JS-and-React/ticketing
 
 ### Git push tags
 git push --tags
+
+### Merge master
+git checkout chris
+git merge master
