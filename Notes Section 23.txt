@@ -375,4 +375,4 @@ git add .
 git commit -am "22-522. Reminder on Swapping Contexts"
 git push origin chris
 
-### Github (PR from chris to master) => Merge PR => Confirm merge
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
