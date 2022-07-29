@@ -333,3 +333,14 @@ https://cloud.digitalocean.com/projects?i=bc31ee
 22-520. Creating a Hosted Cluster
 = Create => Kubernetes => datacenter region (Singapore) => 
   Name* (ticketing-cluster) => Create Cluster
+
+22-520. Creating a Hosted Cluster
+2 => Connecting to Kubernetes
+https://docs.digitalocean.com/reference/doctl/how-to/install/
+choco install doctl
+
+https://cloud.digitalocean.com/account/api/tokens?i=bc31ee
+API => Generate New Token (doctl) => Generate Token
+
+doctl auth init
+  Enter your access token: ***
