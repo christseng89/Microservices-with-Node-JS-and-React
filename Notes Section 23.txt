@@ -397,7 +397,6 @@ git pull
 ### Github => Settings => Secrets => Actions => New Repository Secret
 DOCKER_USERNAME (christseng89) => Add secret
 DOCKER_PASSWORD (tn2nn#Xxxxx) => Add secret
-DIGITALOCEAN_ACCESS_TOKEN (***) => Add secret
 
 git add .
 git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #1"
@@ -415,27 +414,46 @@ git push origin chris
 
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
 
-### Step #3 - master
-// auth\src\index.ts
-
-git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #3"
-git push origin master
-
-### Step #4 - chris 
-git checkout chris
-git merge master
-
-git rm Microservices-with-NodeJS-and-React-ticketing-common
-// auth\src\index.ts
-
-git add .
-git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #4"
-git push origin chris
-
-### Github (Pull Request chris to master) => Merge PR => Confirm merge
-
 git add .
 git commit -am "525. Testing the Image Build"
 git push origin chris
 
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+23-527. Applying Kubernetes Manifests ~ 528. Prod vs Dev Manifest Files
+### Git master
+git switch master
+
+### Digital Ocean
+https://cloud.digitalocean.com/account/api/tokens?i=bc31ee
+API => Generate New Token (doctl) => Generate Token (github-access-token)
+
+### Github
+https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/secrets/actions
+Settings => Secrets => Actions => New Repository Secret => Add secret
+DIGITALOCEAN_ACCESS_TOKEN (***) 
+
+// .github\workflows\deploy-manifests.yaml (new)
+// ticketing\k8s\k8s-dev\ingress-srv.yaml (ticketing.com)
+// ticketing\k8s\k8s-prod\ingress-srv.yaml (new domain later on)
+
+// skaffold.yaml
+deploy:
+  kubectl:
+    manifests:
+      - k8s/*
+      - k8s/k8s-dev/* #***
+
+git add .
+git commit -am "23-527. Applying Kubernetes Manifests ~ 528. Prod vs Dev Manifest Files - master"
+git push origin master
+
+### Git branch
+git checkout chris
+git merge master
+
+// auth\src\index.ts
+git add .
+git commit -am "23-527. Applying Kubernetes Manifests ~ 528. Prod vs Dev Manifest Files - chris"
+git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
