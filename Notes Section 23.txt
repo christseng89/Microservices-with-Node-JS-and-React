@@ -423,6 +423,7 @@ git push origin chris
 23-527. Applying Kubernetes Manifests ~ 528. Prod vs Dev Manifest Files
 ### Git master
 git switch master
+git pull
 
 ### Digital Ocean
 https://cloud.digitalocean.com/account/api/tokens?i=bc31ee
