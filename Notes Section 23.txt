@@ -433,4 +433,9 @@ git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Dep
 git push origin chris
 
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
-git rm Microservices-with-NodeJS-and-React-ticketing-common
+
+git add .
+git commit -am "525. Testing the Image Build"
+git push origin chris
+
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
