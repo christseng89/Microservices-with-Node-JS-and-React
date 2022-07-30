@@ -425,6 +425,7 @@ git push origin master
 git checkout chris
 git merge master
 
+git rm Microservices-with-NodeJS-and-React-ticketing-common
 // auth\src\index.ts
 
 git add .
