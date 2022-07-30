@@ -447,12 +447,6 @@ kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_xx
 git checkout chris
 git merge master
 
-// auth\src\index.ts
-git add .
-git commit -am "23-529. Manual Secret Creation - chris"
-git push origin chris
-### Github (Pull Request chris to master) => Merge PR => Confirm merge
-
 23-530. Don't Forget Ingress-Nginx!
 https://kubernetes.github.io/ingress-nginx/deploy/
 https://kubernetes.github.io/ingress-nginx/deploy/#digital-ocean
@@ -484,7 +478,14 @@ kubectl get all -n ingress-nginx
   job.batch/ingress-nginx-admission-patch    1/1           8s         44s
 
 ### Git
+// auth\src\index.ts
+
 git add .
 git commit -am "23-530. Don't Forget Ingress-Nginx!"
 git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+cd ticketing\k8s
+kubectl apply -f .
+
+cd k8s-prod
