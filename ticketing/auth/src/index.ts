@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const start = async () => { 
-  console.log('Starting...!!23-530. Don\'t Forget Ingress-Nginx!!');
+  console.log('Starting...!!23-530. Don\'t Forget Ingress-Nginx!!!');
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
   }
