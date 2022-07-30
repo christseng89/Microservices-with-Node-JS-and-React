@@ -3,20 +3,20 @@ name: deploy-auth
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'ticketing/auth/**'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      - run: cd ticketing/auth && docker build -t christseng89/auth .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: cd ticketing/auth && docker build -t christseng89/auth .
       - run: docker push christseng89/auth
       - uses: digitalocean/action-doctl@v2
         with:
