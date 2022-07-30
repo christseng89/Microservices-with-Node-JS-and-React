@@ -452,3 +452,39 @@ git add .
 git commit -am "23-529. Manual Secret Creation - chris"
 git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+23-530. Don't Forget Ingress-Nginx!
+https://kubernetes.github.io/ingress-nginx/deploy/
+https://kubernetes.github.io/ingress-nginx/deploy/#digital-ocean
+
+cd ticketing\k8s
+md k8s-ingress-do
+cd k8s-ingress-do
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/do/deploy.yaml -O ingress-nginx-do.yaml
+kubectl apply -f ingress-nginx-do.yaml
+
+kubectl get all -n ingress-nginx
+  NAME                                            READY   STATUS      RESTARTS   AGE
+  pod/ingress-nginx-admission-create-9xqzk        0/1     Completed   0          39s   
+  pod/ingress-nginx-admission-patch-msjq2         0/1     Completed   1          38s   
+  pod/ingress-nginx-controller-54d587fbc6-ctbp2   1/1     Running     0          40s   
+
+  NAME                                         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+  service/ingress-nginx-controller             LoadBalancer   10.245.218.236   <pending>     80:31746/TCP,443:30645/TCP   43s
+  service/ingress-nginx-controller-admission   ClusterIP      10.245.30.252    <none>        443/TCP                      42s
+
+  NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+  deployment.apps/ingress-nginx-controller   1/1     1            1           43s      
+
+  NAME                                                  DESIRED   CURRENT   READY   AGE
+  replicaset.apps/ingress-nginx-controller-54d587fbc6   1         1         1       43s
+
+  NAME                                       COMPLETIONS   DURATION   AGE
+  job.batch/ingress-nginx-admission-create   1/1           8s         45s
+  job.batch/ingress-nginx-admission-patch    1/1           8s         44s
+
+### Git
+git add .
+git commit -am "23-530. Don't Forget Ingress-Nginx!"
+git push origin chris
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
