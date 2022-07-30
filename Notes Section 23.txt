@@ -434,9 +434,9 @@ https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/se
 Settings => Secrets => Actions => New Repository Secret => Add secret
 DIGITALOCEAN_ACCESS_TOKEN (***) 
 
-// .github\workflows\deploy-manifests.yaml (new)
 // ticketing\k8s\k8s-dev\ingress-srv.yaml (ticketing.com)
 // ticketing\k8s\k8s-prod\ingress-srv.yaml (new domain later on)
+// .github\workflows\deploy-manifests.yaml (new)
 
 // skaffold.yaml
 deploy:
