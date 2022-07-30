@@ -34,17 +34,16 @@ const start = async () => {
   if (!process.env.JWT_KEY) {
 
 // Create a Branch
-git checkout -b dev
+git checkout -b chris
   Switched to a new branch 'dev'    
 
 git commit -am "23-514. Running Tests on PR Creation #1"
-git push origin dev
+git push origin chris
 
 // tests.yaml
       - run: cd ticketing && cd auth && npm install && npm run test:ci ***
-git push origin dev
-
-### Github => Pull Requests => New Pull Request => master <- dev
+git push origin chris
+### Github => Pull Requests => New Pull Request => master <- chris
 
 23-515. Output of Failing Tests
 // signin.test.ts
@@ -59,7 +58,7 @@ it('responds with a cookie when given valid credentials', async () => {
     .expect(400); ***
 
 git commit -am "23-515. Output of Failing Tests #1"
-git push origin dev
+git push origin chris
 
 // signin.test.ts
 it('responds with a cookie when given valid credentials', async () => {
@@ -73,7 +72,7 @@ it('responds with a cookie when given valid credentials', async () => {
     .expect(200); ***
 
 git commit -am "23-515. Output of Failing Tests #2"
-git push origin dev
+git push origin chris
 
 ### Manually create a PR (Pull Request) once.  CI will run automatically.
 
@@ -87,7 +86,7 @@ git push origin dev
   },
 
 git commit -am "23-516. Running Tests in Parallel #1"
-git push origin dev
+git push origin chris
 
 ### .github\workflows
 ren tests.yaml => tests-auth.yaml
@@ -95,27 +94,27 @@ ren tests.yaml => tests-auth.yaml
 
 git add .
 git commit -am "23-516. Running Tests in Parallel #2"
-git push origin dev
+git push origin chris
 
 ### Add stripe-key.ts (temporary)
 git add .
 git commit -am "23-516. Running Tests in Parallel #3"
-git push origin dev
+git push origin chris
 
 ### PULL REQUEST by using CLI
 git branch
-  * dev
+  * chris
     master
 
-git push origin dev:master
+git push origin chris:master
 git switch master
 git branch
-    dev
+    chris
   * master
 git pull
 
 23-518. Selective Test Execution
-git switch dev
+git switch chris
 git branch
 git pull origin master
 
@@ -127,9 +126,9 @@ on:
 
 git add .
 git commit -am "23-518. Selective Test Execution"
-git push origin dev
-### Merge dev => master
-git push origin dev:master
+git push origin chris
+### Merge chris => master
+git push origin chris:master
 git pull origin master
 
 ### Payments
@@ -138,33 +137,33 @@ const start = async () => {
   console.log('Starting up ...');  ***
 
 git commit -am "23-518. Selective Test Execution #2"
-git push origin dev
+git push origin chris
 git switch master
-git merge dev master
-git push origin dev:master
+git merge chris master
+git push origin chris:master
 
 https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/branches
   v Require a pull request before merging
 
 git commit -am "23-518. Selective #3"
-git push origin dev
-git merge dev master  
+git push origin chris
+git merge chris master  
 
 git commit -am "23-518. Selective #4"
-git push origin dev
-git merge dev master  
+git push origin chris
+git merge chris master  
 
 https://github.com/christseng89/Microservices-with-Node-JS-and-React/settings/branches
   x Require a pull request before merging
 
 git commit -am "23-518. Selective #5"
-git push origin dev
+git push origin chris
 
 ### Delete branch
 git switch master
 git pull
-git branch -d dev
-  Deleted branch dev (was 5a8a3b1).
+git branch -d chris
+  Deleted branch chris (was 5a8a3b1).
 git branch
     JeffWang
   * master  
@@ -182,23 +181,23 @@ git commit -am "23-518. Selective #7"
 git push origin master
 
 ### Test #8
-git checkout dev
+git checkout chris
 git branch
-  * dev
+  * chris
     master
 
 // update auth\index.ts
 git commit -am "23-518. Selective #8"
-git push origin dev
+git push origin chris
 
 // Delete branch from Github
 git switch master
 git pull
-git branch -d dev
-git push origin --delete dev
+git branch -d chris
+git push origin --delete chris
 
 ### Retry 514. Running Tests on PR Creation ~ 518. Selective Test Execution
-use branch chris instead of dev
+use branch chris instead of chris
 git checkout -b chris
 git push origin chris
 git switch chris
@@ -211,7 +210,6 @@ git status
 
 git commit -am "23-514. Running Tests on PR Creation *1"
 git push origin chris
-
 ### Github => Pull requests => New pull request => base:master <- compare:chris =>
     Pull Request chris to master => Create pull request
     ...
@@ -220,7 +218,6 @@ git push origin chris
 auth\index.ts
 git commit -am "23-514. Running Tests on PR Creation *2"
 git push origin chris
-
 ### Github (PR => Pull Request chris to master)
   @christseng89   23-514. Running Tests on PR Creation *1   003012d
   @christseng89   23-514. Running Tests on PR Creation *2   00f8511
@@ -323,7 +320,6 @@ cd ..\..\
 git add .
 git commit -am "23-517. Verifying a Test Run"
 git push origin chris
-
 ### Github PR (New pull request => Pull Request chris to master) => Merge PR => Confirm merge
 
 23-519. Deployment Options
@@ -374,21 +370,10 @@ kubectl config view | grep cluster:
 git add .
 git commit -am "22-522. Reminder on Swapping Contexts"
 git push origin chris
-
-### Github (Pull Request chris to master) => Merge PR => Confirm merge
-
-cd ticketing\payments\src
-git update-index --assume-unchanged stripe-key.ts
-
-git add .
-git commit -am "22-522. Reminder on Swapping Contexts #2"
-git push origin chris
-
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
 
 23-524. Building an Image in an Action ~ 526. Restarting the Deployment
-### Step #1 - master
-git checkout ticketing/payments/src/stripe-key.ts
+### Step #1 - master 
 git switch master
 git pull
 
@@ -409,15 +394,8 @@ git merge master
 // auth\src\index.ts
 
 git add .
-git commit -am "23-524. Building an Image in an Action ~ 526. Restarting the Deployment #2"
-git push origin chris
-
-### Github (Pull Request chris to master) => Merge PR => Confirm merge
-
-git add .
 git commit -am "525. Testing the Image Build"
 git push origin chris
-
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
 
 23-527. Applying Kubernetes Manifests ~ 528. Prod vs Dev Manifest Files
@@ -449,12 +427,28 @@ git add .
 git commit -am "23-527. Applying Kubernetes Manifests ~ 528. Prod vs Dev Manifest Files - master"
 git push origin master
 
-### Git branch
+23-529. Manual Secret Creation
+### Git branch master
+git switch master
+git pull
+
+git add .
+git commit -am "23-529. Manual Secret Creation - master"
+git push origin master
+
+kubectl config view | grep cluster:
+  - cluster:
+      cluster: do-sgp1-ticketing-cluster ***
+
+kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_xxxx
+  secret/stripe-secret created
+
+### Git branch chris
 git checkout chris
 git merge master
 
 // auth\src\index.ts
 git add .
-git commit -am "23-527. Applying Kubernetes Manifests ~ 528. Prod vs Dev Manifest Files - chris"
+git commit -am "23-529. Manual Secret Creation - chris"
 git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
