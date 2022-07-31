@@ -13,7 +13,7 @@ export default ({ req }) => {
     // We must be on the browser
     return axios.create({
       baseURL: '/'
-      // baseUrl: 'http://intell-ltd.com',
+      // baseUrl: 'http://intell-ltd.com', //remove
     });
   }
 };
