@@ -451,11 +451,9 @@ git merge master
 https://kubernetes.github.io/ingress-nginx/deploy/
 https://kubernetes.github.io/ingress-nginx/deploy/#digital-ocean
 
-cd ticketing\k8s
-md k8s-ingress-do
-cd k8s-ingress-do
-wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/do/deploy.yaml -O ingress-nginx-do.yaml
-kubectl apply -f ingress-nginx-do.yaml
+cd ticketing
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/do/deploy.yaml -O ingress-do-depl.yaml
+kubectl apply -f ingress-do-depl.yaml
 
 kubectl get all -n ingress-nginx
   NAME                                            READY   STATUS      RESTARTS   AGE
@@ -557,7 +555,7 @@ spec:
   rules:
     - host: intell-ltd.com ***
 
-// k8s-ingress-do\ingress-nginx-do.yaml
+// ingress-do-depl.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -565,8 +563,8 @@ metadata:
     service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
     service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.intell-ltd.com' ***
 
-cd ticketing\k8s\k8s-ingress-do
-kubectl apply -f ingress-nginx-do.yaml
+cd ticketing
+kubectl apply -f ingress-do-depl.yaml
 
 git add .
 git commit -am "23-534. Buying a Domain Name ~ 535. Three Important Changes Needed to Deploy - Do Not Skip!"
@@ -607,3 +605,69 @@ git push origin chris
 23-537. I Really Hope This Works
 ### Browser
 http://www.intell-ltd.com/
+
+23-537. I Really Hope This Works - minikube & DigitalOcean
+### Manifests folder restructure
+// infra/k8s
+// infra/k8s-dev
+// infra/k8s-prod 
+
+// .github\workfolws\deploy-manifests.yaml
+      - run: doctl kubernetes cluster kubeconfig save ticketing-cluster
+      - run: kubectl apply -f ticketing/infra/k8s && kubectl apply -f ticketing/infra/k8s-prod #***
+
+// skaffold.yaml
+deploy:
+  kubectl:
+    manifests:
+      - infra/k8s/* #***
+      - infra/k8s-dev/* #***
+
+### Client
+// build-client.js
+...
+  } else {
+    // We must be on the browser
+    return axios.create({
+      baseURL: '/' //***
+      // baseUrl: 'http://intell-ltd.com',
+    });
+...
+
+### Step #1 - Minikube Testing
+cd c:\users\chris tseng\.kube
+copy config config.do
+copy config.minikube config
+minikube start
+minikube addons enable ingress
+
+minikube ssh
+docker pull christseng89\ticketing-client
+kubectl get po
+
+cd ticketing
+skaffold dev
+
+kubectl get ingress   
+  NAME              CLASS    HOSTS           ADDRESS          PORTS   AGE
+  ingress-service   <none>   ticketing.com   192.168.59.102   80      7m9s
+
+### Browser
+https://ticketing.com
+
+### Postman
+= Signup
+= New Ticket
+= New Order
+= New Payment
+= New Ticket
+= Get Tickets
+
+### Step #2 - DigitalOcean Testing
+git add .
+git commit -am "23-537. I Really Hope This Works - minikube & DigitalOcean"
+git push origin chris
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+### Browser
+https://www.intell-ltd.com
