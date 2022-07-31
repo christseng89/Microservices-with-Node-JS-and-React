@@ -485,17 +485,18 @@ git commit -am "23-530. Don't Forget Ingress-Nginx!"
 git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
 
+23-532. Additional Deploy Files ~ 533. A Successful Deploy!
 ### .github\workflows
 // deploy-client.yaml deploy-expiration.yaml (new)
 // deploy-orders.yaml deploy-payments.yaml deploy-tickets.yaml (new)
 
-### Step #x - more workflows
+### Step #1 - more workflows
 git add .
 git commit -am "23-530. Don't Forget Ingress-Nginx!"
 git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
 
-### Step #y - test workflows
+### Step #2 - test workflows
 // index.ts (auth expiration orders payments tickets)
 // index.js (client)
 
@@ -503,3 +504,26 @@ git add .
 git commit -am "23-530. Don't Forget Ingress-Nginx!"
 git push origin chris
 ### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+kubectl get po
+  NAME                                     READY   STATUS    RESTARTS   AGE
+  auth-depl-f9c9cd476-nrprh                1/1     Running   0          116s
+  auth-mongo-depl-74d8cc6654-lqd8c         1/1     Running   0          13h
+  client-depl-659457c669-trcpp             1/1     Running   0          57s
+  expiration-depl-866bd7b4f5-b5pw7         1/1     Running   0          2m9s
+  expiration-redis-depl-55f4f6b777-djtrj   1/1     Running   0          13h
+  nats-depl-7786db7d6b-cntjn               1/1     Running   0          13h
+  orders-depl-5ff9b6dc56-mpxkj             1/1     Running   0          2m3s
+  orders-mongo-depl-76595cd5c8-lvnsh       1/1     Running   0          13h
+  payments-depl-6bb9cc6fcc-vspzx           1/1     Running   0          2m2s
+  payments-mongo-depl-575b4b677d-h48hk     1/1     Running   0          13h
+  tickets-depl-7c9fd77c7c-9wl6l            1/1     Running   0          2m2s
+  tickets-mongo-depl-5b77fb5f94-htw8t      1/1     Running   0          13h
+
+kubectl logs auth-depl-f9c9cd476-nrprh
+  > auth@1.0.0 start
+  > ts-node-dev src/index.ts
+
+  [INFO] 06:54:24 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.1, typescript ver. 4.7.4)
+  Connected to MongoDb
+  Listening on port 3000!!!!!!!!
