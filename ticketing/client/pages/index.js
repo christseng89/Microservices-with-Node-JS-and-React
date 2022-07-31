@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const LandingPage = ({ currentUser, tickets }) => {
-  console.log('Tickets', tickets);
+  // console.log('Tickets', tickets);
   if (!tickets) {
     return currentUser ? 
       <h1>You are signed in.</h1> : 
