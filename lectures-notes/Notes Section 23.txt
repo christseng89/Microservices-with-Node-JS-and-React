@@ -571,3 +571,35 @@ kubectl apply -f ingress-nginx-do.yaml
 git add .
 git commit -am "23-534. Buying a Domain Name ~ 535. Three Important Changes Needed to Deploy - Do Not Skip!"
 git push origin chris
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
+
+23-536. Configuring the Domain Name
+### Step #1 Namecheap
+https://ap.www.namecheap.com/domains/domaincontrolpanel/intell-ltd.com/domain
+NAMESERVERS => Custom DNS => v (Save)
+- ns1.digitalocean.com
+- ns2.digitalocean.com
+- ns3.digitalocean.com
+
+### Step #2 DigitalOcean
+https://cloud.digitalocean.com/networking/load_balancers?i=bc31ee
+DigitalOcean => Networking => Domains (intell-ltd.com) => Add Domain
+
+=> Create new record => A => HOSTNAME (@) => WILL DIRECT TO (Load Balancer) 
+=> TTL (SECONDS) (30) => Create Record
+
+=> Create new record => CNAME => HOSTNAME (www) => IS AN ALIAS OF (@)
+=> TTL (SECONDS) (30) => Create Record
+
+// k8s\k8s-prod\ingress-srv.yaml
+spec:
+  rules:
+    - host: www.intell-ltd.com # Need further changes... ***
+      http:
+
+### Git
+git status
+git add .
+git commit -am "23-536. Configuring the Domain Name"
+git push origin chris
+### Github (Pull Request chris to master) => Merge PR => Confirm merge
