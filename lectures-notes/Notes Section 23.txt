@@ -671,3 +671,8 @@ git push origin chris
 
 ### Browser
 https://www.intell-ltd.com
+
+23-537. I Really Hope This Works - Add draw.io and Courses Diagrams
+### Add Diagrams
+// diagrams folder
+// draw.io*.exe
