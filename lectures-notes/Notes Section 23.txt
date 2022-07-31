@@ -527,3 +527,47 @@ kubectl logs auth-depl-f9c9cd476-nrprh
   [INFO] 06:54:24 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.1, typescript ver. 4.7.4)
   Connected to MongoDb
   Listening on port 3000!!!!!!!!
+
+23-534. Buying a Domain Name ~ 535. Three Important Changes Needed to Deploy - Do Not Skip!
+https://www.namecheap.com/
+// intell-ltd.com
+
+### Client
+// build=client.js
+    // We must be on the browser
+    return axios.create({
+      baseUrl: 'http://intell-ltd.com', //***
+    });
+
+### Auth - disable the HTTPS checking
+// app.ts
+app.use(cookieSession({
+  signed: false,
+  // secure: process.env.NODE_ENV !== 'test' ***
+  secure: false
+}));
+
+notepad C:\Windows\System32\drivers\etc\hosts
+  192.168.59.102  intell-ltd.com
+
+### k8s
+// k8s-prod\ingress-srv.yaml
+// k8s-dev\ingress-srv.yaml
+spec:
+  rules:
+    - host: intell-ltd.com ***
+
+// k8s-ingress-do\ingress-nginx-do.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
+    service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.intell-ltd.com' ***
+
+cd ticketing\k8s\k8s-ingress-do
+kubectl apply -f ingress-nginx-do.yaml
+
+git add .
+git commit -am "23-534. Buying a Domain Name ~ 535. Three Important Changes Needed to Deploy - Do Not Skip!"
+git push origin chris
