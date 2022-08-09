@@ -5,7 +5,8 @@ on:
     branches:
       - master
     paths:
-      - 'ticketing/k8s/**'
+      - 'ticketing/infra/k8s/**'
+      - 'ticketing/infra/k8s-prod/**'
 
 jobs:
   build:
